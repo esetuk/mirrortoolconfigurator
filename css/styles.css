@@ -70,6 +70,10 @@ button:hover {
     background-color: #00b7ff;
     color: white;
   }
+button:disabled {
+    background: #d8d6d6;
+    color : #ffffff;
+}
 input, select {
     background-color: rgb(255, 255, 255);
     border: 1px lightgrey solid;

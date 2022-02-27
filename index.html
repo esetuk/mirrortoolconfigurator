@@ -79,6 +79,7 @@
                 </div>
                 <div id="footer">
                     <a href="index.html">Reset form</a> | 
+                    <a href="https://github.com/garethbillett/garethbillett.github.io" target="_blank">Github</a> | 
                     <a href="https://help.eset.com/protect_install/90/en-US/mirror_tool_windows.html" target="_blank">MirrorTool documentation</a>
                 </div>
             </div>
@@ -110,9 +111,11 @@
         ["filterFilePath", "", false, "repository", true],
         ["trustDownloadedFilesInRepositoryTemp", false, true, "repository", true] //here
     ]
+    document.getElementById("saveButton").disabled = true;
+    document.getElementById("exportButton").disabled = true;
     function update()
     {
-        document.getElementById("commandLinePreview").value = "MirrorTool.exe ";
+        let s = "MirrorTool.exe ";
         for (let i = 0; i < parameterList.length; i++)
         {
             if (document.getElementById(parameterList[i][0]) != null)
@@ -124,10 +127,16 @@
                     document.getElementById("enableRepository").checked = false;
                     document.getElementById("enableGlobal").checked = false;
                 }
-                if (parameterList[i][2] == false && document.getElementById(parameterList[i][0]).value != "") document.getElementById("commandLinePreview").value += "--" + parameterList[i][0] + " " + document.getElementById(parameterList[i][0]).value + " ";
-                if (document.getElementById(parameterList[i][0]).checked) document.getElementById("commandLinePreview").value += "--" + parameterList[i][0] + " ";
+                if (!parameterList[i][2]&& document.getElementById(parameterList[i][0]).value != "") {
+                    s += "--" + parameterList[i][0] + " " + document.getElementById(parameterList[i][0]).value + " ";
+                }
+                if (parameterList[i][2] && document.getElementById(parameterList[i][0]).checked) {
+                    s += "--" + parameterList[i][0] + " ";
+                }
             }
         }
+        s = s.trim();
+        document.getElementById("commandLinePreview").value = s;
         if (document.getElementById("enableMirror").checked) document.getElementById("mirror").style.display = "block"; else document.getElementById("mirror").style.display = "none";
         if (document.getElementById("enableRepository").checked) document.getElementById("repository").style.display = "block"; else document.getElementById("repository").style.display = "none";
         if (document.getElementById("enableGlobal").checked) document.getElementById("global").style.display = "block"; else document.getElementById("global").style.display = "none";
