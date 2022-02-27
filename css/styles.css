@@ -56,17 +56,18 @@ a:hover {
     text-align: center;
 }
 button {
-    transition-duration: 0.4s;
+    margin-top: -3px;
+    transition-duration: 0.2s;
     background-color: #0076fd;
     height: 35px;
     border: 0;
-    width: 25%;
+    width: 30%;
     color: white;
     vertical-align: middle;
     line-height: 20px;
 }
 button:hover {
-    background-color: #00f7ff;
+    background-color: #00b7ff;
     color: white;
   }
 input, select {
@@ -103,9 +104,10 @@ input {
 }
 textarea {
     font: 14px "Lucida Console";
-    background-color: rgb(255, 255, 255);
+    color:rgb(255, 255, 255);
+    background-color: rgb(70, 70, 70);
     width: 99%;
     padding: 10px;
-    border: 1px lightgrey solid;
     resize: none;
+    border: 0;
 }
