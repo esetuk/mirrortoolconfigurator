@@ -11,8 +11,9 @@
     <div id="main" class="noselect">
         <div class="block" id="left">
             <div id="header">MirrorToolConfigurator</div>
-            <label id="heading" class="labels">Mirror parameters</label><br>
-                <div id="mirror">
+            <label id="heading" class="labels">Mirror parameters</label>
+            <input type="checkbox" id="enableMirror"><br>   
+            <div id="mirror">
                     <label class="labels">mirrorType*</label>
                     <select id="mirrorType">
                         <option value="" disabled="disabled" selected="selected">Please select one</option>
@@ -41,7 +42,8 @@
                     <label class="labels">networkDrivePassword</label>
                     <input type="text" id="networkDrivePassword" placeholder=""><br>  
                 </div>
-                <label id="heading" class="labels">Repository parameters</label><br>
+                <label id="heading" class="labels">Repository parameters</label>
+                <input type="checkbox" id="enableRepository"><br>
                 <div id="repository">
                     <label class="labels">repositoryServer</label>
                     <input type="text" id="repositoryServer" placeholder=""><br>
@@ -54,7 +56,8 @@
                     <label class="labels">trustDownloadedFilesInRepositoryTemp</label>
                     <input type="checkbox" id="trustDownloadedFilesInRepositoryTemp" placeholder=""><br>         
                 </div>
-                <label id="heading" class="labels">Global parameters</label><br>
+                <label id="heading" class="labels">Global parameters</label>
+                <input type="checkbox" id="enableGlobal"><br>
                 <div id="global">
                     <label class="labels">proxyHost</label>
                     <input type="text" id="proxyHost" placeholder=""><br>  
@@ -84,27 +87,28 @@
 </html>
 <script>
     var setDefaults = true;
+    //name, default, checkbox, type, optional
     let parameterList = [
-        ["mirrorType", "regular", false],
-        ["intermediateUpdateDirectory", "c:\\temp\\mirrorTemp", false],
-        ["offlineLicenseFilename", "c:\\temp\\offline.lf", false],
-        ["updateServer", "", false],
-        ["outputDirectory", "c:\\temp\\mirror", false],
-        ["proxyHost", "", false],
-        ["proxyPort", "", false],
-        ["proxyUsername", "", false],
-        ["proxyPassword", "", false],
-        ["networkDriveUsername", "", false],
-        ["networkDrivePassword", "", false],
-        ["excludedProducts", "", false],
-        ["repositoryServer", "", false],
-        ["intermediateRepositoryDirectory", "", false],
-        ["mirrorOnlyLevelUpdates", true, true],
-        ["outputRepositoryDirectory", "", false],
-        ["mirrorFileFormat", "", false],
-        ["compatibilityVersion", "", false],
-        ["filterFilePath", "", false],
-        ["trustDownloadedFilesInRepositoryTemp", false, true] //here
+        ["mirrorType", "regular", false, "mirror", false],
+        ["intermediateUpdateDirectory", "c:\\temp\\mirrorTemp", false, "mirror", false],
+        ["offlineLicenseFilename", "c:\\temp\\offline.lf", false, "mirror", false],
+        ["updateServer", "", false, "mirror", true],
+        ["outputDirectory", "c:\\temp\\mirror", false, "mirror", false],
+        ["proxyHost", "", false, "global", true],
+        ["proxyPort", "", false, "global", true],
+        ["proxyUsername", "", false, "global", true],
+        ["proxyPassword", "", false, "global", true],
+        ["networkDriveUsername", "", false, "mirror", true],
+        ["networkDrivePassword", "", false, "mirror", true],
+        ["excludedProducts", "", false, "mirror", true],
+        ["repositoryServer", "", false, "repository", false],
+        ["intermediateRepositoryDirectory", "", false, "repository", false],
+        ["mirrorOnlyLevelUpdates", false, true, "repository", true],
+        ["outputRepositoryDirectory", "", false, "repository", false],
+        ["mirrorFileFormat", "", false, "repository", true],
+        ["compatibilityVersion", "", false, "repository", true],
+        ["filterFilePath", "", false, "repository", true],
+        ["trustDownloadedFilesInRepositoryTemp", false, true, "repository", true] //here
     ]
     function update()
     {
@@ -116,11 +120,17 @@
                 if (setDefaults) {
                     document.getElementById(parameterList[i][0]).value = parameterList[i][1];
                     document.getElementById(parameterList[i][0]).checked = parameterList[i][1];
+                    document.getElementById("enableMirror").checked = true;
+                    document.getElementById("enableRepository").checked = false;
+                    document.getElementById("enableGlobal").checked = false;
                 }
                 if (parameterList[i][2] == false && document.getElementById(parameterList[i][0]).value != "") document.getElementById("commandLinePreview").value += "--" + parameterList[i][0] + " " + document.getElementById(parameterList[i][0]).value + " ";
                 if (document.getElementById(parameterList[i][0]).checked) document.getElementById("commandLinePreview").value += "--" + parameterList[i][0] + " ";
             }
         }
+        if (document.getElementById("enableMirror").checked) document.getElementById("mirror").style.display = "block"; else document.getElementById("mirror").style.display = "none";
+        if (document.getElementById("enableRepository").checked) document.getElementById("repository").style.display = "block"; else document.getElementById("repository").style.display = "none";
+        if (document.getElementById("enableGlobal").checked) document.getElementById("global").style.display = "block"; else document.getElementById("global").style.display = "none";
         if (setDefaults) setDefaults = false;
         //autofit command line preview textarea to contents
         document.getElementById("commandLinePreview").setAttribute("style", "height:" + (document.getElementById("commandLinePreview").scrollHeight) + "px;overflow-y:hidden;");

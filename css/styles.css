@@ -20,10 +20,10 @@
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    font: 12px "Trebuchet MS";
+    font: 14px "Trebuchet MS";
     line-height: 1.5em;
 	color: #000000;
-    padding: 3px;
+    padding: 4px;
     margin: 3px;
 }
 body {
@@ -85,22 +85,27 @@ input {
     text-align: right;
 }
 #heading {
-    width: 100%;
+    width: auto;
     text-align: center;
-    font: 14px "Trebuchet MS";
+    font: 16px "Trebuchet MS";
     font-weight: bolder;
 }
 #mirror, #repository, #global, #output {
     border: 1px lightgrey solid;
     border-style: solid;
 }
+#enableMirror, #enableRepository, #enableGlobal {
+    text-align: right;
+    width: auto;
+}
 #trustDownloadedFilesInRepositoryTemp, #mirrorOnlyLevelUpdates {
     width: auto;
 }
 textarea {
-    font: 12px "Lucida Console";
+    font: 14px "Lucida Console";
     background-color: rgb(255, 255, 255);
     width: 99%;
     padding: 10px;
     border: 1px lightgrey solid;
+    resize: none;
 }
