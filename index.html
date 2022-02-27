@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>MirrorToolConfigurator</title>
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" type="image/x-icon" href="res/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script src="src/clipboard.min.js"></script>
+</head>
+<body>
+    <div id="main" class="noselect">
+        <div class="block" id="left">
+            <div id="header">MirrorToolConfigurator</div>
+            <label id="heading" class="labels">Mirror parameters</label><br>
+                <div id="mirror">
+                    <label class="labels">mirrorType*</label>
+                    <select id="mirrorType">
+                        <option value="" disabled="disabled" selected="selected">Please select one</option>
+                        <option value="regular">regular</option>
+                        <option value="pre-release">pre-release</option>
+                        <option value="delayed">delayed</option>
+                    </select><br>
+                    <label class="labels">intermediateUpdateDirectory*</label>
+                    <input type="text" id="intermediateUpdateDirectory" placeholder=""><br>
+                    <label class="labels">outputDirectory*</label>
+                    <input type="text" id="outputDirectory" placeholder=""><br>  
+                    <label class="labels">offlineLicenseFilename*</label>
+                    <input type="text" id="offlineLicenseFilename" placeholder=""><br>
+                    <label class="labels">excludedProducts</label>
+                    <input type="text" id="excludedProducts" placeholder=""><br>
+                    <label class="labels">mirrorOnlyLevelUpdates</label>
+                    <input type="checkbox" id="mirrorOnlyLevelUpdates"><br>
+                    <label class="labels">mirrorFileFormat</label>
+                    <input type="text" id="mirrorFileFormat" placeholder=""><br>
+                    <label class="labels">compatibilityVersion</label>
+                    <input type="text" id="compatibilityVersion" placeholder=""><br> 
+                    <label class="labels">updateServer</label>
+                    <input type="text" id="updateServer" placeholder=""><br>
+                    <label class="labels">networkDriveUsername</label>
+                    <input type="text" id="networkDriveUsername" placeholder=""><br>  
+                    <label class="labels">networkDrivePassword</label>
+                    <input type="text" id="networkDrivePassword" placeholder=""><br>  
+                </div>
+                <label id="heading" class="labels">Repository parameters</label><br>
+                <div id="repository">
+                    <label class="labels">repositoryServer</label>
+                    <input type="text" id="repositoryServer" placeholder=""><br>
+                    <label class="labels">intermediateRepositoryDirectory</label>
+                    <input type="text" id="intermediateRepositoryDirectory" placeholder=""><br>
+                    <label class="labels">outputRepositoryDirectory</label>
+                    <input type="text" id="outputRepositoryDirectory" placeholder=""><br>
+                    <label class="labels">filterFilePath</label>
+                    <input type="text" id="filterFilePath" placeholder=""><br>
+                    <label class="labels">trustDownloadedFilesInRepositoryTemp</label>
+                    <input type="checkbox" id="trustDownloadedFilesInRepositoryTemp" placeholder=""><br>         
+                </div>
+                <label id="heading" class="labels">Global parameters</label><br>
+                <div id="global">
+                    <label class="labels">proxyHost</label>
+                    <input type="text" id="proxyHost" placeholder=""><br>  
+                    <label class="labels">proxyPort</label>
+                    <input type="text" id="proxyPort" placeholder=""><br>  
+                    <label class="labels">proxyUsername</label>
+                    <input type="text" id="proxyUsername" placeholder=""><br>  
+                    <label class="labels">proxyPassword</label>
+                    <input type="text" id="proxyPassword" placeholder=""><br>  
+                </div>
+                <label class="labels" id="heading">Command line preview</label>
+                <div id="output">
+                    <textarea id="commandLinePreview" placeholder=""></textarea>
+                    <div id="buttons">
+                        <button type="button" id="copyButton">Copy to clipboard</button>
+                        <button type="button" id="exportButton">Export to script</button>
+                        <button type="button" id="saveButton">Save configuration</button>
+                    </div>
+                </div>
+                <div id="footer">
+                    <a href="index.html">Reset form</a> | 
+                    <a href="https://help.eset.com/protect_install/90/en-US/mirror_tool_windows.html" target="_blank">MirrorTool documentation</a>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
+<script>
+    var setDefaults = true;
+    let parameterList = [
+        ["mirrorType", "regular", false],
+        ["intermediateUpdateDirectory", "c:\\temp\\mirrorTemp", false],
+        ["offlineLicenseFilename", "c:\\temp\\offline.lf", false],
+        ["updateServer", "", false],
+        ["outputDirectory", "c:\\temp\\mirror", false],
+        ["proxyHost", "", false],
+        ["proxyPort", "", false],
+        ["proxyUsername", "", false],
+        ["proxyPassword", "", false],
+        ["networkDriveUsername", "", false],
+        ["networkDrivePassword", "", false],
+        ["excludedProducts", "", false],
+        ["repositoryServer", "", false],
+        ["intermediateRepositoryDirectory", "", false],
+        ["mirrorOnlyLevelUpdates", true, true],
+        ["outputRepositoryDirectory", "", false],
+        ["mirrorFileFormat", "", false],
+        ["compatibilityVersion", "", false],
+        ["filterFilePath", "", false],
+        ["trustDownloadedFilesInRepositoryTemp", false, true] //here
+    ]
+    function update()
+    {
+        document.getElementById("commandLinePreview").value = "MirrorTool.exe ";
+        for (let i = 0; i < parameterList.length; i++)
+        {
+            if (document.getElementById(parameterList[i][0]) != null)
+            {
+                if (setDefaults) {
+                    document.getElementById(parameterList[i][0]).value = parameterList[i][1];
+                    document.getElementById(parameterList[i][0]).checked = parameterList[i][1];
+                }
+                if (parameterList[i][2] == false && document.getElementById(parameterList[i][0]).value != "") document.getElementById("commandLinePreview").value += "--" + parameterList[i][0] + " " + document.getElementById(parameterList[i][0]).value + " ";
+                if (document.getElementById(parameterList[i][0]).checked) document.getElementById("commandLinePreview").value += "--" + parameterList[i][0] + " ";
+            }
+        }
+        if (setDefaults) setDefaults = false;
+        //autofit command line preview textarea to contents
+        document.getElementById("commandLinePreview").setAttribute("style", "height:" + (document.getElementById("commandLinePreview").scrollHeight) + "px;overflow-y:hidden;");
+    }
+    update();
+    var button = document.querySelector('#copyButton');
+    var clipboard = new Clipboard(button, {
+    text: function(trigger) {
+        update();
+        return document.getElementById("commandLinePreview").value; }
+    });
+    //attach event listener to all inputs, which will update command line preview
+    let tx = document.querySelectorAll("input");
+    for (i = 0; i < tx.length; i++)
+    {
+        tx[i].addEventListener("input", function(event) {
+            update();
+        });
+    }
+</script>
