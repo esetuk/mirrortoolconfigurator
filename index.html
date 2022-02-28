@@ -13,7 +13,7 @@
             <div id="header">MirrorToolConfigurator BETA</div>
             <label class="labels" id="heading">Command line preview</label>
                 <div id="output">
-                    <textarea spellcheck="false" id="commandLinePreview" placeholder=""></textarea>
+                    <textarea readonly spellcheck="false" id="commandLinePreview" placeholder=""></textarea>
                     <div id="buttons">
                         <button type="button" id="copyButton">Copy to clipboard</button>
                         <button type="button" id="exportButton">Export to script</button>
@@ -54,11 +54,11 @@
                 <label id="heading" class="labels">Repository parameters</label>
                 <input type="checkbox" id="enableRepository"><br>
                 <div id="repository">
-                    <label class="labels" title="[required for repository update] Repository server for repository creation.">repositoryServer</label>
+                    <label class="labels" title="[required for repository update] Repository server for repository creation.">repositoryServer*</label>
                     <input type="text" id="repositoryServer" placeholder=""><br>
-                    <label class="labels" title="[required for repository update] Files will be downloaded to this directory to create offline mirror in output directory.">intermediateRepositoryDirectory</label>
+                    <label class="labels" title="[required for repository update] Files will be downloaded to this directory to create offline mirror in output directory.">intermediateRepositoryDirectory*</label>
                     <input type="text" id="intermediateRepositoryDirectory" placeholder=""><br>
-                    <label class="labels" title="[required for repository update] Directory where offline repository will be created.">outputRepositoryDirectory</label>
+                    <label class="labels" title="[required for repository update] Directory where offline repository will be created.">outputRepositoryDirectory*</label>
                     <input type="text" id="outputRepositoryDirectory" placeholder=""><br>
                     <label class="labels" title="[optional] Path to filter file in json format. Parameter compatibilityVersion has to be higher than 7.1.0.0 to run program.">filterFilePath</label>
                     <input type="text" id="filterFilePath" placeholder=""><br>
@@ -87,6 +87,30 @@
 </body>
 </html>
 <script>
+    function notifyMe() {
+        // Let's check if the browser supports notifications
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notification");
+        }
+
+        // Let's check whether notification permissions have already been granted
+        else if (Notification.permission === "granted") {
+            // If it's okay let's create a notification
+            var notification = new Notification("Hi there!");
+        }
+
+        // Otherwise, we need to ask the user for permission
+        else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then(function (permission) {
+                // If the user accepts, let's create a notification
+                if (permission === "granted") {
+                    var notification = new Notification("Hi there!");
+                }
+            });
+        }
+        // At last, if the user has denied notifications, and you
+        // want to be respectful there is no need to bother them any more.
+    }
     var setDefaults = true;
     //name, default, checkbox, type, optional
     let parameterList = [
@@ -115,7 +139,7 @@
     document.getElementById("exportButton").disabled = true;
     function update()
     {
-        let s = "MirrorTool.exe ";
+        let s = "";
         for (let i = 0; i < parameterList.length; i++)
         {
             if (document.getElementById(parameterList[i][0]) != null)
@@ -127,35 +151,39 @@
                     document.getElementById("enableRepository").checked = false;
                     document.getElementById("enableGlobal").checked = false;
                 }
-                if (!parameterList[i][2]&& document.getElementById(parameterList[i][0]).value != "") {
-                    s += "--" + parameterList[i][0] + " " + document.getElementById(parameterList[i][0]).value + " ";
-                }
-                if (parameterList[i][2] && document.getElementById(parameterList[i][0]).checked) {
-                    s += "--" + parameterList[i][0] + " ";
+                if ((document.getElementById("enableMirror").checked && parameterList[i][3] == "mirror") ||
+                    (document.getElementById("enableRepository").checked && parameterList[i][3] == "repository") ||
+                    (document.getElementById("enableGlobal").checked && parameterList[i][3] == "global"))
+                {
+                    if (!parameterList[i][2] && document.getElementById(parameterList[i][0]).value != "") {
+                        s += "--" + parameterList[i][0] + " " + document.getElementById(parameterList[i][0]).value + " ";
+                    }
+                    if (parameterList[i][2] && document.getElementById(parameterList[i][0]).checked) {
+                        s += "--" + parameterList[i][0] + " ";
+                    }
                 }
             }
         }
         s = s.trim();
-        document.getElementById("commandLinePreview").value = s;
+        if (s.length != 0) document.getElementById("commandLinePreview").value = "MirrorTool.exe " + s; else document.getElementById("commandLinePreview").value = "";
         if (document.getElementById("enableMirror").checked) document.getElementById("mirror").style.display = "block"; else document.getElementById("mirror").style.display = "none";
         if (document.getElementById("enableRepository").checked) document.getElementById("repository").style.display = "block"; else document.getElementById("repository").style.display = "none";
         if (document.getElementById("enableGlobal").checked) document.getElementById("global").style.display = "block"; else document.getElementById("global").style.display = "none";
         if (setDefaults) setDefaults = false;
-        //autofit command line preview textarea to contents
         document.getElementById("commandLinePreview").setAttribute("style", "height:" + (document.getElementById("commandLinePreview").scrollHeight) + "px;overflow-y:hidden;");
     }
     update();
     var button = document.querySelector('#copyButton');
     var clipboard = new Clipboard(button, {
-    text: function(trigger) {
-        update();
-        return document.getElementById("commandLinePreview").value; }
+        text: function (trigger) {
+            notifyMe();
+            update();
+            return document.getElementById("commandLinePreview").value; }
     });
-    //attach event listener to all inputs, which will update command line preview
     let tx = document.querySelectorAll("input");
     for (i = 0; i < tx.length; i++)
     {
-        tx[i].addEventListener("input", function(event) {
+        tx[i].addEventListener("input", function (event) {
             update();
         });
     }
