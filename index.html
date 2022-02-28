@@ -87,30 +87,6 @@
 </body>
 </html>
 <script>
-    function notifyMe() {
-        // Let's check if the browser supports notifications
-        if (!("Notification" in window)) {
-            alert("This browser does not support desktop notification");
-        }
-
-        // Let's check whether notification permissions have already been granted
-        else if (Notification.permission === "granted") {
-            // If it's okay let's create a notification
-            var notification = new Notification("Hi there!");
-        }
-
-        // Otherwise, we need to ask the user for permission
-        else if (Notification.permission !== "denied") {
-            Notification.requestPermission().then(function (permission) {
-                // If the user accepts, let's create a notification
-                if (permission === "granted") {
-                    var notification = new Notification("Hi there!");
-                }
-            });
-        }
-        // At last, if the user has denied notifications, and you
-        // want to be respectful there is no need to bother them any more.
-    }
     var setDefaults = true;
     //name, default, checkbox, type, optional
     let parameterList = [
@@ -133,7 +109,7 @@
         ["mirrorFileFormat", "", false, "repository", true],
         ["compatibilityVersion", "", false, "repository", true],
         ["filterFilePath", "", false, "repository", true],
-        ["trustDownloadedFilesInRepositoryTemp", false, true, "repository", true] //here
+        ["trustDownloadedFilesInRepositoryTemp", false, true, "repository", true]
     ]
     document.getElementById("saveButton").disabled = true;
     document.getElementById("exportButton").disabled = true;
@@ -176,7 +152,6 @@
     var button = document.querySelector('#copyButton');
     var clipboard = new Clipboard(button, {
         text: function (trigger) {
-            notifyMe();
             update();
             return document.getElementById("commandLinePreview").value; }
     });
