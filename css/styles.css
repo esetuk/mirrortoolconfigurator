@@ -94,11 +94,16 @@ input {
     font-size: 16px;
     font-weight: bolder;
 }
+.optional {
+    margin: 0;
+    padding: 0;
+}
 #mirror, #repository, #global, #output {
     border: 1px lightgrey solid;
     border-style: solid;
+    height: auto;
 }
-#enableMirror, #enableRepository, #enableGlobal {
+#enableMirror, #enableRepository, #enableGlobal, #enableOptional {
     text-align: right;
     width: auto;
 }

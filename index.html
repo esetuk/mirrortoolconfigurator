@@ -24,22 +24,25 @@
                     <button type="button" id="saveButton">Save configuration</button>
                 </div>
             </div>
+            <label id="heading" class="labels">Enable optional parameters</label>
+            <input type="checkbox" id="enableOptional"><br>
             <label id="heading" class="labels">Mirror parameters</label>
-            <input type="checkbox" id="enableMirror"><br>   
+            <input type="checkbox" id="enableMirror"><br>
             <div id="mirror">
-                    <label class="labels"title="[required for module update] Type of mirror. Possible values (case insensitive): regular, pre-release, delayed.">mirrorType*</label>
-                    <select id="mirrorType">
-                        <option value="" disabled="disabled" selected="selected">Please select one</option>
-                        <option value="regular">regular</option>
-                        <option value="pre-release">pre-release</option>
-                        <option value="delayed">delayed</option>
-                    </select><br>
-                    <label class="labels" title="[required for module update] Files will be downloaded to this directory to create mirror in output directory.">intermediateUpdateDirectory*</label>
-                    <input type="text" id="intermediateUpdateDirectory" placeholder=""><br>
-                    <label class="labels" title="[required for module update] Directory where mirror will be created.">outputDirectory*</label>
-                    <input type="text" id="outputDirectory" placeholder=""><br>  
-                    <label class="labels" title="[required for module update] Offline license file.">offlineLicenseFilename*</label>
-                    <input type="text" id="offlineLicenseFilename" placeholder=""><br>
+                <label class="labels" title="[required for module update] Type of mirror. Possible values (case insensitive): regular, pre-release, delayed.">mirrorType*</label>
+                <select id="mirrorType">
+                    <option value="" disabled="disabled" selected="selected">Please select one</option>
+                    <option value="regular">regular</option>
+                    <option value="pre-release">pre-release</option>
+                    <option value="delayed">delayed</option>
+                </select><br>
+                <label class="labels" title="[required for module update] Files will be downloaded to this directory to create mirror in output directory.">intermediateUpdateDirectory*</label>
+                <input type="text" id="intermediateUpdateDirectory" placeholder=""><br>
+                <label class="labels" title="[required for module update] Directory where mirror will be created.">outputDirectory*</label>
+                <input type="text" id="outputDirectory" placeholder=""><br>
+                <label class="labels" title="[required for module update] Offline license file.">offlineLicenseFilename*</label>
+                <input type="text" id="offlineLicenseFilename" placeholder=""><br />
+                <div class="optional">
                     <label class="labels" title="[optional] Disable creating mirror for specified products. Use --listUpdatableProducts to see possible values.">excludedProducts</label>
                     <input type="text" id="excludedProducts" placeholder=""><br>
                     <label class="labels" title="[optional] If set, only level upgrades will be downloaded (nano/continuous updates will not be downloaded).">mirrorOnlyLevelUpdates</label>
@@ -47,46 +50,51 @@
                     <label class="labels" title="[optional] Specifies which type of update files will be downloaded. Possible values (case insensitive): dll, dat.">mirrorFileFormat</label>
                     <input type="text" id="mirrorFileFormat" placeholder=""><br>
                     <label class="labels" title="[optional] Version of compatible products.">compatibilityVersion</label>
-                    <input type="text" id="compatibilityVersion" placeholder=""><br> 
+                    <input type="text" id="compatibilityVersion" placeholder=""><br>
                     <label class="labels" title="[optional] Update server. (e.g.: http://update.eset.com/eset_upd/ep6/) Mirror will be created in output directory, only specified path in server will be mirrored.">updateServer</label>
                     <input type="text" id="updateServer" placeholder=""><br>
                     <label class="labels" title="[optional] Username used, when output directory is accessed using smb(e.g:\\hostname).">networkDriveUsername</label>
-                    <input type="text" id="networkDriveUsername" placeholder=""><br>  
+                    <input type="text" id="networkDriveUsername" placeholder=""><br>
                     <label class="labels" title="[optional] Password used, when output directory is accessed using smb(e.g:\\hostname).">networkDrivePassword</label>
-                    <input type="text" id="networkDrivePassword" placeholder=""><br>  
+                    <input type="text" id="networkDrivePassword" placeholder=""><br>
                 </div>
-                <label id="heading" class="labels">Repository parameters</label>
-                <input type="checkbox" id="enableRepository"><br>
-                <div id="repository">
-                    <label class="labels" title="[required for repository update] Repository server for repository creation.">repositoryServer*</label>
-                    <input type="text" id="repositoryServer" placeholder=""><br>
-                    <label class="labels" title="[required for repository update] Files will be downloaded to this directory to create offline mirror in output directory.">intermediateRepositoryDirectory*</label>
-                    <input type="text" id="intermediateRepositoryDirectory" placeholder=""><br>
-                    <label class="labels" title="[required for repository update] Directory where offline repository will be created.">outputRepositoryDirectory*</label>
-                    <input type="text" id="outputRepositoryDirectory" placeholder=""><br>
+                </div>
+            <label id="heading" class="labels">Repository parameters</label>
+            <input type="checkbox" id="enableRepository"><br>
+            <div id="repository">
+                <label class="labels" title="[required for repository update] Repository server for repository creation.">repositoryServer*</label>
+                <input type="text" id="repositoryServer" placeholder=""><br>
+                <label class="labels" title="[required for repository update] Files will be downloaded to this directory to create offline mirror in output directory.">intermediateRepositoryDirectory*</label>
+                <input type="text" id="intermediateRepositoryDirectory" placeholder=""><br>
+                <label class="labels" title="[required for repository update] Directory where offline repository will be created.">outputRepositoryDirectory*</label>
+                <input type="text" id="outputRepositoryDirectory" placeholder=""><br>
+                <div class="optional">
                     <label class="labels" title="[optional] Path to filter file in json format. Parameter compatibilityVersion has to be higher than 7.1.0.0 to run program.">filterFilePath</label>
                     <input type="text" id="filterFilePath" placeholder=""><br>
                     <label class="labels" title=" [optional] If set, hashes on already downloaded files are not checked.">trustDownloadedFilesInRepositoryTemp</label>
-                    <input type="checkbox" id="trustDownloadedFilesInRepositoryTemp" placeholder=""><br>         
+                    <input type="checkbox" id="trustDownloadedFilesInRepositoryTemp" placeholder=""><br>
                 </div>
+            </div>
+            <div class="optional">
                 <label id="heading" class="labels">Global parameters</label>
                 <input type="checkbox" id="enableGlobal"><br>
                 <div id="global">
                     <label class="labels" title="[optional] Http proxy address (fqdn or IP).">proxyHost</label>
-                    <input type="text" id="proxyHost" placeholder=""><br>  
+                    <input type="text" id="proxyHost" placeholder=""><br>
                     <label class="labels" title="[optional] Http proxy port.">proxyPort</label>
-                    <input type="text" id="proxyPort" placeholder=""><br>  
+                    <input type="text" id="proxyPort" placeholder=""><br>
                     <label class="labels" title="[optional] Http proxy username.">proxyUsername</label>
-                    <input type="text" id="proxyUsername" placeholder=""><br>  
+                    <input type="text" id="proxyUsername" placeholder=""><br>
                     <label class="labels" title="[optional] Http proxy password.">proxyPassword</label>
-                    <input type="text" id="proxyPassword" placeholder=""><br>  
-                </div>
-                <div id="footer">
-                    <a href="index.html">Reset</a> | 
-                    <a href="https://github.com/esetuk/esetuk.github.io/wiki/Changelog" target="_blank">Changelog</a> | 
-                    <a href="https://help.eset.com/protect_install/90/en-US/mirror_tool_windows.html" target="_blank">MirrorTool documentation</a>
+                    <input type="text" id="proxyPassword" placeholder=""><br>
                 </div>
             </div>
+            <div id="footer">
+                <a href="index.html">Reset</a> |
+                <a href="https://github.com/esetuk/esetuk.github.io/wiki/Changelog" target="_blank">Changelog</a> |
+                <a href="https://help.eset.com/protect_install/90/en-US/mirror_tool_windows.html" target="_blank">MirrorTool documentation</a>
+            </div>
+        </div>
         </div>
 </body>
 </html>
@@ -115,36 +123,45 @@
         ["filterFilePath", "", "text", "repository", true],
         ["trustDownloadedFilesInRepositoryTemp", false, "checkbox", "repository", true]
     ]
-    document.getElementById("saveButton").disabled = true;
-    document.getElementById("exportButton").disabled = true;
-    document.getElementById("windows").checked = true;
+    
     function update()
     {
         let s = "";
-        for (let i = 0; i < parameterList.length; i++)
-        {
+        for (let i = 0; i < parameterList.length; i++) {
+            let o = document.getElementsByClassName("optional");
+            for (let i = 0; i < o.length; i++) {
+                if (document.getElementById("enableOptional").checked) o[i].style.display = "block"; else o[i].style.display = "none";
+            }
             if (document.getElementById(parameterList[i][0]) != null)
             {
                 if (setDefaults) {
+                    document.getElementById("saveButton").disabled = true;
+                    document.getElementById("exportButton").disabled = true;
+                    document.getElementById("windows").checked = true;
                     document.getElementById(parameterList[i][0]).value = parameterList[i][1];
                     document.getElementById(parameterList[i][0]).checked = parameterList[i][1];
                     document.getElementById("enableMirror").checked = true;
                     document.getElementById("enableRepository").checked = false;
                     document.getElementById("enableGlobal").checked = false;
+                    document.getElementById("enableOptional").checked = false;
                 }
                 if ((document.getElementById("enableMirror").checked && parameterList[i][3] == "mirror") ||
                     (document.getElementById("enableRepository").checked && parameterList[i][3] == "repository") ||
-                    (document.getElementById("enableGlobal").checked && parameterList[i][3] == "global")) {
-                    switch (parameterList[i][2]) {
-                        case ("text"):
-                            if (document.getElementById(parameterList[i][0]).value != "") s += "--" + parameterList[i][0] + " " + document.getElementById(parameterList[i][0]).value + " ";
-                            break;
-                        case ("checkbox"):
-                            if (document.getElementById(parameterList[i][0]).checked) s += "--" + parameterList[i][0] + " ";
-                            break;
-                        case ("select"):
-                            s += parameterList[i][0] + " " + document.getElementById("mirrorType").options[document.getElementById("mirrorType").selectedIndex].text + " ";
-                            break;
+                    (document.getElementById("enableGlobal").checked && parameterList[i][3] == "global"))
+                {
+                    if (document.getElementById("enableOptional").checked || !document.getElementById("enableOptional").checked && parameterList[i][4] == false)
+                    {
+                        switch (parameterList[i][2]) {
+                            case ("text"):
+                                if (document.getElementById(parameterList[i][0]).value != "") s += "--" + parameterList[i][0] + " " + document.getElementById(parameterList[i][0]).value + " ";
+                                break;
+                            case ("checkbox"):
+                                if (document.getElementById(parameterList[i][0]).checked) s += "--" + parameterList[i][0] + " ";
+                                break;
+                            case ("select"):
+                                s += parameterList[i][0] + " " + document.getElementById("mirrorType").options[document.getElementById("mirrorType").selectedIndex].text + " ";
+                                break;
+                        }
                     }
                 } 
             }
@@ -166,10 +183,10 @@
             update();
             return document.getElementById("commandLinePreview").value; }
     });
-    let tx = document.querySelectorAll("input");
-    for (i = 0; i < tx.length; i++)
+    let input = document.querySelectorAll("input");
+    for (i = 0; i < input.length; i++)
     {
-        tx[i].addEventListener("input", function (event) {
+        input[i].addEventListener("input", function (event) {
             update();
         });
     }
