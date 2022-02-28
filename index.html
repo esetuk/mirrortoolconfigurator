@@ -92,28 +92,28 @@
 </html>
 <script>
     var setDefaults = true;
-    //name, default, checkbox, type, optional
+    //name, default, type, type, optional
     let parameterList = [
-        ["mirrorType", "regular", false, "mirror", false],
-        ["intermediateUpdateDirectory", "c:\\temp\\mirrorTemp", false, "mirror", false],
-        ["offlineLicenseFilename", "c:\\temp\\offline.lf", false, "mirror", false],
-        ["updateServer", "", false, "mirror", true],
-        ["outputDirectory", "c:\\temp\\mirror", false, "mirror", false],
-        ["proxyHost", "", false, "global", true],
-        ["proxyPort", "", false, "global", true],
-        ["proxyUsername", "", false, "global", true],
-        ["proxyPassword", "", false, "global", true],
-        ["networkDriveUsername", "", false, "mirror", true],
-        ["networkDrivePassword", "", false, "mirror", true],
-        ["excludedProducts", "", false, "mirror", true],
-        ["repositoryServer", "", false, "repository", false],
-        ["intermediateRepositoryDirectory", "", false, "repository", false],
-        ["mirrorOnlyLevelUpdates", false, true, "repository", true],
-        ["outputRepositoryDirectory", "", false, "repository", false],
-        ["mirrorFileFormat", "", false, "repository", true],
-        ["compatibilityVersion", "", false, "repository", true],
-        ["filterFilePath", "", false, "repository", true],
-        ["trustDownloadedFilesInRepositoryTemp", false, true, "repository", true]
+        ["mirrorType", "regular", "select", "mirror", false],
+        ["intermediateUpdateDirectory", "c:\\temp\\mirrorTemp", "text", "mirror", false],
+        ["offlineLicenseFilename", "c:\\temp\\offline.lf", "text", "mirror", false],
+        ["updateServer", "", "text", "mirror", true],
+        ["outputDirectory", "c:\\temp\\mirror", "text", "mirror", false],
+        ["proxyHost", "", "text", "global", true],
+        ["proxyPort", "", "text", "global", true],
+        ["proxyUsername", "", "text", "global", true],
+        ["proxyPassword", "", "text", "global", true],
+        ["networkDriveUsername", "", "text", "mirror", true],
+        ["networkDrivePassword", "", "text", "mirror", true],
+        ["excludedProducts", "", "text", "mirror", true],
+        ["repositoryServer", "", "text", "repository", false],
+        ["intermediateRepositoryDirectory", "", "text", "repository", false],
+        ["mirrorOnlyLevelUpdates", false, "checkbox", "mirror", true],
+        ["outputRepositoryDirectory", "", "text", "repository", false],
+        ["mirrorFileFormat", "", "text", "repository", true],
+        ["compatibilityVersion", "", "text", "repository", true],
+        ["filterFilePath", "", "text", "repository", true],
+        ["trustDownloadedFilesInRepositoryTemp", false, "checkbox", "repository", true]
     ]
     document.getElementById("saveButton").disabled = true;
     document.getElementById("exportButton").disabled = true;
@@ -135,11 +135,16 @@
                 if ((document.getElementById("enableMirror").checked && parameterList[i][3] == "mirror") ||
                     (document.getElementById("enableRepository").checked && parameterList[i][3] == "repository") ||
                     (document.getElementById("enableGlobal").checked && parameterList[i][3] == "global")) {
-                    if (!parameterList[i][2] && document.getElementById(parameterList[i][0]).value != "") {
-                        s += "--" + parameterList[i][0] + " " + document.getElementById(parameterList[i][0]).value + " ";
-                    }
-                    if (parameterList[i][2] && document.getElementById(parameterList[i][0]).checked) {
-                        s += "--" + parameterList[i][0] + " ";
+                    switch (parameterList[i][2]) {
+                        case ("text"):
+                            if (document.getElementById(parameterList[i][0]).value != "") s += "--" + parameterList[i][0] + " " + document.getElementById(parameterList[i][0]).value + " ";
+                            break;
+                        case ("checkbox"):
+                            if (document.getElementById(parameterList[i][0]).checked) s += "--" + parameterList[i][0] + " ";
+                            break;
+                        case ("select"):
+                            s += parameterList[i][0] + " " + document.getElementById("mirrorType").options[document.getElementById("mirrorType").selectedIndex].text + " ";
+                            break;
                     }
                 } 
             }
@@ -168,4 +173,5 @@
             update();
         });
     }
+    document.getElementById("mirrorType").addEventListener("input", function (event) { update(); });
 </script>
