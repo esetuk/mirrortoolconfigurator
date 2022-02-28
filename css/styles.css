@@ -40,11 +40,12 @@ body {
 }
 ul {
     list-style-position: inside;
-    padding: 5px;
+    padding: 10px;
     margin: 0;
  }
  li {
     padding: 0;
+    margin: 0;
  }
 a:link, a:visited, a:active {
     text-decoration: none;
