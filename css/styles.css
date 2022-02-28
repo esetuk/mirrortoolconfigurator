@@ -38,6 +38,14 @@ body {
     font-size: 24px;
     font-weight: 900;
 }
+ul {
+    list-style-position: inside;
+    padding: 5px;
+    margin: 0;
+ }
+ li {
+    padding: 0;
+ }
 a:link, a:visited, a:active {
     text-decoration: none;
     color: #000000;

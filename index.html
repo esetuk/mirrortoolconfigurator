@@ -12,11 +12,15 @@
         <div class="block" id="left">
             <div id="header">MirrorToolConfigurator</div>
             <div id="info">
-                <p><img style="vertical-align:middle" src="res/info.png" alt="">If you need help please hover over each parameter name for a tip or consult the<a href="https://help.eset.com/protect_install/90/en-US/mirror_tool_windows.html" target="_blank">MirrorTool documentation.</a></p>
+                <ul>
+                    <li>Parameters marked with an asterisk are mandatory.</li>
+                    <li>If you need help please hover over each parameter name for a tip or consult the<a href="https://help.eset.com/protect_install/90/en-US/mirror_tool_windows.html" target="_blank">MirrorTool documentation.</a></li>
+                    <li>Press F5 to reset the page.</li>
+                </ul>
             </div>
             <label class="labels" id="heading">Command line preview</label>
             <div id="output">
-                <textarea readonly spellcheck="false" id="commandLinePreview" placeholder="Some parameters are disabled or empty, please check your configuration."></textarea>
+                <textarea readonly spellcheck="false" id="commandLinePreview" placeholder="Some mandatory parameters are disabled or empty, please check your configuration."></textarea>
                 <input class="platforms" type="radio" id="windows" name="platforms" value="Windows">
                 <label class="platforms" for="windows">Windows</label>
                 <input class="platforms" type="radio" id="linux" name="platforms" value="Linux">
