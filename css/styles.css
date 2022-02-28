@@ -134,3 +134,8 @@ textarea {
     text-align: right;
     color: grey;
 }
+#info {
+    text-align: left;
+    background-color: lightblue;
+    vertical-align: middle;
+}
