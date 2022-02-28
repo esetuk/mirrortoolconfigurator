@@ -130,3 +130,6 @@ textarea {
     width: auto;
     font-weight: bold;
 }
+#version {
+    text-align: right;
+}
