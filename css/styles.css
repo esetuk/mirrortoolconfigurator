@@ -36,8 +36,8 @@ body {
 }
 #header {
     text-align: center;
-    font: 24px "Trebuchet MS";
-    font-weight: bolder;
+    font-size: 24px;
+    font-weight: 900;
 }
 #footer {
     text-align: center;
@@ -91,7 +91,7 @@ input {
 #heading {
     width: auto;
     text-align: center;
-    font: 16px "Trebuchet MS";
+    font-size: 16px;
     font-weight: bolder;
 }
 #mirror, #repository, #global, #output {
@@ -111,16 +111,17 @@ input {
 }
 textarea {
     font: 14px "Lucida Console";
-    color:rgb(255, 255, 255);
+    color: white;
     background-color: rgb(70, 70, 70);
     width: 99%;
     padding: 10px;
     resize: none;
     outline: none;
     border: 0;
+    height: auto;
 }
 .platforms {
-    font: 14px "Trebuchet MS";
+    font-size: 14px;
     width: auto;
     font-weight: bold;
 }
