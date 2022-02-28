@@ -56,7 +56,6 @@ a:hover {
     text-align: center;
 }
 button {
-    margin-top: -3px;
     transition-duration: 0.2s;
     background-color: #0076fd;
     height: 35px;
@@ -106,6 +105,10 @@ input {
 #trustDownloadedFilesInRepositoryTemp, #mirrorOnlyLevelUpdates {
     width: auto;
 }
+#outputWindows, #outputLinux {
+    width: auto;
+    text-align: right;
+}
 textarea {
     font: 14px "Lucida Console";
     color:rgb(255, 255, 255);
@@ -115,4 +118,8 @@ textarea {
     resize: none;
     outline: none;
     border: 0;
+}
+.platforms {
+    width: auto;
+    font-weight: bold;
 }

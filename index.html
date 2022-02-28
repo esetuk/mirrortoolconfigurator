@@ -12,14 +12,18 @@
         <div class="block" id="left">
             <div id="header">MirrorToolConfigurator BETA</div>
             <label class="labels" id="heading">Command line preview</label>
-                <div id="output">
-                    <textarea readonly spellcheck="false" id="commandLinePreview" placeholder=""></textarea>
-                    <div id="buttons">
-                        <button type="button" id="copyButton">Copy to clipboard</button>
-                        <button type="button" id="exportButton">Export to script</button>
-                        <button type="button" id="saveButton">Save configuration</button>
-                    </div>
+            <div id="output">
+                <textarea readonly spellcheck="false" id="commandLinePreview" placeholder=""></textarea>
+                <input class="platforms" type="radio" id="windows" name="platforms" value="Windows">
+                <label class="platforms" for="windows">Windows</label>
+                <input class="platforms" type="radio" id="linux" name="platforms" value="Linux">
+                <label class="platforms" for="linux">Linux</label><br>
+                <div id="buttons">
+                    <button type="button" id="copyButton">Copy to clipboard</button>
+                    <button type="button" id="exportButton">Export to script</button>
+                    <button type="button" id="saveButton">Save configuration</button>
                 </div>
+            </div>
             <label id="heading" class="labels">Mirror parameters</label>
             <input type="checkbox" id="enableMirror"><br>   
             <div id="mirror">
@@ -113,6 +117,7 @@
     ]
     document.getElementById("saveButton").disabled = true;
     document.getElementById("exportButton").disabled = true;
+    document.getElementById("windows").checked = true;
     function update()
     {
         let s = "";
@@ -129,19 +134,20 @@
                 }
                 if ((document.getElementById("enableMirror").checked && parameterList[i][3] == "mirror") ||
                     (document.getElementById("enableRepository").checked && parameterList[i][3] == "repository") ||
-                    (document.getElementById("enableGlobal").checked && parameterList[i][3] == "global"))
-                {
+                    (document.getElementById("enableGlobal").checked && parameterList[i][3] == "global")) {
                     if (!parameterList[i][2] && document.getElementById(parameterList[i][0]).value != "") {
                         s += "--" + parameterList[i][0] + " " + document.getElementById(parameterList[i][0]).value + " ";
                     }
                     if (parameterList[i][2] && document.getElementById(parameterList[i][0]).checked) {
                         s += "--" + parameterList[i][0] + " ";
                     }
-                }
+                } 
             }
         }
         s = s.trim();
-        if (s.length != 0) document.getElementById("commandLinePreview").value = "MirrorTool.exe " + s; else document.getElementById("commandLinePreview").value = "";
+        if (s.length != 0) {
+            if (document.getElementById("windows").checked) document.getElementById("commandLinePreview").value = "MirrorTool.exe " + s; else document.getElementById("commandLinePreview").value = "sudo ./MirrorTool " + s
+        } else document.getElementById("commandLinePreview").value = "";
         if (document.getElementById("enableMirror").checked) document.getElementById("mirror").style.display = "block"; else document.getElementById("mirror").style.display = "none";
         if (document.getElementById("enableRepository").checked) document.getElementById("repository").style.display = "block"; else document.getElementById("repository").style.display = "none";
         if (document.getElementById("enableGlobal").checked) document.getElementById("global").style.display = "block"; else document.getElementById("global").style.display = "none";
