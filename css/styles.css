@@ -120,6 +120,7 @@ textarea {
     border: 0;
 }
 .platforms {
+    font: 14px "Trebuchet MS";
     width: auto;
     font-weight: bold;
 }
