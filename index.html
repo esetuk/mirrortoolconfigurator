@@ -51,16 +51,24 @@
                     <label class="labels" title="[optional] If set, only level upgrades will be downloaded (nano/continuous updates will not be downloaded).">mirrorOnlyLevelUpdates</label>
                     <input type="checkbox" id="mirrorOnlyLevelUpdates"><br>
                     <label class="labels" title="[optional] Specifies which type of update files will be downloaded. Possible values (case insensitive): dll, dat.">mirrorFileFormat</label>
-                    <input type="text" id="mirrorFileFormat" placeholder=""><br>
-                    <label class="labels" title="[optional] Version of compatible products.">compatibilityVersion</label>
-                    <input type="text" id="compatibilityVersion" placeholder=""><br>
-                    <label class="labels" title="[optional] Update server. (e.g.: http://update.eset.com/eset_upd/ep6/) Mirror will be created in output directory, only specified path in server will be mirrored.">updateServer</label>
-                    <input type="text" id="updateServer" placeholder=""><br>
-                    <label class="labels" title="[optional] Username used, when output directory is accessed using smb(e.g:\\hostname).">networkDriveUsername</label>
-                    <input type="text" id="networkDriveUsername" placeholder=""><br>
-                    <label class="labels" title="[optional] Password used, when output directory is accessed using smb(e.g:\\hostname).">networkDrivePassword</label>
-                    <input type="text" id="networkDrivePassword" placeholder=""><br>
-                </div>
+                    <select id="mirrorFileFormat">
+                        <option value=""></option>
+                        <option value="dll">dll</option>
+                        <option value="dat">dat</option>
+                    </select><br>
+                        <label class="labels" title="[optional] Version of compatible products.">compatibilityVersion</label>
+                        <input type="text" id="compatibilityVersion" placeholder="">
+                        <br>
+                        <label class="labels" title="[optional] Update server. (e.g.: http://update.eset.com/eset_upd/ep6/) Mirror will be created in output directory, only specified path in server will be mirrored.">updateServer</label>
+                        <input type="text" id="updateServer" placeholder="">
+                        <br>
+                        <label class="labels" title="[optional] Username used, when output directory is accessed using smb(e.g:\\hostname).">networkDriveUsername</label>
+                        <input type="text" id="networkDriveUsername" placeholder="">
+                        <br>
+                        <label class="labels" title="[optional] Password used, when output directory is accessed using smb(e.g:\\hostname).">networkDrivePassword</label>
+                        <input type="text" id="networkDrivePassword" placeholder="">
+                        <br>
+</div>
             </div>
             <label id="heading" class="labels">Repository parameters</label>
             <input type="checkbox" id="enableRepository"><br>
@@ -122,7 +130,7 @@
         ["intermediateRepositoryDirectory", "c:\\temp\\repositoryTemp", "text", "repository", false],
         ["mirrorOnlyLevelUpdates", false, "checkbox", "mirror", true],
         ["outputRepositoryDirectory", "c:\\temp\\repository", "text", "repository", false],
-        ["mirrorFileFormat", "", "text", "mirror", true],
+        ["mirrorFileFormat", "", "select", "mirror", true],
         ["compatibilityVersion", "", "text", "mirror", true],
         ["filterFilePath", "", "text", "repository", true],
         ["trustDownloadedFilesInRepositoryTemp", false, "checkbox", "repository", true]
@@ -161,7 +169,7 @@
                                 if (document.getElementById(parameterList[i][0]).checked) s += "--" + parameterList[i][0] + " ";
                                 break;
                             case ("select"):
-                                s += parameterList[i][0] + " " + document.getElementById("mirrorType").options[document.getElementById("mirrorType").selectedIndex].text + " ";
+                                if (document.getElementById(parameterList[i][0]).options[document.getElementById(parameterList[i][0]).selectedIndex].text != "") s += "--" + parameterList[i][0] + " " + document.getElementById(parameterList[i][0]).options[document.getElementById(parameterList[i][0]).selectedIndex].text + " ";
                                 break;
                         }
                     }
@@ -200,4 +208,5 @@
         });
     }
     document.getElementById("mirrorType").addEventListener("input", function (event) { update(); });
+    document.getElementById("mirrorFileFormat").addEventListener("input", function (event) { update(); });
 </script>
