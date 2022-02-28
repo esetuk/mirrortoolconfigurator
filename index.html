@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <title>MirrorToolConfigurator</title>
+    <title>MirrorToolConfigurator BETA</title>
     <meta charset="UTF-8" />
     <link rel="shortcut icon" type="image/x-icon" href="res/favicon.ico">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
@@ -23,58 +23,58 @@
             <label id="heading" class="labels">Mirror parameters</label>
             <input type="checkbox" id="enableMirror"><br>   
             <div id="mirror">
-                    <label class="labels">mirrorType*</label>
+                    <label class="labels"title="[required for module update] Type of mirror. Possible values (case insensitive): regular, pre-release, delayed.">mirrorType*</label>
                     <select id="mirrorType">
                         <option value="" disabled="disabled" selected="selected">Please select one</option>
                         <option value="regular">regular</option>
                         <option value="pre-release">pre-release</option>
                         <option value="delayed">delayed</option>
                     </select><br>
-                    <label class="labels">intermediateUpdateDirectory*</label>
+                    <label class="labels" title="[required for module update] Files will be downloaded to this directory to create mirror in output directory.">intermediateUpdateDirectory*</label>
                     <input type="text" id="intermediateUpdateDirectory" placeholder=""><br>
-                    <label class="labels">outputDirectory*</label>
+                    <label class="labels" title="[required for module update] Directory where mirror will be created.">outputDirectory*</label>
                     <input type="text" id="outputDirectory" placeholder=""><br>  
-                    <label class="labels">offlineLicenseFilename*</label>
+                    <label class="labels" title="[required for module update] Offline license file.">offlineLicenseFilename*</label>
                     <input type="text" id="offlineLicenseFilename" placeholder=""><br>
-                    <label class="labels">excludedProducts</label>
+                    <label class="labels" title="[optional] Disable creating mirror for specified products. Use --listUpdatableProducts to see possible values.">excludedProducts</label>
                     <input type="text" id="excludedProducts" placeholder=""><br>
-                    <label class="labels">mirrorOnlyLevelUpdates</label>
+                    <label class="labels" title="[optional] If set, only level upgrades will be downloaded (nano/continuous updates will not be downloaded).">mirrorOnlyLevelUpdates</label>
                     <input type="checkbox" id="mirrorOnlyLevelUpdates"><br>
-                    <label class="labels">mirrorFileFormat</label>
+                    <label class="labels" title="[optional] Specifies which type of update files will be downloaded. Possible values (case insensitive): dll, dat.">mirrorFileFormat</label>
                     <input type="text" id="mirrorFileFormat" placeholder=""><br>
-                    <label class="labels">compatibilityVersion</label>
+                    <label class="labels" title="[optional] Version of compatible products.">compatibilityVersion</label>
                     <input type="text" id="compatibilityVersion" placeholder=""><br> 
-                    <label class="labels">updateServer</label>
+                    <label class="labels" title="[optional] Update server. (e.g.: http://update.eset.com/eset_upd/ep6/) Mirror will be created in output directory, only specified path in server will be mirrored.">updateServer</label>
                     <input type="text" id="updateServer" placeholder=""><br>
-                    <label class="labels">networkDriveUsername</label>
+                    <label class="labels" title="[optional] Username used, when output directory is accessed using smb(e.g:\\hostname).">networkDriveUsername</label>
                     <input type="text" id="networkDriveUsername" placeholder=""><br>  
-                    <label class="labels">networkDrivePassword</label>
+                    <label class="labels" title="[optional] Password used, when output directory is accessed using smb(e.g:\\hostname).">networkDrivePassword</label>
                     <input type="text" id="networkDrivePassword" placeholder=""><br>  
                 </div>
                 <label id="heading" class="labels">Repository parameters</label>
                 <input type="checkbox" id="enableRepository"><br>
                 <div id="repository">
-                    <label class="labels">repositoryServer</label>
+                    <label class="labels" title="[required for repository update] Repository server for repository creation.">repositoryServer</label>
                     <input type="text" id="repositoryServer" placeholder=""><br>
-                    <label class="labels">intermediateRepositoryDirectory</label>
+                    <label class="labels" title="[required for repository update] Files will be downloaded to this directory to create offline mirror in output directory.">intermediateRepositoryDirectory</label>
                     <input type="text" id="intermediateRepositoryDirectory" placeholder=""><br>
-                    <label class="labels">outputRepositoryDirectory</label>
+                    <label class="labels" title="[required for repository update] Directory where offline repository will be created.">outputRepositoryDirectory</label>
                     <input type="text" id="outputRepositoryDirectory" placeholder=""><br>
-                    <label class="labels">filterFilePath</label>
+                    <label class="labels" title="[optional] Path to filter file in json format. Parameter compatibilityVersion has to be higher than 7.1.0.0 to run program.">filterFilePath</label>
                     <input type="text" id="filterFilePath" placeholder=""><br>
-                    <label class="labels">trustDownloadedFilesInRepositoryTemp</label>
+                    <label class="labels" title=" [optional] If set, hashes on already downloaded files are not checked.">trustDownloadedFilesInRepositoryTemp</label>
                     <input type="checkbox" id="trustDownloadedFilesInRepositoryTemp" placeholder=""><br>         
                 </div>
                 <label id="heading" class="labels">Global parameters</label>
                 <input type="checkbox" id="enableGlobal"><br>
                 <div id="global">
-                    <label class="labels">proxyHost</label>
+                    <label class="labels" title="[optional] Http proxy address (fqdn or IP).">proxyHost</label>
                     <input type="text" id="proxyHost" placeholder=""><br>  
-                    <label class="labels">proxyPort</label>
+                    <label class="labels" title="[optional] Http proxy port.">proxyPort</label>
                     <input type="text" id="proxyPort" placeholder=""><br>  
-                    <label class="labels">proxyUsername</label>
+                    <label class="labels" title="[optional] Http proxy username.">proxyUsername</label>
                     <input type="text" id="proxyUsername" placeholder=""><br>  
-                    <label class="labels">proxyPassword</label>
+                    <label class="labels" title="[optional] Http proxy password.">proxyPassword</label>
                     <input type="text" id="proxyPassword" placeholder=""><br>  
                 </div>
                 <div id="footer">
@@ -87,7 +87,6 @@
 </body>
 </html>
 <script>
-    //test
     var setDefaults = true;
     //name, default, checkbox, type, optional
     let parameterList = [
