@@ -82,7 +82,9 @@ input, select {
 input {
     width: 50%;
 }
-                    
+input:focus {
+    outline: none;
+}              
 .labels {
     display: inline-block;
     width: 40%;

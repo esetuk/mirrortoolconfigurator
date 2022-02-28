@@ -16,7 +16,7 @@
             </div>
             <label class="labels" id="heading">Command line preview</label>
             <div id="output">
-                <textarea readonly spellcheck="false" id="commandLinePreview" placeholder="No parameters enabled or defined."></textarea>
+                <textarea readonly spellcheck="false" id="commandLinePreview" placeholder="Some parameters are disabled or empty, please check your configuration."></textarea>
                 <input class="platforms" type="radio" id="windows" name="platforms" value="Windows">
                 <label class="platforms" for="windows">Windows</label>
                 <input class="platforms" type="radio" id="linux" name="platforms" value="Linux">
@@ -105,8 +105,8 @@
 </body>
 </html>
 <script>
-    var setDefaults = true;
-    //name, default, type, type, optional
+    let setDefaults = true;
+    //0=name, 1=default, 2=element, 3=type, 4=optional
     let parameterList = [
         ["mirrorType", "regular", "select", "mirror", false],
         ["intermediateUpdateDirectory", "c:\\temp\\mirrorTemp", "text", "mirror", false],
@@ -133,6 +133,7 @@
     function update()
     {
         let s = "";
+        let isOutputValid = 0;
         for (let i = 0; i < parameterList.length; i++) {
             let o = document.getElementsByClassName("optional");
             for (let i = 0; i < o.length; i++) {
@@ -169,16 +170,29 @@
                     }
                 } 
             }
+            if (document.getElementById(parameterList[i][0]).value == "" && !parameterList[i][4])
+            {
+                document.getElementById(parameterList[i][0]).style.borderColor = "red"
+                document.getElementById(parameterList[i][0]).placeholder = "This field cannot be blank";
+                //
+                isOutputValid++
+            }
+        }
+        if (isOutputValid > 0) {
+            document.getElementById("copyButton").disabled = true;
+        } else {
+            document.getElementById("copyButton").disabled = false;
         }
         s = s.trim();
-        if (s.length != 0) {
+        if (s.length != 0 && isOutputValid == 0) {
             if (document.getElementById("windows").checked) document.getElementById("commandLinePreview").value = "MirrorTool.exe " + s; else document.getElementById("commandLinePreview").value = "sudo ./MirrorTool " + s
         } else document.getElementById("commandLinePreview").value = "";
         if (document.getElementById("enableMirror").checked) document.getElementById("mirror").style.display = "block"; else document.getElementById("mirror").style.display = "none";
         if (document.getElementById("enableRepository").checked) document.getElementById("repository").style.display = "block"; else document.getElementById("repository").style.display = "none";
         if (document.getElementById("enableGlobal").checked) document.getElementById("global").style.display = "block"; else document.getElementById("global").style.display = "none";
-        if (setDefaults) setDefaults = false;
+        document.getElementById("commandLinePreview").setAttribute("style", "height: 0px");
         document.getElementById("commandLinePreview").setAttribute("style", "height:" + (document.getElementById("commandLinePreview").scrollHeight) + "px;overflow-y:hidden;");
+        setDefaults = false;
     }
     update();
     var copyButton = document.getElementById('copyButton');
