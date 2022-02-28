@@ -141,10 +141,6 @@ textarea {
     width: auto;
     font-weight: bold;
 }
-#version {
-    text-align: right;
-    color: grey;
-}
 #info {
     text-align: left;
     background-color: lightblue;
