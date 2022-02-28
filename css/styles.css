@@ -23,7 +23,7 @@
     font: 14px "Trebuchet MS";
     line-height: 1.5em;
 	color: #000000;
-    padding: 4px;
+    padding: 3px;
     margin: 3px;
 }
 body {
@@ -64,6 +64,11 @@ button {
     color: white;
     vertical-align: middle;
     line-height: 20px;
+    margin-right: 0;
+    margin-left: auto;
+    display: block;
+    margin-bottom: 0;
+    margin-top: 0;
 }
 button:hover {
     background-color: #00b7ff;
@@ -102,6 +107,7 @@ input {
     border: 1px lightgrey solid;
     border-style: solid;
     height: auto;
+    padding: 5px;
 }
 #enableMirror, #enableRepository, #enableGlobal, #enableOptional {
     text-align: right;
@@ -113,6 +119,9 @@ input {
 #outputWindows, #outputLinux {
     width: auto;
     text-align: right;
+}
+#exportButton, #saveButton {
+    display: none;
 }
 textarea {
     font: 14px "Lucida Console";

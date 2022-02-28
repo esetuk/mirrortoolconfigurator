@@ -118,10 +118,10 @@
         ["networkDriveUsername", "", "text", "mirror", true],
         ["networkDrivePassword", "", "text", "mirror", true],
         ["excludedProducts", "", "text", "mirror", true],
-        ["repositoryServer", "", "text", "repository", false],
-        ["intermediateRepositoryDirectory", "", "text", "repository", false],
+        ["repositoryServer", "AUTOSELECT", "text", "repository", false],
+        ["intermediateRepositoryDirectory", "c:\\temp\\repositoryTemp", "text", "repository", false],
         ["mirrorOnlyLevelUpdates", false, "checkbox", "mirror", true],
-        ["outputRepositoryDirectory", "", "text", "repository", false],
+        ["outputRepositoryDirectory", "c:\\temp\\repository", "text", "repository", false],
         ["mirrorFileFormat", "", "text", "mirror", true],
         ["compatibilityVersion", "", "text", "mirror", true],
         ["filterFilePath", "", "text", "repository", true],
@@ -139,8 +139,6 @@
             if (document.getElementById(parameterList[i][0]) != null)
             {
                 if (setDefaults) {
-                    document.getElementById("saveButton").disabled = true;
-                    document.getElementById("exportButton").disabled = true;
                     document.getElementById("windows").checked = true;
                     document.getElementById(parameterList[i][0]).value = parameterList[i][1];
                     document.getElementById(parameterList[i][0]).checked = parameterList[i][1];
@@ -181,11 +179,18 @@
         document.getElementById("commandLinePreview").setAttribute("style", "height:" + (document.getElementById("commandLinePreview").scrollHeight) + "px;overflow-y:hidden;");
     }
     update();
-    var button = document.querySelector('#copyButton');
-    var clipboard = new Clipboard(button, {
+    var copyButton = document.getElementById('copyButton');
+    var clipboard = new Clipboard(copyButton, {
         text: function (trigger) {
             update();
             return document.getElementById("commandLinePreview").value; }
+    });
+    document.getElementById("exportButton").addEventListener("click", function (event)
+    {
+        //do something
+    });
+    document.getElementById("saveButton").addEventListener("click", function (event) {
+        //do something
     });
     let input = document.querySelectorAll("input");
     for (i = 0; i < input.length; i++)
