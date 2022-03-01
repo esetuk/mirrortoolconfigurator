@@ -107,7 +107,7 @@ input:focus {
     margin: 0;
     padding: 0;
 }
-#mirror, #repository, #global, #output, #filters {
+#mirror, #repository, #global, #command, #filters {
     border: 1px lightgrey solid;
     border-style: solid;
     height: auto;
@@ -117,7 +117,7 @@ input:focus {
     text-align: right;
     width: auto;
 }
-#trustDownloadedFilesInRepositoryTemp, #mirrorOnlyLevelUpdates, #use_legacy {
+#trustDownloadedFilesInRepositoryTemp, #mirrorOnlyLevelUpdates {
     width: auto;
 }
 #languages {

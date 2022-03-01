@@ -95,15 +95,15 @@ function update() {
     s = s.trim();
     //check if there is anything to write and if the output is valid
     if (s.length != 0 && isOutputValid == 0) {
-        if (document.getElementById("windows").checked) document.getElementById("outputPreview").value = "MirrorTool.exe " + s; else document.getElementById("outputPreview").value = "sudo ./MirrorTool " + s
-    } else document.getElementById("outputPreview").value = "";
+        if (document.getElementById("windows").checked) document.getElementById("commandPreview").value = "MirrorTool.exe " + s; else document.getElementById("commandPreview").value = "sudo ./MirrorTool " + s
+    } else document.getElementById("commandPreview").value = "";
     //show or hide sections
     if (document.getElementById("enableMirror").checked) document.getElementById("mirror").style.display = "block"; else document.getElementById("mirror").style.display = "none";
     if (document.getElementById("enableRepository").checked) document.getElementById("repository").style.display = "block"; else document.getElementById("repository").style.display = "none";
     if (document.getElementById("enableGlobal").checked) document.getElementById("global").style.display = "block"; else document.getElementById("global").style.display = "none";
     //workaround for auto-sizing the command line preview box
-    document.getElementById("outputPreview").setAttribute("style", "height: 0px");
-    document.getElementById("outputPreview").setAttribute("style", "height:" + (document.getElementById("outputPreview").scrollHeight) + "px;overflow-y:hidden;");
+    document.getElementById("commandPreview").setAttribute("style", "height: 0px");
+    document.getElementById("commandPreview").setAttribute("style", "height:" + (document.getElementById("commandPreview").scrollHeight) + "px;overflow-y:hidden;");
     setDefaults = false;
     //scroll to bottom (to ensure that when enabling (unhiding) a section, it is fully visible on the page)
     window.scrollTo(0,document.body.scrollHeight);
@@ -113,16 +113,16 @@ update();
 var clipboard = new Clipboard(document.getElementById('copyButton'), {
     text: function (trigger) {
         update();
-        return document.getElementById("outputPreview").value;
+        return document.getElementById("commandPreview").value;
     }
 });
 //event listeners for updating command line preview
 document.getElementById("downloadButton").addEventListener("click", function (event) {
-    if (document.getElementById("outputPreview").value != ""){
+    if (document.getElementById("commandPreview").value != ""){
         if (document.getElementById("windows").checked) {
-            download('test.bat', document.getElementById("outputPreview").value);
+            download('test.bat', document.getElementById("commandPreview").value);
          } else {
-            let s = document.getElementById("outputPreview").value;
+            let s = document.getElementById("commandPreview").value;
             s = "#!/usr/bin/env bash\n" + (s.split("sudo ").pop());
             download('test.sh', s);
          }
