@@ -136,5 +136,5 @@ document.getElementById("linux").addEventListener("click", function (event) {
     update(); 
 });
 function question(){
-    return (confirm("Reset all parameters?"));
+    return (confirm("Reset all mandatory parameters to their platform specific default values?"));
 }
