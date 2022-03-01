@@ -55,7 +55,7 @@ a:hover {
     color: rgb(0, 153, 255);
 }
 #buttons {
-    text-align: center;
+    text-align: right;
 }
 button {
     transition-duration: 0.2s;
@@ -65,9 +65,7 @@ button {
     width: 30%;
     color: white;
     line-height: 20px;
-    margin-right: 0;
-    margin-left: auto;
-    display: block;
+    display: inline-block;
     margin-bottom: 0;
     margin-top: 0;
 }
@@ -129,9 +127,6 @@ input:focus {
     width: auto;
     text-align: right;
 }
-#exportButton, #saveButton {
-    display: none;
-}
 textarea {
     font: 14px "Lucida Console";
     color: white;
@@ -152,4 +147,7 @@ textarea {
     text-align: left;
     background-color: lightblue;
     vertical-align: middle;
+}
+#saveButton {
+    display: none;
 }

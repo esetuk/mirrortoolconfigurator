@@ -13,6 +13,7 @@ function update() {
         document.getElementById("enableRepository").checked = false;
         document.getElementById("enableGlobal").checked = false;
         document.getElementById("enableOptional").checked = false;
+        document.getElementById("saveButton").disabled = true
         if (platform == "windows") baseDirectory = "c:\\temp\\mirrorTool\\"; else baseDirectory = "/tmp/mirrorTool/";
         parameterList = [
             ["mirrorType", "regular", "select", "mirror", false],
@@ -114,8 +115,16 @@ var clipboard = new Clipboard(document.getElementById('copyButton'), {
     }
 });
 //event listeners for updating command line preview
-document.getElementById("exportButton").addEventListener("click", function (event) {
-    //do something
+document.getElementById("downloadButton").addEventListener("click", function (event) {
+    if (document.getElementById("commandLinePreview").value != ""){
+        if (document.getElementById("windows").checked) {
+            download('test.bat', document.getElementById("commandLinePreview").value);
+         } else {
+            let s = document.getElementById("commandLinePreview").value;
+            s = "#!/usr/bin/env bash\n" + (s.split("sudo ").pop());
+            download('test.sh', s);
+         }
+    } else alert("Command line cannot be empty");
 });
 document.getElementById("saveButton").addEventListener("click", function (event) {
     //do something
@@ -139,4 +148,17 @@ document.getElementById("linux").addEventListener("click", function (event) {
 });
 function question(){
     return (confirm("Reset all mandatory parameters to their platform specific default values?"));
+}
+function download(filename, text) {
+    var pom = document.createElement('a');
+    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    pom.setAttribute('download', filename);
+    if (document.createEvent) {
+        var event = document.createEvent('MouseEvents');
+        event.initEvent('click', true, true);
+        pom.dispatchEvent(event);
+    }
+    else {
+        pom.click();
+    }
 }
