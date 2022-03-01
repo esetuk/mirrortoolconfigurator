@@ -1,32 +1,49 @@
-let setDefaults = true;
 //array of parameters
 //KEY: 0=name, 1=default, 2=element, 3=type, 4=optional
-let parameterList = [
-    ["mirrorType", "regular", "select", "mirror", false],
-    ["intermediateUpdateDirectory", "c:\\temp\\mirrorTemp", "text", "mirror", false],
-    ["offlineLicenseFilename", "c:\\temp\\offline.lf", "text", "mirror", false],
-    ["updateServer", "", "text", "mirror", true],
-    ["outputDirectory", "c:\\temp\\mirror", "text", "mirror", false],
-    ["proxyHost", "", "text", "global", true],
-    ["proxyPort", "", "text", "global", true],
-    ["proxyUsername", "", "text", "global", true],
-    ["proxyPassword", "", "text", "global", true],
-    ["networkDriveUsername", "", "text", "mirror", true],
-    ["networkDrivePassword", "", "text", "mirror", true],
-    ["excludedProducts", "none", "select", "mirror", true],
-    ["repositoryServer", "AUTOSELECT", "text", "repository", false],
-    ["intermediateRepositoryDirectory", "c:\\temp\\repositoryTemp", "text", "repository", false],
-    ["mirrorOnlyLevelUpdates", false, "checkbox", "mirror", true],
-    ["outputRepositoryDirectory", "c:\\temp\\repository", "text", "repository", false],
-    ["mirrorFileFormat", "none", "select", "mirror", true],
-    ["compatibilityVersion", "", "text", "mirror", true],
-    ["filterFilePath", "", "text", "repository", true],
-    ["trustDownloadedFilesInRepositoryTemp", false, "checkbox", "repository", true]
-]
+let setDefaults = true;
+let parameterList;
+let platform = "windows"
+document.getElementById(platform).checked = true;
 function update() {
     let s = "";
     let isOutputValid = 0;
+    if (document.getElementById("windows").checked) platform = "windows"; else platform = "linux";
+    if (setDefaults){
+        document.getElementById("enableMirror").checked = true;
+        document.getElementById("enableRepository").checked = false;
+        document.getElementById("enableGlobal").checked = false;
+        document.getElementById("enableOptional").checked = false;
+        if (platform == "windows") baseDirectory = "c:\\temp\\mirrorTool\\"; else baseDirectory = "/tmp/mirrorTool/";
+        parameterList = [
+            ["mirrorType", "regular", "select", "mirror", false],
+            ["intermediateUpdateDirectory", baseDirectory + "mirrorTemp", "text", "mirror", false],
+            ["offlineLicenseFilename", baseDirectory + "offline.lf", "text", "mirror", false],
+            ["updateServer", "", "text", "mirror", true],
+            ["outputDirectory", baseDirectory + "mirror", "text", "mirror", false],
+            ["proxyHost", "", "text", "global", true],
+            ["proxyPort", "", "text", "global", true],
+            ["proxyUsername", "", "text", "global", true],
+            ["proxyPassword", "", "text", "global", true],
+            ["networkDriveUsername", "", "text", "mirror", true],
+            ["networkDrivePassword", "", "text", "mirror", true],
+            ["excludedProducts", "none", "select", "mirror", true],
+            ["repositoryServer", "AUTOSELECT", "text", "repository", false],
+            ["intermediateRepositoryDirectory", baseDirectory + "repositoryTemp", "text", "repository", false],
+            ["mirrorOnlyLevelUpdates", false, "checkbox", "mirror", true],
+            ["outputRepositoryDirectory", baseDirectory + "repository", "text", "repository", false],
+            ["mirrorFileFormat", "none", "select", "mirror", true],
+            ["compatibilityVersion", "", "text", "mirror", true],
+            ["filterFilePath", "", "text", "repository", true],
+            ["trustDownloadedFilesInRepositoryTemp", false, "checkbox", "repository", true]
+        ];
+    }
+    console.log(parameterList);
     for (let i = 0; i < parameterList.length; i++) {
+        if (setDefaults)
+        {
+            document.getElementById(parameterList[i][0]).value = parameterList[i][1];
+            document.getElementById(parameterList[i][0]).checked = parameterList[i][1];
+        }
         let o = document.getElementsByClassName("optional");
         //iterate through optional parameters, hide them if enableoptional is not checked
         for (let i = 0; i < o.length; i++) {
@@ -34,16 +51,6 @@ function update() {
         }
         //iterate through all the parameters
         if (document.getElementById(parameterList[i][0]) != null) {
-            //set default values on form load
-            if (setDefaults) {
-                document.getElementById("windows").checked = true;
-                document.getElementById(parameterList[i][0]).value = parameterList[i][1];
-                document.getElementById(parameterList[i][0]).checked = parameterList[i][1];
-                document.getElementById("enableMirror").checked = true;
-                document.getElementById("enableRepository").checked = false;
-                document.getElementById("enableGlobal").checked = false;
-                document.getElementById("enableOptional").checked = false;
-            }
             //check if section is enabled, if so allow the mandatory parameters to be written to the output
             if ((document.getElementById("enableMirror").checked && parameterList[i][3] == "mirror") ||
                 (document.getElementById("enableRepository").checked && parameterList[i][3] == "repository") ||
@@ -120,3 +127,14 @@ for (i = 0; i < input.length; i++) {
 document.getElementById("mirrorType").addEventListener("input", function (event) { update(); });
 document.getElementById("mirrorFileFormat").addEventListener("input", function (event) { update(); });
 document.getElementById("excludedProducts").addEventListener("input", function (event) { update(); });
+document.getElementById("windows").addEventListener("click", function (event) {
+    setDefaults = question();
+    update(); 
+});
+document.getElementById("linux").addEventListener("click", function (event) {
+    setDefaults = question();
+    update(); 
+});
+function question(){
+    return (confirm("Reset all parameters?"));
+}
