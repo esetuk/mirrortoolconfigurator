@@ -9,7 +9,7 @@ function update() {
     let isOutputValid = 0;
     if (document.getElementById("windows").checked) platform = "windows"; else platform = "linux";
     if (setDefaults){
-        document.getElementById("enableMirror").checked = false;
+        document.getElementById("enableMirror").checked = true;
         document.getElementById("enableRepository").checked = false;
         document.getElementById("enableGlobal").checked = false;
         document.getElementById("enableOptional").checked = false;
@@ -37,7 +37,6 @@ function update() {
             ["trustDownloadedFilesInRepositoryTemp", false, "checkbox", "repository", true]
         ];
     }
-    console.log(parameterList);
     for (let i = 0; i < parameterList.length; i++) {
         if (setDefaults)
         {
@@ -95,6 +94,7 @@ function update() {
     if (s.length != 0 && isOutputValid == 0) {
         if (document.getElementById("windows").checked) document.getElementById("commandLinePreview").value = "MirrorTool.exe " + s; else document.getElementById("commandLinePreview").value = "sudo ./MirrorTool " + s
     } else document.getElementById("commandLinePreview").value = "";
+    //show or hide sections
     if (document.getElementById("enableMirror").checked) document.getElementById("mirror").style.display = "block"; else document.getElementById("mirror").style.display = "none";
     if (document.getElementById("enableRepository").checked) document.getElementById("repository").style.display = "block"; else document.getElementById("repository").style.display = "none";
     if (document.getElementById("enableGlobal").checked) document.getElementById("global").style.display = "block"; else document.getElementById("global").style.display = "none";
@@ -102,6 +102,8 @@ function update() {
     document.getElementById("commandLinePreview").setAttribute("style", "height: 0px");
     document.getElementById("commandLinePreview").setAttribute("style", "height:" + (document.getElementById("commandLinePreview").scrollHeight) + "px;overflow-y:hidden;");
     setDefaults = false;
+    //scroll to bottom (to ensure that when enabling (unhiding) a section, it is fully visible on the page)
+    window.scrollTo(0,document.body.scrollHeight);
 }
 update();
 //copy to clipboard

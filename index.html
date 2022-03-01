@@ -17,7 +17,7 @@
                     <li>Parameters marked with an an asterisk (*) require mandatory arguments.</li>
                     <li>If you need help hover over each parameter name for a tip or follow the<a href="https://help.eset.com/protect_install/90/en-US/mirror_tool_windows.html" target="_blank">MirrorTool documentation.</a></li>
                     <li>To obtain an offline licence file for mirror usage please follow the<a href="https://help.eset.com/eba/en-US/downloading-offline_legacy-licenses.html" target="_blank">ESET Business Account documentation.</a></li>
-                    <li>Press F5 to reset the arguments to their defaults.</li>
+                    <li>Press F5 to reset the arguments to their defaults (Windows mirror).</li>
                     <li>Make your platform selection first as this will optionally set mandatory arguments to their defaults.</li>
                     <li>You need to have at least Mirror or Repository sections enabled to view the command line preview.</li>
                 </ul>
@@ -34,9 +34,7 @@
                     <button type="button" id="exportButton">Export to script</button>
                     <button type="button" id="saveButton">Save configuration</button>
                 </div>
-            </div>
-            <label id="heading" class="labels">Optional parameters</label>
-            <input type="checkbox" id="enableOptional"><br>
+            </div> 
             <label id="heading" class="labels">Mirror parameters</label>
             <input type="checkbox" id="enableMirror"><br>
             <div id="mirror">
@@ -101,7 +99,6 @@
                     <input type="checkbox" id="trustDownloadedFilesInRepositoryTemp" placeholder=""><br>
                 </div>
             </div>
-            <div class="optional">
                 <label id="heading" class="labels">Global parameters</label>
                 <input type="checkbox" id="enableGlobal"><br>
                 <div id="global">
@@ -114,7 +111,8 @@
                     <label class="labels" title="[optional] Http proxy password.">proxyPassword</label>
                     <input type="text" id="proxyPassword" placeholder=""><br>
                 </div>
-            </div>
+            <label id="heading" class="labels">Optional parameters</label>
+            <input type="checkbox" id="enableOptional"><br>
         </div>
     </div>
     <script type="text/javascript" src="src/main.js"></script>
