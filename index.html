@@ -52,12 +52,19 @@
                 <input type="text" id="offlineLicenseFilename" placeholder=""><br />
                 <div class="optional">
                     <label class="labels" title="[optional] Disable creating mirror for specified products. Possible values: ep4 ep5 ep6 era6 ep7 ep8 ep9. Use a space to separate each value.">excludedProducts</label>
-                    <input type="text" id="excludedProducts" placeholder=""><br>
+                    <select id="excludedProducts">
+                        <option value="none">none</option>
+                        <option value="ep4 ep5 ep6 era6 ep7 ep8">8 or lower</option>
+                        <option value="ep4 ep5 ep6 era6 ep7">7 or lower</option>
+                        <option value="ep4 ep5 ep6 era6">6 or lower</option>
+                        <option value="ep4 ep5">5 or lower</option>
+                        <option value="ep4">4 or lower</option>
+                    </select><br>
                     <label class="labels" title="[optional] If set, only level upgrades will be downloaded (nano/continuous updates will not be downloaded).">mirrorOnlyLevelUpdates</label>
                     <input type="checkbox" id="mirrorOnlyLevelUpdates"><br>
                     <label class="labels" title="[optional] Specifies which type of update files will be downloaded. Possible values (case insensitive): dll, dat.">mirrorFileFormat</label>
                     <select id="mirrorFileFormat">
-                        <option value=""></option>
+                        <option value="none">none</option>
                         <option value="dll">dll</option>
                         <option value="dat">dat</option>
                     </select><br>

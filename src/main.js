@@ -13,12 +13,12 @@ let parameterList = [
     ["proxyPassword", "", "text", "global", true],
     ["networkDriveUsername", "", "text", "mirror", true],
     ["networkDrivePassword", "", "text", "mirror", true],
-    ["excludedProducts", "", "text", "mirror", true],
+    ["excludedProducts", "none", "select", "mirror", true],
     ["repositoryServer", "AUTOSELECT", "text", "repository", false],
     ["intermediateRepositoryDirectory", "c:\\temp\\repositoryTemp", "text", "repository", false],
     ["mirrorOnlyLevelUpdates", false, "checkbox", "mirror", true],
     ["outputRepositoryDirectory", "c:\\temp\\repository", "text", "repository", false],
-    ["mirrorFileFormat", "", "select", "mirror", true],
+    ["mirrorFileFormat", "none", "select", "mirror", true],
     ["compatibilityVersion", "", "text", "mirror", true],
     ["filterFilePath", "", "text", "repository", true],
     ["trustDownloadedFilesInRepositoryTemp", false, "checkbox", "repository", true]
@@ -61,7 +61,7 @@ function update() {
                             break;
                         case ("select"):
                             //write parameter for currently selected item in dropdown box
-                            if (document.getElementById(parameterList[i][0]).options[document.getElementById(parameterList[i][0]).selectedIndex].text != "") s += "--" + parameterList[i][0] + " " + document.getElementById(parameterList[i][0]).options[document.getElementById(parameterList[i][0]).selectedIndex].text + " ";
+                            if (document.getElementById(parameterList[i][0]).options[document.getElementById(parameterList[i][0]).selectedIndex].text != "none") s += "--" + parameterList[i][0] + " " + document.getElementById(parameterList[i][0]).options[document.getElementById(parameterList[i][0]).selectedIndex].value + " ";
                             break;
                     }
                 }
@@ -119,3 +119,4 @@ for (i = 0; i < input.length; i++) {
 }
 document.getElementById("mirrorType").addEventListener("input", function (event) { update(); });
 document.getElementById("mirrorFileFormat").addEventListener("input", function (event) { update(); });
+document.getElementById("excludedProducts").addEventListener("input", function (event) { update(); });
