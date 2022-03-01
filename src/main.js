@@ -9,7 +9,7 @@ function update() {
     let isOutputValid = 0;
     if (document.getElementById("windows").checked) platform = "windows"; else platform = "linux";
     if (setDefaults){
-        document.getElementById("enableMirror").checked = true;
+        document.getElementById("enableMirror").checked = false;
         document.getElementById("enableRepository").checked = false;
         document.getElementById("enableGlobal").checked = false;
         document.getElementById("enableOptional").checked = false;
