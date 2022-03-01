@@ -183,7 +183,7 @@
                 isOutputValid++
             }
         }
-        if (isOutputValid > 0) {
+        if (isOutputValid > 0 || (!document.getElementById("enableMirror").checked && !document.getElementById("enableRepository").checked)) {
             document.getElementById("copyButton").disabled = true;
         } else {
             document.getElementById("copyButton").disabled = false;
