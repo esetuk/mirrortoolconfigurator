@@ -69,9 +69,11 @@ function update() {
         }
         //if field is empty and mandatory then highlight the field red, modify the placeholder text, and declare the output as invalid
         if (document.getElementById(parameterList[i][0]).value == "" && !parameterList[i][4]) {
-            document.getElementById(parameterList[i][0]).style.borderColor = "red"
+            document.getElementById(parameterList[i][0]).style.borderColor = "red";
             document.getElementById(parameterList[i][0]).placeholder = "This field cannot be blank";
             isOutputValid++
+        } else {
+            document.getElementById(parameterList[i][0]).style.borderColor = "lightgrey";
         }
     }
     //if the number of invalid fields are more than 0 or mandatory sections are disabled the disable the copy button, otherwise show it
@@ -80,25 +82,29 @@ function update() {
     } else {
         document.getElementById("copyButton").disabled = false;
     }
+    //trim whitespace
     s = s.trim();
+    //check if there is anything to write and if the output is valid
     if (s.length != 0 && isOutputValid == 0) {
         if (document.getElementById("windows").checked) document.getElementById("commandLinePreview").value = "MirrorTool.exe " + s; else document.getElementById("commandLinePreview").value = "sudo ./MirrorTool " + s
     } else document.getElementById("commandLinePreview").value = "";
     if (document.getElementById("enableMirror").checked) document.getElementById("mirror").style.display = "block"; else document.getElementById("mirror").style.display = "none";
     if (document.getElementById("enableRepository").checked) document.getElementById("repository").style.display = "block"; else document.getElementById("repository").style.display = "none";
     if (document.getElementById("enableGlobal").checked) document.getElementById("global").style.display = "block"; else document.getElementById("global").style.display = "none";
+    //workaround for auto-sizing the command line preview box
     document.getElementById("commandLinePreview").setAttribute("style", "height: 0px");
     document.getElementById("commandLinePreview").setAttribute("style", "height:" + (document.getElementById("commandLinePreview").scrollHeight) + "px;overflow-y:hidden;");
     setDefaults = false;
 }
 update();
-var copyButton = document.getElementById('copyButton');
-var clipboard = new Clipboard(copyButton, {
+//copy to clipboard
+var clipboard = new Clipboard(document.getElementById('copyButton'), {
     text: function (trigger) {
         update();
         return document.getElementById("commandLinePreview").value;
     }
 });
+//event listeners for updating command line preview
 document.getElementById("exportButton").addEventListener("click", function (event) {
     //do something
 });
