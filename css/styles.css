@@ -99,7 +99,7 @@ input:focus {
 }
 #heading {
     width: auto;
-    text-align: center;
+    text-align: left;
     font-size: 16px;
     font-weight: bolder;
 }
@@ -146,7 +146,7 @@ textarea {
 #info {
     text-align: left;
     background-color: lightblue;
-    vertical-align: middle;
+    display: block;
 }
 #saveButton {
     display: none;

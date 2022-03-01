@@ -12,6 +12,7 @@
         <div class="block" id="left">
             <div id="header">MirrorToolConfigurator</div>
             <label class="labels" id="heading">Important information</label>
+            <a id="infoToggle" href="javascript:void(0);" onclick="toggleInfo();">hide</a>
             <div id="info">
                 <ul>
                     <li>Parameters marked with an an asterisk (*) require mandatory arguments.</li>
@@ -22,7 +23,7 @@
                     <li>You need to have at least Mirror or Repository sections enabled to view the command preview.</li>
                 </ul>
             </div>
-            <label class="labels" id="heading">Command preview</label>
+            <label class="labels" id="heading" style="display: block;">Command preview</label>
             <div id="command">
                 <textarea readonly spellcheck="false" id="commandPreview" placeholder="Some mandatory parameter sections are disabled or some arguments are empty, please check your configuration."></textarea>
                 <input class="platforms" type="radio" id="windows" name="platforms" value="Windows">

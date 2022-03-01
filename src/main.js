@@ -13,7 +13,8 @@ function update() {
         document.getElementById("enableRepository").checked = false;
         document.getElementById("enableGlobal").checked = false;
         document.getElementById("enableOptional").checked = false;
-        document.getElementById("saveButton").disabled = true
+        document.getElementById("saveButton").disabled = true;
+        document.getElementById("info").style.display = "block";
         if (platform == "windows") baseDirectory = "c:\\temp\\mirrorTool\\"; else baseDirectory = "/tmp/mirrorTool/";
         parameterList = [
             ["mirrorType", "regular", "select", "mirror", false],
@@ -162,5 +163,14 @@ function download(filename, text) {
     }
     else {
         pom.click();
+    }
+}
+function toggleInfo(){
+    if (document.getElementById("info").style.display == "block") {
+        document.getElementById("info").style.display = "none";
+        document.getElementById("infoToggle").text = "show";
+    } else {
+        document.getElementById("info").style.display = "block";
+        document.getElementById("infoToggle").text = "hide";
     }
 }
