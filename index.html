@@ -11,18 +11,20 @@
     <div id="main" class="noselect">
         <div class="block" id="left">
             <div id="header">MirrorToolConfigurator</div>
+            <label class="labels" id="heading">Important information</label>
             <div id="info">
                 <ul>
-                    <li>Parameters marked with an asterisk are mandatory.</li>
+                    <li>Arguments marked with an asterisk are mandatory.</li>
                     <li>If you need help hover over each parameter name for a tip or follow the<a href="https://help.eset.com/protect_install/90/en-US/mirror_tool_windows.html" target="_blank">MirrorTool documentation.</a></li>
                     <li>To obtain an offline licence file for mirror usage please follow the<a href="https://help.eset.com/eba/en-US/downloading-offline_legacy-licenses.html" target="_blank">ESET Business Account documentation.</a></li>
-                    <li>Press F5 to reset the parameters to defaults.</li>
-                    <li>Make your platform selection first as this will optionally set mandatory values to their defaults.</li>
+                    <li>Press F5 to reset the arguments to their defaults.</li>
+                    <li>Make your platform selection first as this will optionally set mandatory arguments to their defaults.</li>
+                    <li>You need to have at least Mirror or Repository sections enabled to view the command line preview.</li>
                 </ul>
             </div>
             <label class="labels" id="heading">Command line preview</label>
             <div id="output">
-                <textarea readonly spellcheck="false" id="commandLinePreview" placeholder="Some mandatory parameters are disabled or empty, please check your configuration."></textarea>
+                <textarea readonly spellcheck="false" id="commandLinePreview" placeholder="Some mandatory parameter sections are disabled or some arguments are empty, please check your configuration."></textarea>
                 <input class="platforms" type="radio" id="windows" name="platforms" value="Windows">
                 <label class="platforms" for="windows">Windows</label>
                 <input class="platforms" type="radio" id="linux" name="platforms" value="Linux">
