@@ -21,7 +21,7 @@ enableWindows.checked = true;
 function update() {
     let s = "",
     isOutputValid = 0;
-    enableMirror.checked ? platform = "windows" : platform = "linux";
+    enableWindows.checked ? platform = "windows" : platform = "linux";
     if (setDefaults){
         enableMirror.checked = true;
         enableRepository.checked = false;
