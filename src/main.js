@@ -27,7 +27,7 @@ function update() {
         enableRepository.checked = false;
         enableGlobal.checked = false;
         enableOptional.checked = false;
-        platform == "windows" ? baseDirectory = "c:\\temp\\mirrorTool\\" : baseDirectory = "/tmp/mirrorTool/";
+        platform == "windows" ? baseDirectory = "c:\\temp\\" : baseDirectory = "/tmp/";
         //master list of parameters
         //KEY: 0=name of parameter, 1=default value, 2=type of element, 3=section name, 4=optional
         parameterList = [
