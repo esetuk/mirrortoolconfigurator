@@ -21,7 +21,7 @@ enableWindows.checked = true;
 function update() {
     let s = "",
     isOutputValid = 0;
-    if (enableMirror.checked) platform = "windows"; else platform = "linux";
+    enableMirror.checked ? platform = "windows" : platform = "linux";
     if (setDefaults){
         enableMirror.checked = true;
         enableRepository.checked = false;
@@ -69,7 +69,7 @@ function update() {
         let o = document.getElementsByClassName("optional");
         //iterate through optional parameters, hide them if enableoptional is not checked
         for (let i = 0; i < o.length; i++) {
-            if (enableOptional.checked) o[i].style.display = "block"; else o[i].style.display = "none";
+            enableOptional.checked ? o[i].style.display = "block" : o[i].style.display = "none";
         }
         //iterate through all the parameters
         if (pElement != null) {
@@ -113,14 +113,14 @@ function update() {
     }
     //trim whitespace
     s = s.trim();
-    //check if there is anything to write and if the output is valid
+    //check if there is anything to write and if the output is valid, if so write the platform specific prefix plus the commands to the command preview
     if (s.length != 0 && isOutputValid == 0) {
-        if (enableWindows.checked) commandPreview.value = "MirrorTool.exe " + s; else commandPreview.value = "sudo ./MirrorTool " + s
+        enableWindows.checked ? commandPreview.value = "MirrorTool.exe " + s : commandPreview.value = "sudo ./MirrorTool " + s
     } else commandPreview.value = "";
     //show or hide sections based on checkbox states
-    if (enableMirror.checked) mirror.style.display = "block"; else mirror.style.display = "none";
-    if (enableRepository.checked) repository.style.display = "block"; else repository.style.display = "none";
-    if (enableGlobal.checked) global.style.display = "block"; else global.style.display = "none";
+    enableMirror.checked ? mirror.style.display = "block" : mirror.style.display = "none";
+    enableRepository.checked ? repository.style.display = "block" : repository.style.display = "none";
+    enableGlobal.checked ? global.style.display = "block" : global.style.display = "none";
     //workaround for auto-sizing the command line preview box
     commandPreview.setAttribute("style", "height: 0px");
     commandPreview.setAttribute("style", "height:" + (commandPreview.scrollHeight) + "px;overflow-y:hidden;");
