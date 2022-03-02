@@ -14,7 +14,6 @@ enableMirror = document.getElementById("enableMirror"),
 enableRepository = document.getElementById("enableRepository"),
 enableGlobal = document.getElementById("enableGlobal"),
 enableOptional = document.getElementById("enableOptional"),
-saveButton = document.getElementById("saveButton"),
 copyButton = document.getElementById("copyButton"),
 downloadButton = document.getElementById("downloadButton"),
 commandPreview = document.getElementById("commandPreview");
@@ -28,7 +27,6 @@ function update() {
         enableRepository.checked = false;
         enableGlobal.checked = false;
         enableOptional.checked = false;
-        saveButton.disabled = true;
         platform == "windows" ? baseDirectory = "c:\\temp\\mirrorTool\\" : baseDirectory = "/tmp/mirrorTool/";
         //master list of parameters
         //KEY: 0=name of parameter, 1=default value, 2=type of element, 3=section name, 4=optional
@@ -147,9 +145,6 @@ downloadButton.addEventListener("click", function (event) {
             download('test.sh', s);
          }
     } else alert("Command line cannot be empty");
-});
-saveButton.addEventListener("click", function (event) {
-    //do something
 });
 let input = document.querySelectorAll("input");
 for (i = 0; i < input.length; i++) {

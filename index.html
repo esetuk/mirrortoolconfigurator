@@ -15,6 +15,7 @@
                 <ul>
                     <li>If you need help hover over each parameter name for a tip or follow the<a href="https://help.eset.com/protect_install/90/en-US/mirror_tool_windows.html" target="_blank">MirrorTool documentation.</a></li>
                     <li>To obtain an offline licence file for mirror usage please follow the<a href="https://help.eset.com/eba/en-US/downloading-offline_legacy-licenses.html" target="_blank">ESET Business Account documentation.</a></li>
+                    <li>Press F5 or click the refresh button in your browser to reset to defaults.</li>
                 </ul>
             </div>
             <label class="labels" id="heading" style="display: block;">Command preview</label>
@@ -27,7 +28,6 @@
                 <div id="buttons">
                     <button type="button" id="copyButton">Copy to clipboard</button>
                     <button type="button" id="downloadButton">Download script</button>
-                    <button type="button" id="saveButton">Save configuration</button>
                 </div>
             </div> 
             <label id="heading" class="labels">Mirror parameters</label>
@@ -61,8 +61,8 @@
                     <label class="labels" title="[optional] Specifies which type of update files will be downloaded. Possible values (case insensitive): dll, dat.">mirrorFileFormat</label>
                     <select id="mirrorFileFormat">
                         <option value="none">none</option>
-                        <option value="dll">dll</option>
-                        <option value="dat">dat</option>
+                        <option value="dll" title="Use this value if you have environment only with ESET security product versions 6.5 and older.">dll (<= v6.5)</option>
+                        <option value="dat" title="Use this value if you have environment only with ESET security product versions 6.6 and later.">dat (>= v6.6)</option>
                     </select><br>
                     <label class="labels" title="[optional] Version of compatible products.">compatibilityVersion</label>
                     <input type="text" id="compatibilityVersion" placeholder="e.g. x.x (9.0) or x.x.x.x (9.0.2030.0)">
