@@ -161,16 +161,12 @@ mirrorType.addEventListener("input", function () { update(); });
 mirrorFileFormat.addEventListener("input", function () { update(); });
 excludedProducts.addEventListener("input", function () { update(); });
 enableWindows.addEventListener("click", function () {
-    if (!enableWindows){
         setDefaults = question();
         update(); 
-    }
 });
 enableLinux.addEventListener("click", function () {
-    if (!enableLinux){
         setDefaults = question();
         update();
-    } 
 });
 //scroll to bottom when section expands to ensure visibility
 mirror.addEventListener("input", function() { scrollToBottom() });
