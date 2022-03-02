@@ -47,7 +47,7 @@
                 <label class="labels" title="[required for module update] Offline license file.">offlineLicenseFilename*</label>
                 <input type="text" id="offlineLicenseFilename" placeholder=""><br />
                 <div class="optional">
-                    <label class="labels" title="[optional] Disable creating mirror for specified products. Possible values: ep4 ep5 ep6 era6 ep7 ep8 ep9. Use a space to separate each value.">excludedProducts</label>
+                    <label class="labels" title="[optional] Disable creating mirror for specified products.">excludedProducts</label>
                     <select id="excludedProducts">
                         <option value="none">none</option>
                         <option value="ep4 ep5 ep6 era6 ep7 ep8">8 or lower</option>
@@ -65,10 +65,10 @@
                         <option value="dat">dat</option>
                     </select><br>
                     <label class="labels" title="[optional] Version of compatible products.">compatibilityVersion</label>
-                    <input type="text" id="compatibilityVersion" placeholder="">
+                    <input type="text" id="compatibilityVersion" placeholder="e.g. x.x (9.0) or x.x.x.x (9.0.2030.0)">
                     <br>
                     <label class="labels" title="[optional] Update server. (e.g.: http://update.eset.com/eset_upd/ep6/) Mirror will be created in output directory, only specified path in server will be mirrored.">updateServer</label>
-                    <input type="text" id="updateServer" placeholder="">
+                    <input type="text" id="updateServer" placeholder="e.g. http://update.eset.com/eset_upd/ep6/">
                     <br>
                     <label class="labels" title="[optional] Username used, when output directory is accessed using smb(e.g:\\hostname).">networkDriveUsername</label>
                     <input type="text" id="networkDriveUsername" placeholder="">
@@ -98,7 +98,7 @@
                 <input type="checkbox" id="enableGlobal"><br>
                 <div id="global">
                     <label class="labels" title="[optional] Http proxy address (fqdn or IP).">proxyHost</label>
-                    <input type="text" id="proxyHost" placeholder=""><br>
+                    <input type="text" id="proxyHost" placeholder="e.g.: proxy.domain.com or 10.0.0.10"><br>
                     <label class="labels" title="[optional] Http proxy port.">proxyPort</label>
                     <input type="text" id="proxyPort" placeholder=""><br>
                     <label class="labels" title="[optional] Http proxy username.">proxyUsername</label>
