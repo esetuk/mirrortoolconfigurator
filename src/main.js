@@ -1,21 +1,33 @@
-//array of parameters
-//KEY: 0=name, 1=default, 2=element, 3=type, 4=optional
-let setDefaults = true;
-let parameterList;
-let platform = "windows"
-document.getElementById(platform).checked = true;
+let setDefaults = true,
+parameterList,
+//element aliases
+mirrorType = document.getElementById("mirrorType"),
+mirrorFileFormat = document.getElementById("mirrorFileFormat"),
+excludedProducts = document.getElementById("excludedProducts"),
+enableWindows = document.getElementById("enableWindows"),
+enableLinux = document.getElementById("enableLinux"),
+mirror = document.getElementById("mirror"),
+repository = document.getElementById("repository"),
+global = document.getElementById("global"),
+enableMirror = document.getElementById("enableMirror"),
+enableRepository = document.getElementById("enableRepository"),
+enableGlobal = document.getElementById("enableGlobal"),
+enableOptional = document.getElementById("enableOptional"),
+copyButton = document.getElementById("copyButton"),
+downloadButton = document.getElementById("downloadButton"),
+commandPreview = document.getElementById("commandPreview");
+enableWindows.checked = true;
 function update() {
-    let s = "";
-    let isOutputValid = 0;
-    if (document.getElementById("windows").checked) platform = "windows"; else platform = "linux";
+    let s = "",
+    isOutputValid = 0;
+    enableWindows.checked ? baseDirectory = "c:\\mirrorTool\\" : baseDirectory = "/tmp/mirrorTool/";
     if (setDefaults){
-        document.getElementById("enableMirror").checked = true;
-        document.getElementById("enableRepository").checked = false;
-        document.getElementById("enableGlobal").checked = false;
-        document.getElementById("enableOptional").checked = false;
-        document.getElementById("saveButton").disabled = true;
-        document.getElementById("info").style.display = "block";
-        if (platform == "windows") baseDirectory = "c:\\temp\\mirrorTool\\"; else baseDirectory = "/tmp/mirrorTool/";
+        enableMirror.checked = true;
+        enableRepository.checked = false;
+        enableGlobal.checked = false;
+        enableOptional.checked = false;
+        //master list of parameters
+        //KEY: 0=name of parameter, 1=default value, 2=type of element, 3=section name, 4=optional
         parameterList = [
             ["mirrorType", "regular", "select", "mirror", false],
             ["intermediateUpdateDirectory", baseDirectory + "mirrorTemp", "text", "mirror", false],
@@ -40,115 +52,123 @@ function update() {
         ];
     }
     for (let i = 0; i < parameterList.length; i++) {
+        //aliases
+        let pName = parameterList[i][0];
+        let pElement = document.getElementById(pName);
+        let pDefault = parameterList[i][1];
+        let pType = parameterList[i][2];
+        let pSection = parameterList[i][3];
+        let pOptional = parameterList[i][4];
         if (setDefaults)
         {
-            document.getElementById(parameterList[i][0]).value = parameterList[i][1];
-            document.getElementById(parameterList[i][0]).checked = parameterList[i][1];
+            pElement.value = pDefault;
+            pElement.checked = pDefault;
         }
         let o = document.getElementsByClassName("optional");
         //iterate through optional parameters, hide them if enableoptional is not checked
         for (let i = 0; i < o.length; i++) {
-            if (document.getElementById("enableOptional").checked) o[i].style.display = "block"; else o[i].style.display = "none";
+            enableOptional.checked ? o[i].style.display = "block" : o[i].style.display = "none";
         }
         //iterate through all the parameters
-        if (document.getElementById(parameterList[i][0]) != null) {
+        if (pElement != null) {
             //check if section is enabled, if so allow the mandatory parameters to be written to the output
-            if ((document.getElementById("enableMirror").checked && parameterList[i][3] == "mirror") ||
-                (document.getElementById("enableRepository").checked && parameterList[i][3] == "repository") ||
-                (document.getElementById("enableGlobal").checked && parameterList[i][3] == "global")) {
+            if ((enableMirror.checked && pSection == "mirror") || (enableRepository.checked && pSection == "repository") || (enableGlobal.checked && pSection == "global")) {
                 //check if either optional parameters are enabled or optional parameters are disabled and current parameter is mandatory
-                if (document.getElementById("enableOptional").checked || !document.getElementById("enableOptional").checked && parameterList[i][4] == false) {
-                    switch (parameterList[i][2]) {
+                if (enableOptional.checked || !enableOptional.checked && parameterList[i][4] == false) {
+                    switch (pType) {
                         case ("text"):
                             //write parameter and args for text box
-                            if (document.getElementById(parameterList[i][0]).value != "") s += "--" + parameterList[i][0] + " " + document.getElementById(parameterList[i][0]).value + " ";
+                            if (pElement.value != "") s += "--" + pName + " " + pElement.value + " ";
                             break;
                         case ("checkbox"):
                             //write parameter for checkbox
-                            if (document.getElementById(parameterList[i][0]).checked) s += "--" + parameterList[i][0] + " ";
+                            if (pElement.checked) s += "--" + pName + " ";
                             break;
                         case ("select"):
-                            //write parameter for currently selected item in dropdown box
-                            if (document.getElementById(parameterList[i][0]).options[document.getElementById(parameterList[i][0]).selectedIndex].text != "none") s += "--" + parameterList[i][0] + " " + document.getElementById(parameterList[i][0]).options[document.getElementById(parameterList[i][0]).selectedIndex].value + " ";
+                            //write parameter for currently selected item in dropdown box and args
+                            if (pElement.options[pElement.selectedIndex].text != "none") s += "--" + pName + " " + pElement.options[pElement.selectedIndex].value + " ";
                             break;
                     }
                 }
             }
         }
         //if field is empty and mandatory then highlight the field red, modify the placeholder text, and declare the output as invalid
-        if (document.getElementById(parameterList[i][0]).value == "" && !parameterList[i][4]) {
-            document.getElementById(parameterList[i][0]).style.borderColor = "red";
-            document.getElementById(parameterList[i][0]).placeholder = "This field cannot be blank";
+        if (pElement.value == "" && !pOptional) {
+            pElement.style.borderColor = "red";
+            pElement.placeholder = "This field cannot be blank";
             isOutputValid++
         } else {
-            document.getElementById(parameterList[i][0]).style.borderColor = "lightgrey";
+            pElement.style.borderColor = "lightgrey";
         }
     }
     //if the number of invalid fields are more than 0 or mandatory sections are disabled the disable the copy and download buttons, otherwise show them
-    if (isOutputValid > 0 || (!document.getElementById("enableMirror").checked && !document.getElementById("enableRepository").checked)) {
-        document.getElementById("copyButton").disabled = true;
-        document.getElementById("downloadButton").disabled = true;
+    if (isOutputValid > 0 || (!enableMirror.checked && !enableRepository.checked)) {
+        copyButton.disabled = true;
+        downloadButton.disabled = true;
     } else {
-        document.getElementById("copyButton").disabled = false;
-        document.getElementById("downloadButton").disabled = false;
+        copyButton.disabled = false;
+        downloadButton.disabled = false;
     }
     //trim whitespace
     s = s.trim();
-    //check if there is anything to write and if the output is valid
+    //check if there is anything to write and if the output is valid, if so write the platform specific prefix plus the commands to the command preview
     if (s.length != 0 && isOutputValid == 0) {
-        if (document.getElementById("windows").checked) document.getElementById("commandPreview").value = "MirrorTool.exe " + s; else document.getElementById("commandPreview").value = "sudo ./MirrorTool " + s
-    } else document.getElementById("commandPreview").value = "";
-    //show or hide sections
-    if (document.getElementById("enableMirror").checked) document.getElementById("mirror").style.display = "block"; else document.getElementById("mirror").style.display = "none";
-    if (document.getElementById("enableRepository").checked) document.getElementById("repository").style.display = "block"; else document.getElementById("repository").style.display = "none";
-    if (document.getElementById("enableGlobal").checked) document.getElementById("global").style.display = "block"; else document.getElementById("global").style.display = "none";
+        enableWindows.checked ? commandPreview.value = "MirrorTool.exe " + s : commandPreview.value = "sudo ./MirrorTool " + s
+    } else commandPreview.value = "";
+    //show or hide sections based on checkbox states
+    enableMirror.checked ? mirror.style.display = "block" : mirror.style.display = "none";
+    enableRepository.checked ? repository.style.display = "block" : repository.style.display = "none";
+    enableGlobal.checked ? global.style.display = "block" : global.style.display = "none";
     //workaround for auto-sizing the command line preview box
-    document.getElementById("commandPreview").setAttribute("style", "height: 0px");
-    document.getElementById("commandPreview").setAttribute("style", "height:" + (document.getElementById("commandPreview").scrollHeight) + "px;overflow-y:hidden;");
+    commandPreview.setAttribute("style", "height: 0px");
+    commandPreview.setAttribute("style", "height:" + (commandPreview.scrollHeight) + "px;overflow-y:hidden;");
     setDefaults = false;
-    //scroll to bottom (to ensure that when enabling (unhiding) a section, it is fully visible on the page)
-    window.scrollTo(0,document.body.scrollHeight);
 }
 update();
 //copy to clipboard
 var clipboard = new Clipboard(document.getElementById('copyButton'), {
-    text: function (trigger) {
+    text: function () {
         update();
-        return document.getElementById("commandPreview").value;
+        return commandPreview.value;
     }
 });
 //event listeners for updating command line preview
-document.getElementById("downloadButton").addEventListener("click", function (event) {
-    if (document.getElementById("commandPreview").value != ""){
-        if (document.getElementById("windows").checked) {
-            download('test.bat', document.getElementById("commandPreview").value);
+downloadButton.addEventListener("click", function (event) {
+    if (commandPreview.value != ""){
+        if (enableWindows.checked) {
+            download('test.bat', commandPreview.value);
          } else {
-            let s = document.getElementById("commandPreview").value;
+            let s = commandPreview.value;
             s = "#!/usr/bin/env bash\n" + (s.split("sudo ").pop());
             download('test.sh', s);
          }
     } else alert("Command line cannot be empty");
 });
-document.getElementById("saveButton").addEventListener("click", function (event) {
-    //do something
-});
 let input = document.querySelectorAll("input");
 for (i = 0; i < input.length; i++) {
-    input[i].addEventListener("input", function (event) {
+    input[i].addEventListener("input", function () {
         update();
     });
 }
-document.getElementById("mirrorType").addEventListener("input", function (event) { update(); });
-document.getElementById("mirrorFileFormat").addEventListener("input", function (event) { update(); });
-document.getElementById("excludedProducts").addEventListener("input", function (event) { update(); });
-document.getElementById("windows").addEventListener("click", function (event) {
-    setDefaults = question();
-    update(); 
+mirrorType.addEventListener("input", function () { update(); });
+mirrorFileFormat.addEventListener("input", function () { update(); });
+excludedProducts.addEventListener("input", function () { update(); });
+enableWindows.addEventListener("click", function () {
+        setDefaults = question();
+        update(); 
 });
-document.getElementById("linux").addEventListener("click", function (event) {
-    setDefaults = question();
-    update(); 
+enableLinux.addEventListener("click", function () {
+        setDefaults = question();
+        update();
 });
+//scroll to bottom when section expands to ensure visibility
+mirror.addEventListener("input", function() { scrollToBottom() });
+repository.addEventListener("input", function() { scrollToBottom() });
+global.addEventListener("input", function() { scrollToBottom() });
+enableOptional.addEventListener("input", function() { scrollToBottom() });
+function scrollToBottom(){
+    window.scrollTo(0,document.body.scrollHeight);
+}
 function question(){
     return (confirm("Reset all mandatory parameters to their platform specific default values?"));
 }
@@ -163,14 +183,5 @@ function download(filename, text) {
     }
     else {
         pom.click();
-    }
-}
-function toggleInfo(){
-    if (document.getElementById("info").style.display == "block") {
-        document.getElementById("info").style.display = "none";
-        document.getElementById("infoToggle").text = "show";
-    } else {
-        document.getElementById("info").style.display = "block";
-        document.getElementById("infoToggle").text = "hide";
     }
 }
