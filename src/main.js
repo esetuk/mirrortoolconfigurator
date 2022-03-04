@@ -136,17 +136,12 @@ for (i = 0; i < input.length; i++) {
         update();
     });
 }
+resetLink.addEventListener("click", function() { resetQuestion() });
+enableWindows.addEventListener("click", function () { resetQuestion() });
+enableLinux.addEventListener("click", function () { resetQuestion() });
 mirrorType.addEventListener("input", function () { update(); });
 mirrorFileFormat.addEventListener("input", function () { update(); });
 excludedProducts.addEventListener("input", function () { update(); });
-enableWindows.addEventListener("click", function () {
-        setDefaults = question();
-        update(); 
-});
-enableLinux.addEventListener("click", function () {
-        setDefaults = question();
-        update();
-});
 //scroll to bottom when section expands to ensure visibility
 mirror.addEventListener("input", function() { scrollToBottom() });
 repository.addEventListener("input", function() { scrollToBottom() });
@@ -155,8 +150,9 @@ enableOptional.addEventListener("input", function() { scrollToBottom() });
 function scrollToBottom(){
     window.scrollTo(0,document.body.scrollHeight);
 }
-function question(){
-    return (confirm("Reset all mandatory parameters to their platform specific default values?"));
+function resetQuestion(){
+    setDefaults = (confirm("Reset all mandatory parameters to their platform specific default values?"));
+    update();
 }
 function download(filename, text) {
     var pom = document.createElement('a');
