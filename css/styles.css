@@ -181,20 +181,20 @@ label {
 colorParameter {
     color: rgb(255, 0, 221);
     font-family: "Lucida console";
-    font-size: medium;
+    font-size: small;
 }
 colorArgument {
     color: rgb(252, 252, 5);
     font-family: "Lucida console";
-    font-size: medium;
+    font-size: small;
 }
 colorStart {
     color: rgb(0, 255, 21);
     font-family: "Lucida console";
-    font-size: medium;
+    font-size: small;
 }
 colorWarn {
     color: red;
     font-family: "Lucida console";
-    font-size: medium;
+    font-size: small;
 }
