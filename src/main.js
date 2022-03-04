@@ -146,7 +146,7 @@ enableOptional.addEventListener("input", function() { update(); scrollToBottom()
 enableGlobal.addEventListener("input", function() { update(); scrollToBottom() });
 //Theme switcher event listener
 themeSwitcher.addEventListener("click", function() {
-    darkMode ? darkMode = false : darkMode = true;
+    //darkMode ? darkMode = false : darkMode = true;
     update();
 });
 //Prevent accidental F5 keypress
