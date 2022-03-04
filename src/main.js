@@ -7,11 +7,7 @@ function update() {
     let s = "",
     isOutputValid = 0;
     enableWindows.checked ? baseDirectory = "c:\\mirrorTool\\" : baseDirectory = "/tmp/mirrorTool/";
-    if (darkMode) {
-        document.querySelector("html").style.filter = "invert(0)";
-    } else {
-        document.querySelector("html").style.filter = "invert(100%)";
-    }
+    darkMode ? document.querySelector("html").style.filter = "invert(0)" : document.querySelector("html").style.filter = "invert(100%)";
     if (setDefaults){
         enableMirror.checked = true;
         enableRepository.checked = false;
@@ -125,13 +121,14 @@ var clipboard = new Clipboard(document.getElementById('copyButton'), {
         return commandPreview.innerHTML;
     }
 });
+//Main form event listener to update the command preview
+main.addEventListener("input", function() { update(); });
 //Event listeners for reset query
 resetLink.addEventListener("click", function() { resetQuestion() });
 enableWindows.addEventListener("click", function () { resetQuestion() });
 enableLinux.addEventListener("click", function () { resetQuestion() });
-//Event listeners for updating command line preview
+//Download event listener
 downloadButton.addEventListener("click", function (event) {
-    if (commandPreview.innerHTML != ""){
         if (enableWindows.checked) {
             download('test.bat', commandPreview.innerHTML);
          } else {
@@ -139,17 +136,7 @@ downloadButton.addEventListener("click", function (event) {
             s = "#!/usr/bin/env bash\n" + (s.split("sudo ").pop());
             download('test.sh', s);
          }
-    } else alert("Command line cannot be empty");
 });
-let input = document.querySelectorAll("input");
-for (i = 0; i < input.length; i++) {
-    input[i].addEventListener("input", function () {
-        update();
-    });
-}
-mirrorType.addEventListener("input", function () { update(); });
-mirrorFileFormat.addEventListener("input", function () { update(); });
-excludedProducts.addEventListener("input", function () { update(); });
 //Scroll to bottom when section expands to ensure visibility
 enableMirror.addEventListener("input", function() { scrollToBottom() });
 enableRepository.addEventListener("input", function() { scrollToBottom() });
