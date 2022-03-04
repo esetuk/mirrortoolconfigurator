@@ -2,11 +2,16 @@ let setDefaults = true,
 parameterList;
 enableWindows.checked = true,
 darkMode = true;
+themeSwitcher.setAttribute("style", "filter: invert(100%)");
 function update() {
     let s = "",
     isOutputValid = 0;
     enableWindows.checked ? baseDirectory = "c:\\mirrorTool\\" : baseDirectory = "/tmp/mirrorTool/";
-    darkMode ? themeSwitcher.setAttribute("style", "filter: invert(100%)") : themeSwitcher.setAttribute("style", "filter: invert(0)");
+    if (darkMode) {
+        document.querySelector("body").style.filter = "invert(0)";
+    } else {
+        document.querySelector("body").style.filter = "invert(100%)";
+    }
     if (setDefaults){
         enableMirror.checked = true;
         enableRepository.checked = false;
