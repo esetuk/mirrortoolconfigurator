@@ -4,7 +4,7 @@ enableWindows.checked = true,
 darkMode = true;
 themeSwitcher.setAttribute("style", "filter: invert(100%)");
 function update() {
-    let s = "",
+    let command = "",
     isOutputValid = 0;
     enableWindows.checked ? baseDirectory = "c:\\mirrorTool\\" : baseDirectory = "/tmp/mirrorTool/";
     darkMode ? document.querySelector("html").style.filter = "invert(0)" : document.querySelector("html").style.filter = "invert(100%)";
@@ -40,12 +40,12 @@ function update() {
     }
     for (let i = 0; i < parameterList.length; i++) {
         //Aliases
-        let pName = parameterList[i][0];
-        let pElement = document.getElementById(pName);
-        let pDefault = parameterList[i][1];
-        let pType = parameterList[i][2];
-        let pSection = parameterList[i][3];
-        let pOptional = parameterList[i][4];
+        let pName = parameterList[i][0],
+        pElement = document.getElementById(pName),
+        pDefault = parameterList[i][1],
+        pType = parameterList[i][2],
+        pSection = parameterList[i][3],
+        pOptional = parameterList[i][4];
         if (setDefaults)
         {
             pElement.value = pDefault;
@@ -65,15 +65,15 @@ function update() {
                     switch (pType) {
                         case ("text"):
                             //Write parameter and args for text box
-                            if (pElement.value != "") s += "--" + pName + " " + pElement.value + " ";
+                            if (pElement.value != "") command += "<colorParameter>--" + pName + "</colorParameter> <colorArgument>" + pElement.value + "</colorArgument> ";
                             break;
                         case ("checkbox"):
                             //Write parameter for checkbox
-                            if (pElement.checked) s += "--" + pName + " ";
+                            if (pElement.checked) command += "<colorParameter>--" + pName + "</colorParameter> ";
                             break;
                         case ("select"):
                             //Write parameter for currently selected item in dropdown box and args
-                            if (pElement.options[pElement.selectedIndex].text != "none") s += "--" + pName + " " + pElement.options[pElement.selectedIndex].value + " ";
+                            if (pElement.options[pElement.selectedIndex].text != "none") command += "<colorParameter>--" + pName + "</colorParameter> <colorArgument>" + pElement.options[pElement.selectedIndex].value + "</colorArgument> ";
                             break;
                     }
                 }
@@ -99,11 +99,11 @@ function update() {
         commandPreview.disabled = false;
     }
     //Trim whitespace
-    s = s.trim();
+    command = command.trim();
     //Check if there is anything to write and if the output is valid, if so write the platform specific prefix plus the commands to the command preview
-    if (s.length != 0 && isOutputValid == 0) {
-        enableWindows.checked ? commandPreview.innerHTML = "MirrorTool.exe " + s : commandPreview.innerHTML = "sudo ./MirrorTool " + s
-    } else commandPreview.innerHTML = "Some parameter sections are not enabled, or mandatory fields are empty. Check your configuration.";
+    if (command.length != 0 && isOutputValid == 0) {
+        enableWindows.checked ? commandPreview.innerHTML = "<colorStart>MirrorTool.exe</colorStart> " + command : commandPreview.innerHTML = "<colorStart>sudo ./MirrorTool</colorStart> " + command
+    } else commandPreview.innerHTML = "<colorWarn>Some parameter sections are not enabled, or mandatory fields are empty. Check your configuration.</colorWarn>";
     //Show or hide sections based on checkbox states
     enableMirror.checked ? mirror.style.display = "block" : mirror.style.display = "none";
     enableRepository.checked ? repository.style.display = "block" : repository.style.display = "none";
@@ -132,11 +132,11 @@ enableLinux.addEventListener("click", function () { resetQuestion() });
 //Download event listener
 downloadButton.addEventListener("click", function (event) {
         if (enableWindows.checked) {
-            download('test.bat', commandPreview.innerHTML);
+            download('test.bat', commandPreview.textContent);
          } else {
-            let s = commandPreview.innerHTML;
-            s = "#!/usr/bin/env bash\n" + (s.split("sudo ").pop());
-            download('test.sh', s);
+            let command = commandPreview.textContent;
+            command = "#!/usr/bin/env bash\n" + (command.split("sudo ").pop());
+            download('test.sh', command);
          }
 });
 //Scroll to bottom when section expands to ensure visibility
