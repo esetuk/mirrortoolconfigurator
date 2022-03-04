@@ -10,7 +10,7 @@ function update() {
         enableRepository.checked = false;
         enableGlobal.checked = false;
         enableOptional.checked = false;
-        //master list of parameters
+        //Master list of parameters
         //KEY: 0=name of parameter, 1=default value, 2=type of element, 3=section name, 4=optional
         parameterList = [
             ["mirrorType", "regular", "select", "mirror", false],
@@ -36,7 +36,7 @@ function update() {
         ];
     }
     for (let i = 0; i < parameterList.length; i++) {
-        //aliases
+        //Aliases
         let pName = parameterList[i][0];
         let pElement = document.getElementById(pName);
         let pDefault = parameterList[i][1];
@@ -49,34 +49,34 @@ function update() {
             pElement.checked = pDefault;
         }
         let o = document.getElementsByClassName("optional");
-        //iterate through optional parameters, hide them if enableoptional is not checked
+        //Iterate through optional parameters, hide them if enableoptional is not checked
         for (let i = 0; i < o.length; i++) {
             enableOptional.checked ? o[i].style.display = "block" : o[i].style.display = "none";
         }
-        //iterate through all the parameters
+        //Iterate through all the parameters
         if (pElement != null) {
-            //check if section is enabled, if so allow the mandatory parameters to be written to the output
+            //Check if section is enabled, if so allow the mandatory parameters to be written to the output
             if ((enableMirror.checked && pSection == "mirror") || (enableRepository.checked && pSection == "repository") || (enableGlobal.checked && pSection == "global")) {
-                //check if either optional parameters are enabled or optional parameters are disabled and current parameter is mandatory
+                //Check if either optional parameters are enabled or optional parameters are disabled and current parameter is mandatory
                 if (enableOptional.checked || !enableOptional.checked && parameterList[i][4] == false) {
                     switch (pType) {
                         case ("text"):
-                            //write parameter and args for text box
+                            //Write parameter and args for text box
                             if (pElement.value != "") s += "--" + pName + " " + pElement.value + " ";
                             break;
                         case ("checkbox"):
-                            //write parameter for checkbox
+                            //Write parameter for checkbox
                             if (pElement.checked) s += "--" + pName + " ";
                             break;
                         case ("select"):
-                            //write parameter for currently selected item in dropdown box and args
+                            //Write parameter for currently selected item in dropdown box and args
                             if (pElement.options[pElement.selectedIndex].text != "none") s += "--" + pName + " " + pElement.options[pElement.selectedIndex].value + " ";
                             break;
                     }
                 }
             }
         }
-        //if field is empty and mandatory then highlight the field red, modify the placeholder text, and declare the output as invalid
+        //If field is empty and mandatory then highlight the field red, modify the placeholder text, and declare the output as invalid
         if (pElement.value == "" && !pOptional) {
             pElement.style.borderColor = "red";
             pElement.placeholder = "This field cannot be blank";
@@ -85,7 +85,7 @@ function update() {
             pElement.style.borderColor = "rgb(63, 63, 63)";
         }
     }
-    //if the number of invalid fields are more than 0 or mandatory sections are disabled the disable the copy and download buttons, otherwise show them
+    //If the number of invalid fields are more than 0 or mandatory sections are disabled the disable the copy and download buttons, otherwise show them
     if (isOutputValid > 0 || (!enableMirror.checked && !enableRepository.checked)) {
         copyButton.disabled = true;
         downloadButton.disabled = true;
@@ -95,17 +95,17 @@ function update() {
         downloadButton.disabled = false;
         commandPreview.disabled = false;
     }
-    //trim whitespace
+    //Trim whitespace
     s = s.trim();
-    //check if there is anything to write and if the output is valid, if so write the platform specific prefix plus the commands to the command preview
+    //Check if there is anything to write and if the output is valid, if so write the platform specific prefix plus the commands to the command preview
     if (s.length != 0 && isOutputValid == 0) {
         enableWindows.checked ? commandPreview.innerHTML = "MirrorTool.exe " + s : commandPreview.innerHTML = "sudo ./MirrorTool " + s
     } else commandPreview.innerHTML = "";
-    //show or hide sections based on checkbox states
+    //Show or hide sections based on checkbox states
     enableMirror.checked ? mirror.style.display = "block" : mirror.style.display = "none";
     enableRepository.checked ? repository.style.display = "block" : repository.style.display = "none";
     enableGlobal.checked ? global.style.display = "block" : global.style.display = "none";
-    //workaround for auto-sizing the command line preview box
+    //Workaround for auto-sizing the command line preview box
     commandPreview.setAttribute("style", "height: 0px");
     commandPreview.setAttribute("style", "height:" + (commandPreview.scrollHeight) + "px;overflow-y:hidden;");
     setDefaults = false;
@@ -118,7 +118,11 @@ var clipboard = new Clipboard(document.getElementById('copyButton'), {
         return commandPreview.innerHTML;
     }
 });
-//event listeners for updating command line preview
+//Event listeners for reset query
+resetLink.addEventListener("click", function() { resetQuestion() });
+enableWindows.addEventListener("click", function () { resetQuestion() });
+enableLinux.addEventListener("click", function () { resetQuestion() });
+//Event listeners for updating command line preview
 downloadButton.addEventListener("click", function (event) {
     if (commandPreview.innerHTML != ""){
         if (enableWindows.checked) {
@@ -136,13 +140,10 @@ for (i = 0; i < input.length; i++) {
         update();
     });
 }
-resetLink.addEventListener("click", function() { resetQuestion() });
-enableWindows.addEventListener("click", function () { resetQuestion() });
-enableLinux.addEventListener("click", function () { resetQuestion() });
 mirrorType.addEventListener("input", function () { update(); });
 mirrorFileFormat.addEventListener("input", function () { update(); });
 excludedProducts.addEventListener("input", function () { update(); });
-//scroll to bottom when section expands to ensure visibility
+//Scroll to bottom when section expands to ensure visibility
 enableMirror.addEventListener("input", function() { scrollToBottom() });
 enableRepository.addEventListener("input", function() { scrollToBottom() });
 enableOptional.addEventListener("input", function() { scrollToBottom() });

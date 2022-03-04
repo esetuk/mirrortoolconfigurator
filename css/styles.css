@@ -3,6 +3,11 @@
     border-radius: 5px;
     font-family: "Segoe UI",Helvetica,Arial,sans-serif;
 }
+img {
+    filter: invert(100%);
+    float: right;
+    opacity: 50%;
+}
 body {
     background-color: rgb(0, 0, 0);
     margin: auto;
@@ -55,6 +60,7 @@ a:hover {
 h2 {
     text-align: center;
     margin-top: 0;
+    padding-left: 32px;
 }
 h1, h3, h4 {
     display: inline-block;
@@ -83,7 +89,7 @@ button {
     display: inline-block;
     margin-bottom: 0;
     margin-top: 0;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 button:disabled {
     color : rgb(0, 0, 0);
