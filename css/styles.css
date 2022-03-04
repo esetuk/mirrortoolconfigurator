@@ -18,17 +18,18 @@ body {
     padding: 20px;
     margin: auto;
     margin-top: 20px;
+    margin-bottom: 10px;
     height: auto;
     background-color: rgb(24, 24, 24);
     border: 1px solid rgb(63, 63, 63);
 }
 #info {
-    background-color: rgb(31, 30, 30);
-    border: 1px solid rgb(63, 63, 63);
+    background-color: rgb(14, 44, 87);
+    border: 1px solid rgb(16, 86, 133);
     font-size: small;
     text-align: left;
     display: block;
-    padding: 10px;
+    padding: 20px;
 }
 #commandPreview {
     font-family: "Lucida console";
@@ -162,4 +163,16 @@ label {
 }
 .filterLabels {
     width: auto;
+}
+#footer {
+    color: rgb(63, 63, 63);
+    text-align: center;
+    margin-top: 20px;
+}
+#github {
+    font-size: small;
+    text-align: right;
+}
+#github a {
+    color: rgb(63, 63, 63);
 }

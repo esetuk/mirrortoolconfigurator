@@ -123,6 +123,8 @@ var clipboard = new Clipboard(document.getElementById('copyButton'), {
 });
 //Main form event listener to update the command preview
 main.addEventListener("input", function() { update(); });
+//Dismiss info event listener
+dismissLink.addEventListener("click", function() { info.style.display = "none" });
 //Event listeners for reset query
 resetLink.addEventListener("click", function() { resetQuestion() });
 enableWindows.addEventListener("click", function () { resetQuestion() });
