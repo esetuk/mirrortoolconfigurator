@@ -140,10 +140,10 @@ downloadButton.addEventListener("click", function (event) {
          }
 });
 //Scroll to bottom when section expands to ensure visibility
-enableMirror.addEventListener("input", function() { scrollToBottom() });
-enableRepository.addEventListener("input", function() { scrollToBottom() });
-enableOptional.addEventListener("input", function() { scrollToBottom() });
-enableGlobal.addEventListener("input", function() { scrollToBottom() });
+enableMirror.addEventListener("input", function() { update(); scrollToBottom() });
+enableRepository.addEventListener("input", function() { update(); scrollToBottom() });
+enableOptional.addEventListener("input", function() { update(); scrollToBottom() });
+enableGlobal.addEventListener("input", function() { update(); scrollToBottom() });
 //Theme switcher event listener
 themeSwitcher.addEventListener("click", function() {
     darkMode ? darkMode = false : darkMode = true;
