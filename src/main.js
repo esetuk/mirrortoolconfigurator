@@ -6,6 +6,7 @@ function update() {
     let s = "",
     isOutputValid = 0;
     enableWindows.checked ? baseDirectory = "c:\\mirrorTool\\" : baseDirectory = "/tmp/mirrorTool/";
+    darkMode ? themeSwitcher.setAttribute("style", "filter: invert(100%)") : themeSwitcher.setAttribute("style", "filter: invert(0)");
     if (setDefaults){
         enableMirror.checked = true;
         enableRepository.checked = false;
@@ -151,13 +152,8 @@ enableOptional.addEventListener("input", function() { scrollToBottom() });
 enableGlobal.addEventListener("input", function() { scrollToBottom() });
 //Theme switcher event listener
 themeSwitcher.addEventListener("click", function() {
-    if (darkMode) {
-        themeSwitcher.setAttribute("style", "filter: invert(100%)");
-        darkMode = false;
-    } else {
-        themeSwitcher.setAttribute("style", "filter: invert(0)");
-        darkMode = true;
-    }
+    darkMode ? darkMode = false : darkMode = true;
+    update();
 });
 //Prevent accidental F5 keypress
 document.addEventListener('keydown', (e) => {
