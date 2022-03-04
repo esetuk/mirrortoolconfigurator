@@ -1,6 +1,7 @@
 let setDefaults = true,
 parameterList;
-enableWindows.checked = true;
+enableWindows.checked = true,
+darkMode = true;
 function update() {
     let s = "",
     isOutputValid = 0;
@@ -148,6 +149,16 @@ enableMirror.addEventListener("input", function() { scrollToBottom() });
 enableRepository.addEventListener("input", function() { scrollToBottom() });
 enableOptional.addEventListener("input", function() { scrollToBottom() });
 enableGlobal.addEventListener("input", function() { scrollToBottom() });
+//Theme switcher event listener
+themeSwitcher.addEventListener("click", function() {
+    if (darkMode) {
+        themeSwitcher.setAttribute("style", "filter: invert(100%)");
+        darkMode = false;
+    } else {
+        themeSwitcher.setAttribute("style", "filter: invert(0)");
+        darkMode = true;
+    }
+});
 //Prevent accidental F5 keypress
 document.addEventListener('keydown', (e) => {
     e = e || window.event;

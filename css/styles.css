@@ -3,10 +3,11 @@
     border-radius: 5px;
     font-family: "Segoe UI",Helvetica,Arial,sans-serif;
 }
-img {
-    filter: invert(100%);
+#themeSwitcher {
     float: right;
     opacity: 50%;
+    width: 32px;
+    height: 32px;
 }
 body {
     background-color: rgb(0, 0, 0);
