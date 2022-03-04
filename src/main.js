@@ -107,7 +107,7 @@ function update() {
     //Check if there is anything to write and if the output is valid, if so write the platform specific prefix plus the commands to the command preview
     if (s.length != 0 && isOutputValid == 0) {
         enableWindows.checked ? commandPreview.innerHTML = "MirrorTool.exe " + s : commandPreview.innerHTML = "sudo ./MirrorTool " + s
-    } else commandPreview.innerHTML = "";
+    } else commandPreview.innerHTML = "Some parameter sections are not enabled, or mandatory fields are empty. Check your configuration.";
     //Show or hide sections based on checkbox states
     enableMirror.checked ? mirror.style.display = "block" : mirror.style.display = "none";
     enableRepository.checked ? repository.style.display = "block" : repository.style.display = "none";
