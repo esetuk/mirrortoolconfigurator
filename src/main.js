@@ -1,21 +1,5 @@
 let setDefaults = true,
-parameterList,
-//element aliases
-mirrorType = document.getElementById("mirrorType"),
-mirrorFileFormat = document.getElementById("mirrorFileFormat"),
-excludedProducts = document.getElementById("excludedProducts"),
-enableWindows = document.getElementById("enableWindows"),
-enableLinux = document.getElementById("enableLinux"),
-mirror = document.getElementById("mirror"),
-repository = document.getElementById("repository"),
-global = document.getElementById("global"),
-enableMirror = document.getElementById("enableMirror"),
-enableRepository = document.getElementById("enableRepository"),
-enableGlobal = document.getElementById("enableGlobal"),
-enableOptional = document.getElementById("enableOptional"),
-copyButton = document.getElementById("copyButton"),
-downloadButton = document.getElementById("downloadButton"),
-commandPreview = document.getElementById("commandPreview");
+parameterList;
 enableWindows.checked = true;
 function update() {
     let s = "",
@@ -98,23 +82,25 @@ function update() {
             pElement.placeholder = "This field cannot be blank";
             isOutputValid++
         } else {
-            pElement.style.borderColor = "lightgrey";
+            pElement.style.borderColor = "rgb(63, 63, 63)";
         }
     }
     //if the number of invalid fields are more than 0 or mandatory sections are disabled the disable the copy and download buttons, otherwise show them
     if (isOutputValid > 0 || (!enableMirror.checked && !enableRepository.checked)) {
         copyButton.disabled = true;
         downloadButton.disabled = true;
+        commandPreview.disabled = true;
     } else {
         copyButton.disabled = false;
         downloadButton.disabled = false;
+        commandPreview.disabled = false;
     }
     //trim whitespace
     s = s.trim();
     //check if there is anything to write and if the output is valid, if so write the platform specific prefix plus the commands to the command preview
     if (s.length != 0 && isOutputValid == 0) {
-        enableWindows.checked ? commandPreview.value = "MirrorTool.exe " + s : commandPreview.value = "sudo ./MirrorTool " + s
-    } else commandPreview.value = "";
+        enableWindows.checked ? commandPreview.innerHTML = "MirrorTool.exe " + s : commandPreview.innerHTML = "sudo ./MirrorTool " + s
+    } else commandPreview.innerHTML = "";
     //show or hide sections based on checkbox states
     enableMirror.checked ? mirror.style.display = "block" : mirror.style.display = "none";
     enableRepository.checked ? repository.style.display = "block" : repository.style.display = "none";
@@ -129,16 +115,16 @@ update();
 var clipboard = new Clipboard(document.getElementById('copyButton'), {
     text: function () {
         update();
-        return commandPreview.value;
+        return commandPreview.innerHTML;
     }
 });
 //event listeners for updating command line preview
 downloadButton.addEventListener("click", function (event) {
-    if (commandPreview.value != ""){
+    if (commandPreview.innerHTML != ""){
         if (enableWindows.checked) {
-            download('test.bat', commandPreview.value);
+            download('test.bat', commandPreview.innerHTML);
          } else {
-            let s = commandPreview.value;
+            let s = commandPreview.innerHTML;
             s = "#!/usr/bin/env bash\n" + (s.split("sudo ").pop());
             download('test.sh', s);
          }

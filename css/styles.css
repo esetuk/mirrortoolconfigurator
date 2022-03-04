@@ -1,150 +1,161 @@
-::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color:    #777;
-}
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-   color:    #777;
-   opacity:  1;
-}
-::-moz-placeholder { /* Mozilla Firefox 19+ */
-   color:    #777;
-   opacity:  1;
-}
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-   color:    #777;
-}
 * {
-    -moz-box-sizing:border-box;
-    -webkit-box-sizing:border-box; 
-    box-sizing:border-box;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
+    color: rgb(255, 255, 255);
     border-radius: 5px;
-    font: 14px "Trebuchet MS";
-    line-height: 1.5em;
-	color: #000000;
-    padding: 3px;
-    margin: 3px;
+    font-family: "Segoe UI",Helvetica,Arial,sans-serif;
 }
 body {
     background-color: rgb(0, 0, 0);
+    margin: auto;
 }
 #main {
-    width: 800px;
-    margin: 0 auto;
-    background-color: rgb(255, 255, 255);
+    width: 900px;
+    padding: 20px;
+    margin: auto;
+    margin-top: 20px;
+    height: auto;
+    background-color: rgb(24, 24, 24);
+    border: 1px solid rgb(63, 63, 63);
 }
-#header {
+#info {
+    background-color: rgb(31, 30, 30);
+    border: 1px solid rgb(63, 63, 63);
+    font-size: small;
+    text-align: left;
+    display: block;
+    padding: 10px;
+}
+#commandPreview {
+    font-family: "Lucida console";
+    font-size: small;
+    color: #00a0fd;
+    background-color: rgb(3, 3, 3);
+    white-space: pre-wrap;
+    padding: 20px;
+    resize: none;
+    outline: none;
+    border: 1px solid #00a0fd;
+    height: auto;
+    margin-bottom: 10px;
+}
+#commandPreview:disabled {
+    border: 1px solid rgb(63, 63, 63);
+}
+#resetLink {
+    vertical-align: middle;
+    margin: 10px;
+}
+a {
+    color: #00a0fd;
+    text-decoration: none;
+    font-size: small;
+}
+a:hover {
+    color: #5ac1fc;
+}
+h2 {
     text-align: center;
-    font-size: 24px;
-    font-weight: 900;
+    margin-top: 0;
+}
+h1, h3, h4 {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 ul {
     list-style-position: inside;
     padding: 10px;
     margin: 0;
- }
- li {
-    padding: 0;
-    margin: 0;
- }
-a:link, a:visited, a:active {
-    color: dodgerblue;
-    text-decoration: none;
 }
-a:hover {
-    color: rgb(0, 153, 255);
+li {
+    padding: 3px;
+    margin: 0;
 }
 #buttons {
     text-align: right;
+    margin-top: 20px;
 }
 button {
     transition-duration: 0.2s;
-    background-color: #0076fd;
-    height: 35px;
-    border: 0;
-    width: 30%;
-    color: white;
-    line-height: 20px;
+    border: 1px solid white;
+    background-color: transparent;
+    height: 30px;
+    width: 230px;
     display: inline-block;
     margin-bottom: 0;
     margin-top: 0;
+    margin-left: 10px;
+}
+button:disabled {
+    color : rgb(0, 0, 0);
+    border: 0;
+    background-color: rgb(53, 53, 53);
 }
 button:hover {
-    background-color: #00b7ff;
-    color: white;
+    background-color: #ffffff;
+    color: black;
   }
-button:disabled {
-    background: #d8d6d6;
-    color : #ffffff;
-}
 button:active {
     transform: translateY(2px);
 }
 input, select {
-    background-color: rgb(255, 255, 255);
-    border: 1px lightgrey solid;
-	color: black;
-}                      
-input {
+    background-color: transparent;
+    border: 1px solid;
+    margin: 5px;
+    padding: 5px;
+    outline: none;
+    font-size: small;
+}
+select {
+    padding: 4px;
+    background-color: rgb(31, 30, 30);
+    font-size: small;
+}
+input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    background-color:rgb(0, 0, 0);
+    color:rgb(0, 0, 0);
+    vertical-align: middle;
+    margin-left: 10px;
+}
+input[type="text"] {
     width: 50%;
+}
+input[type="radio"] {
+    width: auto;
+    border: 1px solid rgb(63, 63, 63);
+    vertical-align: middle;
+    text-align: right;
 }
 input:focus {
     outline: none;
 }              
-.labels {
+label {
     display: inline-block;
     width: 40%;
-    font-weight: bold;
     text-align: right;
+    font-size: small;
+    vertical-align: middle;
+    margin-bottom: 0;
 }
-#heading {
+#labelWindows, #labelLinux {
     width: auto;
-    text-align: left;
-    font-size: 16px;
-    font-weight: bolder;
 }
 .optional {
     margin: 0;
     padding: 0;
 }
 #mirror, #repository, #global, #command, #filters {
-    border: 1px lightgrey solid;
-    border-style: solid;
+    border: 1px solid rgb(63, 63, 63);
+    background-color: rgb(31, 30, 30);
     height: auto;
-    padding: 5px;
+    padding: 20px;
+    margin-top: 20px;
 }
-#enableMirror, #enableRepository, #enableGlobal, #enableOptional {
-    text-align: right;
-    width: auto;
-}
-#trustDownloadedFilesInRepositoryTemp, #mirrorOnlyLevelUpdates {
-    width: auto;
-}
-#languages {
-    width: 100px;
-}
-#outputWindows, #outputLinux {
-    width: auto;
-    text-align: right;
-}
-textarea {
-    font: 14px "Lucida Console";
-    color: white;
-    background-color: rgb(70, 70, 70);
-    width: 99%;
+#filters {
     padding: 10px;
-    resize: none;
-    outline: none;
-    border: 0;
-    height: auto;
+    text-align: center;
 }
-.platforms {
-    font-size: 14px;
+.filterLabels {
     width: auto;
-    font-weight: bold;
-}
-#info {
-    text-align: left;
-    background-color: lightblue;
-    display: block;
 }
