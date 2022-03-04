@@ -158,7 +158,7 @@ function scrollToBottom(){
     window.scrollTo(0,document.body.scrollHeight);
 }
 function resetQuestion(){
-    setDefaults = confirm("***WARNING***\n This will reset all filters and settings, continue?");
+    setDefaults = confirm("Reset all settings and filters?");
     update();
 }
 function download(filename, text) {
