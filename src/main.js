@@ -118,7 +118,7 @@ update();
 var clipboard = new Clipboard(document.getElementById('copyButton'), {
     text: function () {
         update();
-        return commandPreview.innerHTML;
+        return commandPreview.textContent;
     }
 });
 //Main form event listener to update the command preview
