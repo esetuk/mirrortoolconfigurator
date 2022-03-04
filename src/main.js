@@ -143,15 +143,22 @@ mirrorType.addEventListener("input", function () { update(); });
 mirrorFileFormat.addEventListener("input", function () { update(); });
 excludedProducts.addEventListener("input", function () { update(); });
 //scroll to bottom when section expands to ensure visibility
-mirror.addEventListener("input", function() { scrollToBottom() });
-repository.addEventListener("input", function() { scrollToBottom() });
-global.addEventListener("input", function() { scrollToBottom() });
+enableMirror.addEventListener("input", function() { scrollToBottom() });
+enableRepository.addEventListener("input", function() { scrollToBottom() });
 enableOptional.addEventListener("input", function() { scrollToBottom() });
+enableGlobal.addEventListener("input", function() { scrollToBottom() });
+//Prevent accidental F5 keypress
+document.addEventListener('keydown', (e) => {
+    e = e || window.event;
+    if(e.keyCode == 116){
+        e.preventDefault();
+    }
+});
 function scrollToBottom(){
     window.scrollTo(0,document.body.scrollHeight);
 }
 function resetQuestion(){
-    setDefaults = (confirm("Reset all mandatory parameters to their platform specific default values?"));
+    setDefaults = confirm("***WARNING***\n This will reset all filters and settings, continue?");
     update();
 }
 function download(filename, text) {
