@@ -8,9 +8,9 @@ function update() {
     isOutputValid = 0;
     enableWindows.checked ? baseDirectory = "c:\\mirrorTool\\" : baseDirectory = "/tmp/mirrorTool/";
     if (darkMode) {
-        document.querySelector("body").style.filter = "invert(0)";
+        document.querySelector("html").style.filter = "invert(0)";
     } else {
-        document.querySelector("body").style.filter = "invert(100%)";
+        document.querySelector("html").style.filter = "invert(100%)";
     }
     if (setDefaults){
         enableMirror.checked = true;
