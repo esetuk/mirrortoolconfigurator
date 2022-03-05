@@ -16,9 +16,10 @@ body {
 #main {
     width: 900px;
     padding: 20px;
+    padding-bottom: 10px;
     margin: auto;
     margin-top: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     height: auto;
     background-color: rgb(24, 24, 24);
     border: 1px solid rgb(63, 63, 63);
@@ -167,18 +168,15 @@ label {
     width: auto;
 }
 #footer {
-    color: rgb(63, 63, 63);
-    text-align: center;
-    margin-top: 20px;
-}
-#github {
+    padding-top: 10px;
+    color:rgb(63, 63, 63);
     font-size: small;
     text-align: right;
 }
-#github a {
+#footer a {
     color: rgb(63, 63, 63);
 }
-#github a:hover {
+#footer a:hover {
     color: rgb(121, 116, 116);
 }
 colorParameter {
