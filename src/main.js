@@ -143,7 +143,7 @@ downloadButton.addEventListener("click", function (event) {
         download('test.bat', commandPreview.textContent);
          } else {
             let command = commandPreview.textContent;
-            command = "#!/usr/bin/env bash\n" + (command.split("sudo ").pop());
+            command = command.split("sudo ").pop();
             download('test.sh', command);
          }
 });
