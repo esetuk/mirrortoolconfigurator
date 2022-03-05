@@ -1,12 +1,14 @@
+//Globals
 let setDefaults = true,
 parameterList;
 enableWindows.checked = true,
 isWindows = true,
 darkMode = true;
-themeSwitcher.setAttribute("style", "filter: invert(100%)");
+themeSwitcher.setAttribute("style", "filter: invert(100%)"); //Icon is black
 function update() {
     let command = "",
     isOutputValid = 0;
+    //Set base path dependent on platform
     if (enableWindows.checked){
         isWindows = true;
         baseDirectory = "c:\\mirrorTool\\";
@@ -14,7 +16,6 @@ function update() {
         baseDirectory = "/tmp/mirrorTool/";
         isWindows = false;
     }
-    darkMode ? document.querySelector("html").style.filter = "invert(0)" : document.querySelector("html").style.filter = "invert(100%)";
     if (setDefaults){
         enableMirror.checked = true;
         enableRepository.checked = false;
@@ -78,11 +79,11 @@ function update() {
                             //Write parameter for checkbox
                             if (pElement.checked) command += "<colorParameter>--" + pName + "</colorParameter> ";
                             break;
-                        case ("select"):
-                            //Write parameter for currently selected item in dropdown box and args
+                            case ("select"):
+                                //Write parameter for currently selected item in dropdown box and args
                             if (pElement.options[pElement.selectedIndex].text != "none") command += "<colorParameter>--" + pName + "</colorParameter> <colorArgument>" + pElement.options[pElement.selectedIndex].value + "</colorArgument> ";
                             break;
-                    }
+                        }
                 }
             }
         }
@@ -130,7 +131,7 @@ var clipboard = new Clipboard(document.getElementById('copyButton'), {
 });
 //Main form event listener to update the command preview
 main.addEventListener("input", function() { update(); });
-//Dismiss info event listener
+//Dismiss info link event listener
 dismissLink.addEventListener("click", function() { info.style.display = "none" });
 //Event listeners for reset query
 resetLink.addEventListener("click", function() { resetQuestion() });
@@ -138,8 +139,8 @@ enableWindows.addEventListener("click", function () { isWindows ? null : resetQu
 enableLinux.addEventListener("click", function () { isWindows ? resetQuestion() : null });
 //Download event listener
 downloadButton.addEventListener("click", function (event) {
-        if (enableWindows.checked) {
-            download('test.bat', commandPreview.textContent);
+    if (enableWindows.checked) {
+        download('test.bat', commandPreview.textContent);
          } else {
             let command = commandPreview.textContent;
             command = "#!/usr/bin/env bash\n" + (command.split("sudo ").pop());
@@ -153,7 +154,7 @@ enableOptional.addEventListener("input", function() { update(); scrollToBottom()
 enableGlobal.addEventListener("input", function() { update(); scrollToBottom() });
 //Theme switcher event listener
 themeSwitcher.addEventListener("click", function() {
-    //darkMode ? darkMode = false : darkMode = true;
+    darkMode ? darkMode = false : darkMode = true;
     update();
 });
 //Prevent accidental F5 keypress
