@@ -18,19 +18,20 @@
                 <button type="button" id="copyButton">Copy to clipboard</button>
             </div>
             <div id="filters">
-                <label class="filterLabels">Filters:</label>
+                <label class="filterLabels">Platform:</label>
                 <input type="radio" id="enableWindows" name="platforms" value="Windows">
                 <label class="filterLabels" for="enableWindows">Windows</label>
                 <input type="radio" id="enableLinux" name="platforms" value="Linux">
-                <label class="filterLabels" for="enableLinux">Linux</label>
+                <label id="labelLinux" class="filterLabels" for="enableLinux">Linux</label>
+                <label class="filterLabels">Parameters:</label>
                 <input type="checkbox" id="enableMirror">
-                <label class="filterLabels" for="enableMirror">Mirror parameters</label>
+                <label class="filterLabels" for="enableMirror">Mirror</label>
                 <input type="checkbox" id="enableRepository">
-                <label class="filterLabels" for="enableRepository">Repository parameters</label>
+                <label class="filterLabels" for="enableRepository">Repository</label>
                 <input type="checkbox" id="enableGlobal">
-                <label class="filterLabels" for="enableGlobal">Global parameters</label>
+                <label class="filterLabels" for="enableGlobal">Global</label>
                 <input type="checkbox" id="enableOptional">
-                <label class="filterLabels" for="enableOptional">Optional parameters</label>
+                <label class="filterLabels" for="enableOptional">Optional</label>
                 <a href="javascript:void(0)" id="resetLink">Reset</a>
             </div>
             <div id="mirror">
