@@ -5,9 +5,10 @@
 }
 #themeSwitcher {
     float: right;
-    width: 32px;
-    height: 32px;
-    opacity: 10%;
+    width: 24px;
+    height: 24px;
+    opacity: 5%;
+    vertical-align: bottom;
 }
 body {
     background-color: rgb(0, 0, 0);
@@ -59,7 +60,6 @@ a:hover {
 h2 {
     text-align: center;
     margin-top: 0;
-    padding-left: 32px;
 }
 h1, h3, h4 {
     display: inline-block;
@@ -168,10 +168,11 @@ label {
     width: auto;
 }
 #footer {
-    padding-top: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     color:rgb(63, 63, 63);
     font-size: small;
-    text-align: right;
+    text-align: center;
 }
 #footer a {
     color: rgb(63, 63, 63);

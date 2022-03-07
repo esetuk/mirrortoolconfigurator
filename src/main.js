@@ -4,7 +4,7 @@ parameterList;
 enableWindows.checked = true,
 isWindows = true,
 darkMode = true;
-themeSwitcher.setAttribute("style", "filter: invert(100%)"); //Icon is black
+//themeSwitcher.setAttribute("style", "filter: invert(100%)"); //Icon is black
 function update() {
     let command = "",
     isOutputValid = 0;
@@ -131,8 +131,6 @@ var clipboard = new Clipboard(document.getElementById('copyButton'), {
 });
 //Main form event listener to update the command preview
 main.addEventListener("input", function() { update(); });
-//Dismiss info link event listener
-dismissLink.addEventListener("click", function() { info.style.display = "none" });
 //Event listeners for reset query
 resetLink.addEventListener("click", function() { resetQuestion() });
 enableWindows.addEventListener("click", function () { isWindows ? null : resetQuestion() });
@@ -153,10 +151,10 @@ enableRepository.addEventListener("input", function() { update(); scrollToBottom
 enableOptional.addEventListener("input", function() { update(); scrollToBottom() });
 enableGlobal.addEventListener("input", function() { update(); scrollToBottom() });
 //Theme switcher event listener
-themeSwitcher.addEventListener("click", function() {
+/*themeSwitcher.addEventListener("click", function() {
     darkMode ? darkMode = false : darkMode = true;
     update();
-});
+});*/
 //Prevent accidental F5 keypress
 document.addEventListener('keydown', (e) => {
     e = e || window.event;
