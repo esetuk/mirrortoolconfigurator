@@ -191,12 +191,12 @@ colorArgument {
     font-size: small;
 }
 colorStart {
-    color: rgb(188, 99, 211);
+    color: rgb(199, 90, 153);
     font-family: "Lucida console";
     font-size: small;
 }
 colorWarn {
-    color: red;
+    color: rgb(194, 71, 71);
     font-family: "Lucida console";
     font-size: small;
 }

@@ -89,7 +89,7 @@ function update() {
         }
         //If field is empty and mandatory then highlight the field red, modify the placeholder text, and declare the output as invalid
         if (pElement.value == "" && !pOptional) {
-            pElement.style.borderColor = "red";
+            pElement.style.borderColor = "rgb(194, 71, 71)";
             pElement.placeholder = "This field cannot be blank";
             isOutputValid++
         } else {
