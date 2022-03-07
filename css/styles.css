@@ -25,7 +25,7 @@ body {
     border: 1px solid rgb(63, 63, 63);
 }
 #info {
-    background-color: rgb(24, 40, 66);
+    background-color: rgb(13, 36, 97);
     border: 1px solid rgb(16, 86, 133);
     font-size: small;
     text-align: left;
@@ -180,7 +180,7 @@ label {
     color: rgb(121, 116, 116);
 }
 colorParameter {
-    color: rgb(79, 139, 252);
+    color: rgb(49, 108, 218);
     font-family: "Lucida console";
     font-size: small;
 }
