@@ -174,7 +174,7 @@ function resetQuestion() {
     update();
 }
 //Read in products.csv (obtained by running MirrorTool with --dryRun parameter) and split it by each new line/carraige return
-temp = readTextFile("https://raw.githubusercontent.com/esetuk/jsonbuilder/master/products.csv").split(/[\r\n]+/),
+temp = readTextFile("res/products.csv").split(/[\r\n]+/),
 products = [],
 //Main nodes (exclude path as this is not required)
 nodes = ["app_id", "name", "version", "languages", "os_types", "platforms", "legacy"];
