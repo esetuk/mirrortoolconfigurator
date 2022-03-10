@@ -281,7 +281,7 @@ table.addEventListener("click", function (e) {
     }
 });
 //Event listener for reset button
-resetButton.addEventListener("click", function () { reset(); });
+//resetButton.addEventListener("click", function () { reset(); });
 //Event listener for download button
 jsonDownloadButton.addEventListener("click", function () { download("filter.json", outputBox.innerHTML); });
 //Copy to clipboard - external library
