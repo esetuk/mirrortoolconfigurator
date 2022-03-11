@@ -120,8 +120,8 @@ function update() {
     }
     hidden.innerHTML = command;
     let passwordReplaceText = "&lt;hidden&gt;";
-    if (document.getElementById("networkDrivePassword").value != "" && document.getElementById("networkDrivePassword").value != null) command = command.replace(new RegExp("\\b" + document.getElementById("networkDrivePassword").value + "\\b"), passwordReplaceText);
-    if (document.getElementById("proxyPassword").value != "" && document.getElementById("proxyPassword").value != null) command = command.replace(new RegExp("\\b" + document.getElementById("proxyPassword").value + "\\b"), passwordReplaceText);
+    if (document.getElementById("networkDrivePassword").value != "" && document.getElementById("networkDrivePassword").value != null) command = command.replace(new RegExp("--networkDrivePassword</colorParameter> <colorPassword>" + document.getElementById("networkDrivePassword").value), "--networkDrivePassword</colorParameter> <colorPassword>" + passwordReplaceText);
+    if (document.getElementById("proxyPassword").value != "" && document.getElementById("proxyPassword").value != null) command = command.replace(new RegExp("--proxyPassword</colorParameter> <colorPassword>" + document.getElementById("proxyPassword").value), "--proxyPassword</colorParameter> <colorPassword>" + passwordReplaceText);
     //Render the command
     commandPreview.innerHTML = command;
     //Show or hide sections based on checkbox states
