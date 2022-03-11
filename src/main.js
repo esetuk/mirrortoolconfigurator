@@ -211,26 +211,26 @@ for (i = 0; i < temp.length; i++) {
 }
 //Add event listeners to each select (nodes)
 for (let i = 0; i < nodes.length; i++) {
-    document.getElementById(nodes[i]).addEventListener("change", function () { document.getElementById("enable" + nodes[i]).checked = true; jbUpdate(); }); //Enable the filter if a selection is made
+    document.getElementById(nodes[i]).addEventListener("change", function () { document.getElementById("enable" + nodes[i]).checked = true; jUpdate(); }); //Enable the filter if a selection is made
     //Add event listener to filter checkbox
-    document.getElementById("enable" + nodes[i]).addEventListener("click", function () { jbUpdate(); });
+    document.getElementById("enable" + nodes[i]).addEventListener("click", function () { jUpdate(); });
 }
 //Event listener for select none - clear all filters
 clearFilters.addEventListener("click", function () {
     for (let i = 0; i < nodes.length; i++) {
         document.getElementById("enable" + nodes[i]).checked = false;
     }
-    jbUpdate();
+    jUpdate();
 });
 //Event listener for select all filters
 selectAll.addEventListener("click", function () {
     for (let i = 0; i < nodes.length; i++) {
         if (document.getElementById("enable" + nodes[i]).disabled == false) document.getElementById("enable" + nodes[i]).checked = true;
     }
-    jbUpdate();
+    jUpdate();
 });
 //Add an event listener for the form
-main.addEventListener("change", function () { jbUpdate(); });
+main.addEventListener("change", function () { jUpdate(); });
 //Add an event listener for add product
 addProduct.addEventListener("click", function () {
     //Check if anything is selected, otherwise do nothing
@@ -256,7 +256,7 @@ addProduct.addEventListener("click", function () {
                 table.rows[rowCount].cells[i].id = "remove";
             }
         }
-        jbUpdate();
+        jUpdate();
     }
 });
 //Event listener for set defaults
@@ -279,7 +279,7 @@ document.getElementById("setDefaults").addEventListener("click", function () {
         //Add a text remove icon and ID
         table.rows[1].cells[7].innerHTML = `<p class="removeIcon">X</p>`;
         table.rows[1].cells[7].id = "clear";
-        jbUpdate();
+        jUpdate();
     }
 });
 //Event listener for the table
@@ -297,17 +297,17 @@ table.addEventListener("click", function (e) {
                 table.rows[1].cells[i + offset].innerHTML = "";
             }
         };
-        jbUpdate();
+        jUpdate();
     }
 });
 //Event listener for reset button
-//resetButton.addEventListener("click", function () { reset(); });
+jResetButton.addEventListener("click", function () { jReset(); });
 //Event listener for download button
-jsonDownloadButton.addEventListener("click", function () { download("filter.json", outputBox.innerHTML); });
+jDownloadButton.addEventListener("click", function () { download("filter.json", outputBox.innerHTML); });
 //Copy to clipboard - external library
-let clipboard = new Clipboard(jsonCopyButton, {
+let clipboard = new Clipboard(jCopyButton, {
     text: function () {
-        jbUpdate();
+        jUpdate();
         return outputBox.innerHTML;
     }
 });
@@ -340,9 +340,10 @@ function jbIsAnyProductsSelected() {
     selected ? addProduct.disabled = false : addProduct.disabled = true;
     return selected;
 }
-//Reset prompt
-function reset() {
-    if (confirm("This will reset all configurations! Are you sure?")) location.reload();
+//JSON reset prompt
+//Not implemented yet
+function jReset() {
+    //if (confirm("This will reset all JSON filter configurations! Are you sure?")) {}
 }
 //Download function which takes a filename and the text to add to it
 function download(filename, text) {
@@ -405,7 +406,7 @@ function jbGetJSON() {
     return JSONString;
 }
 //Main update function, called by various event listeners to trigger update of output box and filters
-function jbUpdate() {
+function jUpdate() {
     jbIsAnyProductsSelected();
     jbIsAnyDefaultsSelected();
     let temp = [];
@@ -464,4 +465,4 @@ function jbUpdate() {
     document.getElementById("outputBox").innerHTML = jbGetJSON();
 }
 //First call of update
-jbUpdate();
+jUpdate();
