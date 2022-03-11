@@ -19,7 +19,7 @@
             <div id="expandSection1">
                 <div class="spacer"></div>
                 <div class="layer2">
-                    <div id="commandPreview"></div>
+                    <div id="outputBox"></div>
                     <div class="controls">
                         <button type="button" id="copyButton">COPY</button>
                         <button type="button" id="downloadButton">DOWNLOAD</button>
@@ -43,7 +43,7 @@
                         <input type="checkbox" id="enableOptional">
                         <label for="enableOptional">Optional</label>
                         <div class="separator"></div>
-                        <button type="button" id="resetLink">RESET</button>
+                        <button type="button" id="resetButton">RESET</button>
                     </div>
                 </div>
                 <div class="layer2" id="mirror">
@@ -146,10 +146,10 @@
                 <div class="spacer"></div>
                 <form id="form" spellcheck="false">
                     <div class="layer2">
-                        <div id="outputBox"></div>
+                        <div id="outputBox2"></div>
                         <div class="controls">
-                            <button id="jCopyButton" type="button">COPY</button>
-                            <button id="jDownloadButton" type="button">DOWNLOAD</button>
+                            <button id="copyButton2" type="button">COPY</button>
+                            <button id="downloadButton2" type="button">DOWNLOAD</button>
                             <div class="separator"></div>
                             <input type="checkbox" id="enablePretty"></input>
                             <label for="enablePretty" id="labelEnablePretty">Pretty</label>
@@ -197,11 +197,11 @@
                             <select name="legacy" id="legacy"></select>
                         </div>
                         <div class="controls">
-                            <button id="selectAll" type="button" title="Select all">SELECT ALL</button>
-                            <button id="clearFilters" type="button" title="Select none">SELECT NONE</button>
+                            <button id="buttonSelectAll2" type="button" title="Select all">SELECT ALL</button>
+                            <button id="buttonClearFilters2" type="button" title="Select none">SELECT NONE</button>
                             <div class="separator"></div>
-                            <button id="setDefaults" type="button" title="Set defaults">SET DEFAULTS</button>
-                            <button id="addProduct" type="button" title="Add product">ADD PRODUCT</button>
+                            <button id="buttonSetDefaults2" type="button" title="Set defaults">SET DEFAULTS</button>
+                            <button id="buttonAddProduct2" type="button" title="Add product">ADD PRODUCT</button>
                         </div>
                     </div>
                     <div class="layer2">
@@ -228,7 +228,7 @@
                             </tr>
                         </table>
                         <div class="controls">
-                            <button id="jResetButton" type="button" title="Reset JSON configuration">RESET</button>
+                            <button id="buttonReset2" type="button" title="Reset JSON configuration">RESET</button>
                         </div>
                     </div>
             </div>

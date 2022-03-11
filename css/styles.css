@@ -32,7 +32,7 @@ body {
     display: block;
     padding: 20px;
 }
-#commandPreview {
+#outputBox {
     font-family: "Lucida console";
     background-color: rgb(3, 3, 3);
     white-space: pre-wrap;
@@ -139,7 +139,7 @@ input:focus {
     padding: 20px;
     margin-top: 20px;
 }
-#outputBox {
+#outputBox2 {
     font-family: "Lucida console";
     color: orange;
     text-align: left;
