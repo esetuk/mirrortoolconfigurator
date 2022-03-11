@@ -51,7 +51,7 @@ body {
     font-size: medium;
     font-weight: bold;
 }
-.expander:hover {
+.expander:enabled:hover {
     background-color: transparent;
     color: white;
 }
@@ -90,11 +90,10 @@ button {
     padding-right: 6px;
 }
 button:disabled {
-    color : rgb(0, 0, 0);
-    border: 0;
-    background-color: rgb(53, 53, 53);
+    color : rgb(87, 87, 87);
+    border: 1px solid;
 }
-button:hover {
+button:enabled:hover {
     background-color: #ffffff;
     color: black;
   }

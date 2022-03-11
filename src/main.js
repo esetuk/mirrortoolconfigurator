@@ -327,6 +327,17 @@ function jbIsAnyDefaultsSelected() {
     for (let i = 3; i < nodes.length - 1; i++) {
         if (document.getElementById("enable" + nodes[i]).checked == true) selected = true;
     }
+    selected ? document.getElementById("setDefaults").disabled = false : document.getElementById("setDefaults").disabled = true;
+    return selected;
+}
+//Check if product or app_id is selected
+function jbIsAnyProductsSelected() {
+    let selected = false;
+    //Iterate through each node starting from an offset of 3 and -1 to only collect defaults
+    for (let i = 0; i < 2; i++) {
+        if (document.getElementById("enable" + nodes[i]).checked == true) selected = true;
+    }
+    selected ? addProduct.disabled = false : addProduct.disabled = true;
     return selected;
 }
 //Reset prompt
@@ -395,6 +406,8 @@ function jbGetJSON() {
 }
 //Main update function, called by various event listeners to trigger update of output box and filters
 function jbUpdate() {
+    jbIsAnyProductsSelected();
+    jbIsAnyDefaultsSelected();
     let temp = [];
     //Iterate through products array
     for (i = 1; i < products.length; i++) {
