@@ -142,7 +142,7 @@ update();
 function openSection(n, open, toggle) {
     let section = [expandSection1, expandSection2, expand1, expand2, "Command Line Configuration", "JSON Filter Configuration"];
     toggle ? section[n - 1].hidden ? open = true : open = false : null;
-    open ? icon = "▲" : icon = "▼";
+    open ? icon = "▼" : icon = "▲";
     section[n - 1].hidden = !open;
     section[n + 1].innerHTML = section[n + 3] + " " + icon;
     window.scrollTo(0, document.body.scrollHeight);
