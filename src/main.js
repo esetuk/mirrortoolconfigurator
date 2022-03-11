@@ -5,6 +5,8 @@ let setDefaults = true,
     isWindows = true,
     darkMode = true;
 enableWindows.checked = true;
+openSection(1, false, false);
+openSection(2, false, false);
 //themeSwitcher.setAttribute("style", "filter: invert(100%)"); //Icon is black
 function update() {
     let command = "",
@@ -130,8 +132,6 @@ function update() {
     enableGlobal.checked ? global.style.display = "block" : global.style.display = "none";
     setDefaults = false;
 }
-openSection(1, true, false);
-openSection(2, false, false);
 let clipboard2 = new Clipboard(copyButton, {
     text: function () {
         update();
