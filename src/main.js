@@ -1,9 +1,10 @@
 //Globals
 let setDefaults = true,
     parameterList = [],
+    pElement,
     isWindows = true,
     darkMode = true;
-    enableWindows.checked = true;
+enableWindows.checked = true;
 //themeSwitcher.setAttribute("style", "filter: invert(100%)"); //Icon is black
 function update() {
     let command = "",
@@ -11,7 +12,7 @@ function update() {
     //Set base path dependent on platform
     if (enableWindows.checked) {
         isWindows = true;
-        baseDirectory = "c:\\mirrorTool\\";
+        baseDirectory = "C:\\mirrorTool\\";
     } else {
         baseDirectory = "/tmp/mirrorTool/";
         isWindows = false;
@@ -32,9 +33,9 @@ function update() {
             ["proxyHost", "", "text", "global", true],
             ["proxyPort", "", "text", "global", true],
             ["proxyUsername", "", "text", "global", true],
-            ["proxyPassword", "", "text", "global", true],
+            ["proxyPassword", "", "password", "global", true],
             ["networkDriveUsername", "", "text", "mirror", true],
-            ["networkDrivePassword", "", "text", "mirror", true],
+            ["networkDrivePassword", "", "password", "mirror", true],
             ["excludedProducts", "none", "select", "mirror", true],
             ["repositoryServer", "AUTOSELECT", "text", "repository", false],
             ["intermediateRepositoryDirectory", baseDirectory + "repositoryTemp", "text", "repository", false],
@@ -42,18 +43,18 @@ function update() {
             ["outputRepositoryDirectory", baseDirectory + "repository", "text", "repository", false],
             ["mirrorFileFormat", "none", "select", "mirror", true],
             ["compatibilityVersion", "", "text", "mirror", true],
-            ["filterFilePath", "", "text", "repository", true],
+            ["filterFilePath", baseDirectory + "filter.json", "text", "repository", true],
             ["trustDownloadedFilesInRepositoryTemp", false, "checkbox", "repository", true]
         ];
     }
+    //Aliases
     for (let i = 0; i < parameterList.length; i++) {
-        //Aliases
         let pName = parameterList[i][0],
-            pElement = document.getElementById(pName),
-            pDefault = parameterList[i][1],
-            pType = parameterList[i][2],
-            pSection = parameterList[i][3],
-            pOptional = parameterList[i][4];
+        pDefault = parameterList[i][1],
+        pType = parameterList[i][2],
+        pSection = parameterList[i][3],
+        pOptional = parameterList[i][4];
+        pElement = document.getElementById(pName);
         if (setDefaults) {
             pElement.value = pDefault;
             pElement.checked = pDefault;
@@ -71,16 +72,16 @@ function update() {
                 if (enableOptional.checked || !enableOptional.checked && parameterList[i][4] == false) {
                     switch (pType) {
                         case ("text"):
-                            //Write parameter and args for text box
                             if (pElement.value != "") command += "<colorParameter>--" + pName + "</colorParameter> <colorArgument>" + pElement.value + "</colorArgument> ";
                             break;
-                        case ("checkbox"):
-                            //Write parameter for checkbox
-                            if (pElement.checked) command += "<colorParameter>--" + pName + "</colorParameter> ";
-                            break;
-                        case ("select"):
-                            //Write parameter for currently selected item in dropdown box and args
-                            if (pElement.options[pElement.selectedIndex].text != "none") command += "<colorParameter>--" + pName + "</colorParameter> <colorArgument>" + pElement.options[pElement.selectedIndex].value + "</colorArgument> ";
+                            case ("checkbox"):
+                                if (pElement.checked) command += "<colorParameter>--" + pName + "</colorParameter> ";
+                                break;
+                                case ("select"):
+                                    if (pElement.options[pElement.selectedIndex].text != "none") command += "<colorParameter>--" + pName + "</colorParameter> <colorArgument>" + pElement.options[pElement.selectedIndex].value + "</colorArgument> ";
+                                    break;
+                                    case ("password"):
+                            if (pElement.value != "") command += "<colorParameter>--" + pName + "</colorParameter> <colorPassword>" + pElement.value + "</colorPassword> ";
                             break;
                     }
                 }
@@ -107,10 +108,22 @@ function update() {
     }
     //Trim whitespace
     command = command.trim();
-    //Check if there is anything to write and if the output is valid, if so write the platform specific prefix plus the commands to the command preview
+    //Check if there is anything to write and if the output is valid, if so write the platform specific prefix plus the commands to the command
     if (command.length != 0 && isOutputValid == 0) {
-        enableWindows.checked ? commandPreview.innerHTML = "<colorStart>MirrorTool.exe</colorStart> " + command : commandPreview.innerHTML = "<colorStart>sudo ./MirrorTool</colorStart> " + command
-    } else commandPreview.innerHTML = "<colorWarn>Some parameter sections are not enabled, or mandatory fields are empty. Check your configuration.</colorWarn>";
+        if (enableWindows.checked) {
+            command = "<colorStart>MirrorTool.exe</colorStart> " + command
+        } else {
+            command = "<colorStart>sudo ./MirrorTool</colorStart> " + command
+        }
+    } else {
+        command = "<colorWarn>Some parameter sections are not enabled, or mandatory fields are empty. Check your configuration.</colorWarn>";
+    }
+    hidden.innerHTML = command;
+    let passwordReplaceText = "&lt;hidden&gt;";
+    if (document.getElementById("networkDrivePassword").value != "" && document.getElementById("networkDrivePassword").value != null) command = command.replace(new RegExp("\\b" + document.getElementById("networkDrivePassword").value + "\\b"), passwordReplaceText);
+    if (document.getElementById("proxyPassword").value != "" && document.getElementById("proxyPassword").value != null) command = command.replace(new RegExp("\\b" + document.getElementById("proxyPassword").value + "\\b"), passwordReplaceText);
+    //Render the command
+    commandPreview.innerHTML = command;
     //Show or hide sections based on checkbox states
     enableMirror.checked ? mirror.style.display = "block" : mirror.style.display = "none";
     enableRepository.checked ? repository.style.display = "block" : repository.style.display = "none";
@@ -119,18 +132,25 @@ function update() {
 }
 openSection(1, true, false);
 openSection(2, false, false);
+let clipboard2 = new Clipboard(copyButton, {
+    text: function () {
+        update();
+        return hidden.textContent;
+    }
+});
 update();
-function openSection(n, open, toggle){
+function openSection(n, open, toggle) {
     let section = [expandSection1, expandSection2, expand1, expand2, "Command Line Configuration", "JSON Filter Configuration"];
     toggle ? section[n - 1].hidden ? open = true : open = false : null;
-    open ? icon = "▲": icon = "▼";
+    open ? icon = "▲" : icon = "▼";
     section[n - 1].hidden = !open;
     section[n + 1].innerHTML = section[n + 3] + " " + icon;
+    window.scrollTo(0, document.body.scrollHeight);
 }
-expand1.addEventListener("click", function() {
+expand1.addEventListener("click", function () {
     openSection(1, null, true);
 });
-expand2.addEventListener("click", function() {
+expand2.addEventListener("click", function () {
     openSection(2, null, true);
 });
 //Main form event listener to update the command preview
@@ -142,9 +162,9 @@ enableLinux.addEventListener("click", function () { isWindows ? resetQuestion() 
 //Download event listener
 downloadButton.addEventListener("click", function (event) {
     if (enableWindows.checked) {
-        download('test.bat', commandPreview.textContent);
+        download('test.bat', hidden.textContent);
     } else {
-        let command = commandPreview.textContent;
+        let command = hidden.textContent;
         command = command.split("sudo ").pop();
         download('test.sh', command);
     }
@@ -175,9 +195,9 @@ function resetQuestion() {
 }
 //Read in products.csv (obtained by running MirrorTool with --dryRun parameter) and split it by each new line/carraige return
 temp = readTextFile("https://raw.githubusercontent.com/esetuk/mirrortoolconfigurator/master/res/products.csv").split(/[\r\n]+/),
-products = [],
-//Main nodes (exclude path as this is not required)
-nodes = ["app_id", "name", "version", "languages", "os_types", "platforms", "legacy"];
+    products = [],
+    //Main nodes (exclude path as this is not required)
+    nodes = ["app_id", "name", "version", "languages", "os_types", "platforms", "legacy"];
 //Iterate through each line
 for (i = 0; i < temp.length; i++) {
     //Split the lines by comma seperator and remove the path
@@ -205,7 +225,7 @@ clearFilters.addEventListener("click", function () {
 //Event listener for select all filters
 selectAll.addEventListener("click", function () {
     for (let i = 0; i < nodes.length; i++) {
-        document.getElementById("enable" + nodes[i]).checked = true;
+        if (document.getElementById("enable" + nodes[i]).disabled == false) document.getElementById("enable" + nodes[i]).checked = true;
     }
     jbUpdate();
 });
@@ -217,7 +237,7 @@ addProduct.addEventListener("click", function () {
     if (isAnythingSelected()) {
         //Get the rows and columns count
         let columnCount = nodes.length,
-        rowCount = table.rows.length;
+            rowCount = table.rows.length;
         let row = table.insertRow(rowCount);
         //Iterate through each node
         for (let i = 0; i < nodes.length + 1; i++) {
@@ -347,7 +367,7 @@ function jbGetJSON() {
     //Set the space value \t=tab ""=all on the same line
     enablePretty.checked ? json_space = "\t" : json_space = "";
     let json_use_legacy = use_legacy.checked,
-    json_defaults_languages, json_defaults_platforms, json_defaults_os_types, json_products_app_id, json_products_name, json_products_version, json_product_languages, json_products_platforms, json_products_os_types, json_products, json_nodes = {}, products = [], defaults = [];
+        json_defaults_languages, json_defaults_platforms, json_defaults_os_types, json_products_app_id, json_products_name, json_products_version, json_product_languages, json_products_platforms, json_products_os_types, json_products, json_nodes = {}, products = [], defaults = [];
     //Iterate through defaults row and add this to json_nodes array
     for (i = 3; i < 6; i++) {
         if (table.rows[1].cells[i].innerHTML != "") json_nodes[nodes[i]] = table.rows[1].cells[i].innerHTML;
@@ -389,17 +409,18 @@ function jbUpdate() {
         //If there are any matching items, add the whole line to the parent temp array
         if (include) temp.push(products[i]);
     }
-    //Clear all select options if they exist
-    for (i = 0; i < products.length - 1; i++) {
-        if (document.getElementById(nodes[i]) != null) document.getElementById(nodes[i]).innerHTML = "";
+    //Clear all select options prior to re-populating and disable any empty ones
+    for (i = 0; i < nodes.length; i++) {
+        let node = document.getElementById(nodes[i]);
+        if (node != null) node.innerHTML = "";
     }
     //Second array in order to prevent duplication (will only add if an item with the same name is not found), and to filter out empty strings, and containing semi-colon
     let temp2 = [];
     //Iterate through the temp array
     for (i = 0; i < temp.length; i++) {
-        //Iterate thorugh the temp child array
+        //Iterate through the temp child array
         for (j = 0; j < temp[i].length - 1; j++) {
-            //Filter existing, emtpy, contains semi-colon
+            //Filter existing, empty, contains semi-colon
             if (temp2.indexOf(temp[i][j]) == -1 && temp[i][j] !== "" && !temp[i][j].includes(";")) {
                 temp2.push(temp[i][j]);
                 //Create the option
@@ -409,6 +430,21 @@ function jbUpdate() {
                 //Append the option to the select
                 document.getElementById(nodes[j]).appendChild(option);
             }
+        }
+    }
+    //Iterate through each node
+    for (i = 0; i < nodes.length; i++) {
+        let node = document.getElementById(nodes[i]);
+        let isNode = document.getElementById("enable" + nodes[i]);
+        //If no sub options
+        if (node.length == 0) {
+            //Disable the select and its corresponding checkbox
+            node.disabled = true;
+            isNode.disabled = true;
+        } else {
+            //Enable the select and its corresponding checkbox
+            node.disabled = false;
+            isNode.disabled = false;
         }
     }
     //Set the output box to the output of the JSON parser

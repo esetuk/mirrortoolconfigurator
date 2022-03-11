@@ -104,7 +104,7 @@
                         <br>
                         <label class="labels"
                             title="[optional] Password used, when output directory is accessed using smb(e.g:\\hostname).">networkDrivePassword</label>
-                        <input type="text" id="networkDrivePassword" placeholder="">
+                        <input type="password" id="networkDrivePassword" placeholder="">
                     </div>
                 </div>
                 <div class="layer2" id="repository">
@@ -120,7 +120,7 @@
                     <div class="optional">
                         <label class="labels"
                             title="[optional] Path to filter file in json format. Parameter compatibilityVersion has to be higher than 7.1.0.0 to run program.">filterFilePath</label>
-                        <input type="text" id="filterFilePath" placeholder=""><br>
+                        <input type="text" id="filterFilePath" placeholder=""><a href="javascript:openSection(2, true, false);">configure</a><br>
                         <label class="labels"
                             title=" [optional] If set, hashes on already downloaded files are not checked.">trustDownloadedFilesInRepositoryTemp</label>
                         <input type="checkbox" id="trustDownloadedFilesInRepositoryTemp" placeholder=""><br>
@@ -134,7 +134,7 @@
                     <label class="labels" title="[optional] Http proxy username.">proxyUsername</label>
                     <input type="text" id="proxyUsername" placeholder=""><br>
                     <label class="labels" title="[optional] Http proxy password.">proxyPassword</label>
-                    <input type="text" id="proxyPassword" placeholder=""><br>
+                    <input type="password" id="proxyPassword" placeholder=""><br>
                 </div>
             </div>
         </div>
@@ -239,7 +239,7 @@
         <a href="https://github.com/esetuk/mirrortoolconfigurator" target="_blank">Github</a> |
         <a href="https://help.eset.com/protect_install/90/en-US/mirror_tool_windows.html" target="_blank">MirrorTool</a>
     </div>
+    <div id="hidden"></div>
     <script type="text/javascript" src="src/main.js"></script>
 </body>
-
 </html>
