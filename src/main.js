@@ -91,7 +91,7 @@ function update() {
     for (let i = 0; i < pList.length; i++) {
         
         //Parameter aliases
-        let pName = pList[i][0], pDefault = pList[i][1], pType = pList[i][2], pSection = document.getElementById("enable" + pList[i][3].charAt(0).toUpperCase() + pList[i][3].slice(1)), pOptional = pList[i][4];
+        let pName = pList[i][0], pDefault = pList[i][1], pType = pList[i][2], pSectionCheckbox = document.getElementById("enable" + pList[i][3].charAt(0).toUpperCase() + pList[i][3].slice(1)), pOptional = pList[i][4];
         pElement = document.getElementById(pName);
         
         //Set defaults
@@ -104,7 +104,7 @@ function update() {
         //Iterate through all the parameters
         if (pElement != null) {
             //Check if section is enabled, if so allow the mandatory parameters to be written to the output
-            if (pSection.checked) {
+            if (pSectionCheckbox.checked) {
                 //Check if either optional parameters are enabled or optional parameters are disabled and current parameter is mandatory
                 if (enableOptional.checked || !enableOptional.checked && pList[i][4] == false) {
                     //Add parameters, arguments and colour styles to the html
@@ -127,7 +127,7 @@ function update() {
         }
 
         //If field is empty and mandatory then highlight the field red, modify the placeholder text, and declare the output as invalid
-        if (pElement.value == "" && !pOptional && pSection.checked) {
+        if (pElement.value == "" && !pOptional && pSectionCheckbox.checked) {
             pElement.style.borderColor = "rgb(194, 71, 71)";
             pElement.placeholder = "This field cannot be blank";
             isOutputValid++
