@@ -27,19 +27,31 @@
                 </div>
                 <div class="layer2" id="spacer1">
                     <div class="controls" id="filters">
-                        <label for="enableWindows">Windows</label>
-                        <input type="radio" id="enableWindows" name="radioPlatform" value="Windows">
-                        <label for="enableLinux">Linux</label>
-                        <input type="radio" id="enableLinux" name="radioPlatform" value="Linux">
+                        <div class="control">
+                            <label for="enableWindows">Windows</label>
+                            <input type="radio" id="enableWindows" name="radioPlatform" value="Windows">
+                        </div>
+                        <div class="control">
+                            <label for="enableLinux">Linux</label>
+                            <input type="radio" id="enableLinux" name="radioPlatform" value="Linux">
+                        </div>
                         <div class="separator"></div>
-                        <label for="enableMirror">Mirror</label>
-                        <input type="checkbox" id="enableMirror">
-                        <label for="enableRepository">Repository</label>
-                        <input type="checkbox" id="enableRepository">
-                        <label for="enableGlobal">Global</label>
-                        <input type="checkbox" id="enableGlobal">
-                        <label for="enableOptional">Optional</label>
-                        <input type="checkbox" id="enableOptional">
+                        <div class="control">
+                            <label for="enableMirror">Mirror</label>
+                            <input type="checkbox" id="enableMirror">
+                        </div>
+                        <div class="control">
+                            <label for="enableRepository">Repository</label>
+                            <input type="checkbox" id="enableRepository">
+                        </div>
+                        <div class="control">
+                            <label for="enableGlobal">Global</label>
+                            <input type="checkbox" id="enableGlobal">
+                        </div>
+                        <div class="control">
+                            <label for="enableOptional">Optional</label>
+                            <input type="checkbox" id="enableOptional">
+                        </div>
                         <div class="separator"></div>
                         <button type="button" id="resetButton">RESET</button>
                     </div>
@@ -118,7 +130,8 @@
                     <div class="optional">
                         <label class="labels"
                             title="[optional] Path to filter file in json format. Parameter compatibilityVersion has to be higher than 7.1.0.0 to run program.">filterFilePath</label>
-                        <input type="text" id="filterFilePath" placeholder=""><a href="javascript:openSection(2, true, false);">configure</a><br>
+                        <input type="text" id="filterFilePath" placeholder=""><a
+                            href="javascript:openSection(2, true, false);">configure</a><br>
                         <label id="bigger" class="labels"
                             title=" [optional] If set, hashes on already downloaded files are not checked.">trustDownloadedFilesInRepositoryTemp</label>
                         <input type="checkbox" id="trustDownloadedFilesInRepositoryTemp" placeholder=""><br>
@@ -139,7 +152,7 @@
         <div class="layer1" id="spacer2">
             <div class="heading">
                 <button type="button" class="expander" id="expand2">JSON Filter Configuration ▲</button>
-        </div>
+            </div>
             <div id="expandSection2">
                 <div class="spacer"></div>
                 <form id="form" spellcheck="false">
@@ -238,4 +251,5 @@
     <div id="hidden"></div>
     <script type="text/javascript" src="src/main.js"></script>
 </body>
+
 </html>
