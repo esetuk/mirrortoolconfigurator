@@ -259,15 +259,15 @@ function removeRow2(e) {
 
 function removeAllRows2() {
     for (let i = 1; i < table.rows.length; i++) {
-        row = table.rows[i];
-        //If the cell is not null
-        if (row) {
+        //If the row is not null
+        if (table.rows[i]) {
             //Either remove the whole row (for products), or clear the appropriate cells (for defaults)
             if (i > 1) { 
                 table.rows[i].remove();
+                i--;
             } else {
-                for (let i = 3; i < nodes.length - 1; i++) {
-                    table.rows[1].cells[i].innerHTML = "";
+                for (let j = 3; j < nodes.length - 1; j++) {
+                    table.rows[1].cells[j].innerHTML = "";
                 }
             }
         }
