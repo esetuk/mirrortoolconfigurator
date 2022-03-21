@@ -239,6 +239,10 @@ a:hover {
 #hidden {
     visibility: hidden;
 }
+#bigger {
+    line-height: 36px;
+    vertical-align: middle;
+}
 .removeIcon {
     margin: 0;
     padding: 0;
