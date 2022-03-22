@@ -181,10 +181,20 @@
                             <select name="app_id" id="app_id"></select>
                             <input type="checkbox" id="enableapp_id"></input>
                         </div>
-                        <div class="component">
+                        <div class="component" id="test">
                             <label>version</label>
+                            <select name="versionOperator" id="versionOperator">
+                                <option>=</option>
+                                <option>></option>
+                                <option><</option>
+                                <option>>=</option>
+                                <option><=</option>
+                            </select>
                             <select name="version" id="version"></select>
                             <input type="checkbox" id="enableversion"></input>
+                            <span>to</span>
+                            <select name="versionTo" id="versionTo"></select>
+                            <input type="checkbox" id="enableversionTo"></input>
                         </div>
                         <div class="component">
                             <label>languages</label>

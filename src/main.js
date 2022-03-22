@@ -1,7 +1,7 @@
 let setDefaults = true, isSetAppDefaults2 = true, pElement, isWindows = true, optionsFiltered, keyDown = false;
 enableWindows.checked = true;
 openSection(1, false, false);
-openSection(2, false, false);
+openSection(2, true, false);
 
 //Read in products.csv (obtained by running MirrorTool with --dryRun parameter) and split it by each new line/carraige return
 temp = readTextFile("https://raw.githubusercontent.com/esetuk/mirrortoolconfigurator/master/res/products.csv").split(/[\r\n]+/),
@@ -49,6 +49,19 @@ for (let i = 0; i < nodes.length; i++) {
         update2();
     });
 }
+enableversion.addEventListener("click", function () {
+    update2();
+});
+versionTo.addEventListener("change", function () {
+    enableversionTo.checked = true;
+    update2();
+});
+enableversionTo.addEventListener("click", function (e) {
+    update2();
+});
+versionOperator.addEventListener("change", function (e) {
+    update2();
+});
 use_legacy.addEventListener("click", function () { update2(); });
 expand1.addEventListener("click", function () { openSection(1, null, true); });
 expand2.addEventListener("click", function () { openSection(2, null, true); });
@@ -262,7 +275,7 @@ function removeAllRows2() {
         //If the row is not null
         if (table.rows[i]) {
             //Either remove the whole row (for products), or clear the appropriate cells (for defaults)
-            if (i > 1) { 
+            if (i > 1) {
                 table.rows[i].remove();
                 i--;
             } else {
@@ -279,6 +292,8 @@ function removeAllRows2() {
 function setAppDefaults2() {
     isSetAppDefaults2 = false;
     use_legacy.checked = false;
+    versionTo.disabled = true;
+    enableversionTo.disabled = true;
     clearFilters2();
     removeAllRows2();
 }
@@ -457,6 +472,7 @@ function getAllOptions2(index) {
     return result;
 }
 
+//Fill node with options from optionsFiltered
 function fillSelect2(index) {
     document.getElementById(nodes[index]).innerHTML = "";
     for (let i = 0; i < optionsFiltered[index].length; i++) {
@@ -468,14 +484,7 @@ function fillSelect2(index) {
     }
 }
 
-function selectOptions2(index) {
-    if (selectIsMultiple2(nodes[index]) && getSelected2(nodes[index]).length == 0) {
-        for (let i = 0; i < document.getElementById(nodes[index]).length; i++) {
-            document.getElementById(nodes[index]).options[i].selected = true;
-        }
-    }
-}
-
+//Check if there are any options selected
 function anyOptionsSelected2(index) {
     let result = false;
     if (document.getElementById(nodes[index]) != null) {
@@ -486,65 +495,123 @@ function anyOptionsSelected2(index) {
     return result;
 }
 
+//Remove unwanted options from nodes
 function updateSelect2(index) {
+    //Iterate through each option in the node
     for (let i = 0; i < document.getElementById(nodes[index]).length; i++) {
+        //If option is not selected
         if (!document.getElementById(nodes[index]).options[i].selected) {
+            //Remove the option from the node and decrement the index
             document.getElementById(nodes[index]).removeChild(document.getElementById(nodes[index]).options[i]);
             i--;
         }
     }
 }
 
+//Sort nodes AB/NUM
+function sortNode(index) {
+    //Numeric sort if version, otherwise normal alphabetical sort
+    index == 2 ? optionsFiltered[index] = optionsFiltered[index].sort(function (a, b) { return a - b; }) : optionsFiltered[index] = optionsFiltered[index].sort();
+}
+
+function versionStringBuilder() {
+    let versionString = "";
+    let operator = versionOperator.value;
+    if (operator == "=") operator = "";
+    if (document.getElementById("enableversion").checked || document.getElementById("enableversionTo").checked) versionString += operator;
+    if (document.getElementById("enableversion").checked) versionString += version.value;
+    if (document.getElementById("enableversionTo").checked) versionString = version.value + " - " + versionTo.value;
+    console.log(versionString);
+    return versionString;
+}
+
 //Main update function, called by various event listeners to trigger update of output box and filters
 function update2() {
 
+    //Inital node checks
     IsAnyProductsSelected2();
     IsAnyDefaultsSelected2();
+
+    versionTo.disabled = enableversionTo.disabled = (versionOperator.value != "=" || !enableversion.checked);
+    versionOperator.disabled = enableversionTo.checked;
+
+    //Set defaults if first run or reset button clicked/approved
     if (isSetAppDefaults2) setAppDefaults2();
+
+    //Copy version node to versionTo node
+    versionTo.innerHTML = version.innerHTML;
+
+    //Disable buttons if there is nothing selected
     if (isAnythingSelected2()) buttonClearFilters2.disabled = false; else buttonClearFilters2.disabled = true;
+
+    //Clone products array so that we can retain the original master
     productsFiltered = products.map(inner => inner.slice());
 
     options = [];
+    //Iterate through nodes
     for (let i = 0; i < nodes.length; i++) {
+        //Check if the node is enabled
         if (document.getElementById("enable" + nodes[i]).checked) {
+            //Check if the node is a multiple-select and there are items present
             if (selectIsMultiple2(nodes[i]) && document.getElementById(nodes[i]).length > 0) {
+                //Push multiple select options to the array
                 options.push(getSelected2(nodes[i]));
             } else {
+                //Push normal select option to the array
                 options.push([document.getElementById(nodes[i]).value]);
             }
         } else {
+            //Push all options to the array
             options.push(getAllOptions2(i));
         }
     }
 
     let remove;
+    //Iterate through lines in productFilters, which is currently just an identical copy of products
     for (let i = 0; i < productsFiltered.length; i++) {
+        //Set the remove flag
         remove = false;
+        //Iterate through each option
         for (let j = 0; j < options.length; j++) {
+            //Check the whole line to see if it contains the item from productsFiltered, if so flag the whole line for removal
             if (!options[j].includes(productsFiltered[i][j])) remove = true; continue;
         }
+        //If the remove flag is set, then remove the line from the array as it does not match the current filters, and reduce the index by 1
         if (remove) { productsFiltered.splice(i, 1); i--; };
     }
 
+    //Create a MD array for filtered options
     optionsFiltered = [[], [], [], [], [], [], []];
+    //Iterate through productsFiltered lines
     for (let i = 0; i < productsFiltered.length; i++) {
+        //Iterate through nodes
         for (let j = 0; j < nodes.length; j++) {
-            if (optionsFiltered[j].indexOf(productsFiltered[i][j]) == -1) optionsFiltered[j].push(productsFiltered[i][j]);   
-            if (j == 2) optionsFiltered[j] = optionsFiltered[j].sort(function (a, b) {  return a - b;  }); else optionsFiltered[j] = optionsFiltered[j].sort(); // Sort by highest number if version
+            //If the option does not exist push it to optionsFiltered - ensure that there are no duplicates
+            if (optionsFiltered[j].indexOf(productsFiltered[i][j]) == -1) optionsFiltered[j].push(productsFiltered[i][j]);
         }
     }
 
+    //Iterate through nodes
     for (let i = 0; i < nodes.length; i++) {
+        //Sort the nodes
+        sortNode(i);
+        //Check if the node is enabled
         if (document.getElementById("enable" + nodes[i]).checked) {
+            //Check if the node is a multiple-select and if it has items
             if (selectIsMultiple2(nodes[i]) && document.getElementById(nodes[i]).length > 0) {
+                //Update the select (remove options from it if not required)
                 updateSelect2(i);
             } else {
+                //Update the select (remove options from it if not required)
                 updateSelect2(i);
             }
         } else {
+            //Fill the select with all options
             fillSelect2(i);
         }
     }
+
+    versionStringBuilder();
 
     //Set the output box to the output of the JSON parser
     document.getElementById("outputBox2").innerHTML = GetJSON();
