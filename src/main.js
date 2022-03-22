@@ -1,7 +1,7 @@
 let setDefaults = true, isSetAppDefaults2 = true, pElement, isWindows = true, optionsFiltered, keyDown = false;
 enableWindows.checked = true;
 openSection(1, false, false);
-openSection(2, true, false);
+openSection(2, false, false);
 
 //Read in products.csv (obtained by running MirrorTool with --dryRun parameter) and split it by each new line/carraige return
 temp = readTextFile("https://raw.githubusercontent.com/esetuk/mirrortoolconfigurator/master/res/products.csv").split(/[\r\n]+/),
@@ -293,9 +293,13 @@ function setAppDefaults2() {
     isSetAppDefaults2 = false;
     use_legacy.checked = false;
     versionTo.disabled = true;
+    versionOperator.value = "=";
     enableversionTo.disabled = true;
     clearFilters2();
     removeAllRows2();
+    enablelegacy.checked = true;
+    legacy.value = "0"; 
+    update2();
 }
 
 function addProduct2() {
@@ -313,7 +317,11 @@ function addProduct2() {
                     if (selectIsMultiple2(nodes[i])) {
                         row.insertCell(i).innerHTML = getSelected2(nodes[i]);
                     } else {
-                        row.insertCell(i).innerHTML = document.getElementById(nodes[i]).options[document.getElementById(nodes[i]).selectedIndex].text; //Insert a cell containing the currently selected item in the select
+                        if (i == 2) {
+                            row.insertCell(i).innerHTML = versionStringBuilder();
+                        } else {
+                            row.insertCell(i).innerHTML = document.getElementById(nodes[i]).options[document.getElementById(nodes[i]).selectedIndex].text; //Insert a cell containing the currently selected item in the select
+                        }
                     }
                 } else {
                     //Otherwise if not checked just add a blank
@@ -478,8 +486,8 @@ function fillSelect2(index) {
     for (let i = 0; i < optionsFiltered[index].length; i++) {
         let opt = document.createElement("option");
         opt.value = opt.text = optionsFiltered[index][i];
-        if (opt.text == "0") opt.text = "yes";
-        if (opt.text == "1") opt.text = "no";
+        if (opt.text == "0") opt.text = "no";
+        if (opt.text == "1") opt.text = "yes";
         if (optionsFiltered[index][i] != "") document.getElementById(nodes[index]).appendChild(opt);
     }
 }
@@ -532,21 +540,18 @@ function update2() {
     IsAnyProductsSelected2();
     IsAnyDefaultsSelected2();
 
+    //Check version filters and enable/disable appropriately
     versionTo.disabled = enableversionTo.disabled = (versionOperator.value != "=" || !enableversion.checked);
     versionOperator.disabled = enableversionTo.checked;
+    if (!enableversion.checked) enableversionTo.checked = false;
 
-    //Set defaults if first run or reset button clicked/approved
-    if (isSetAppDefaults2) setAppDefaults2();
-
-    //Copy version node to versionTo node
-    versionTo.innerHTML = version.innerHTML;
-
+    
     //Disable buttons if there is nothing selected
     if (isAnythingSelected2()) buttonClearFilters2.disabled = false; else buttonClearFilters2.disabled = true;
-
+    
     //Clone products array so that we can retain the original master
     productsFiltered = products.map(inner => inner.slice());
-
+    
     options = [];
     //Iterate through nodes
     for (let i = 0; i < nodes.length; i++) {
@@ -565,7 +570,7 @@ function update2() {
             options.push(getAllOptions2(i));
         }
     }
-
+    
     let remove;
     //Iterate through lines in productFilters, which is currently just an identical copy of products
     for (let i = 0; i < productsFiltered.length; i++) {
@@ -579,7 +584,7 @@ function update2() {
         //If the remove flag is set, then remove the line from the array as it does not match the current filters, and reduce the index by 1
         if (remove) { productsFiltered.splice(i, 1); i--; };
     }
-
+    
     //Create a MD array for filtered options
     optionsFiltered = [[], [], [], [], [], [], []];
     //Iterate through productsFiltered lines
@@ -590,7 +595,7 @@ function update2() {
             if (optionsFiltered[j].indexOf(productsFiltered[i][j]) == -1) optionsFiltered[j].push(productsFiltered[i][j]);
         }
     }
-
+    
     //Iterate through nodes
     for (let i = 0; i < nodes.length; i++) {
         //Sort the nodes
@@ -610,8 +615,12 @@ function update2() {
             fillSelect2(i);
         }
     }
-
-    versionStringBuilder();
+    
+    //Copy version node to versionTo node
+    if (!enableversion.checked) versionTo.innerHTML = version.innerHTML; //------------------------------HERE
+    
+    //Set defaults if first run or reset button clicked/approved
+    if (isSetAppDefaults2) setAppDefaults2();
 
     //Set the output box to the output of the JSON parser
     document.getElementById("outputBox2").innerHTML = GetJSON();
