@@ -1,7 +1,7 @@
 let setDefaults = true, isSetAppDefaults2 = true, pElement, isWindows = true, optionsFiltered, keyDown = false;
 enableWindows.checked = true;
 openSection(1, false, false);
-openSection(2, false, false);
+openSection(2, true, false);
 
 //Read in products.csv (obtained by running MirrorTool with --dryRun parameter) and split it by each new line/carraige return
 temp = readTextFile("https://raw.githubusercontent.com/esetuk/mirrortoolconfigurator/master/res/products.csv").split(/[\r\n]+/),
@@ -454,7 +454,7 @@ function getAllOptions2(index) {
     for (let i = 0; i < productsFiltered.length; i++) {
         if (result.indexOf(productsFiltered[i][index]) == -1) result.push(productsFiltered[i][index]);
     }
-    return result.sort();
+    return result;
 }
 
 function fillSelect2(index) {
@@ -529,7 +529,8 @@ function update2() {
     optionsFiltered = [[], [], [], [], [], [], []];
     for (let i = 0; i < productsFiltered.length; i++) {
         for (let j = 0; j < nodes.length; j++) {
-            if (optionsFiltered[j].indexOf(productsFiltered[i][j]) == -1) optionsFiltered[j].push(productsFiltered[i][j]);
+            if (optionsFiltered[j].indexOf(productsFiltered[i][j]) == -1) optionsFiltered[j].push(productsFiltered[i][j]);   
+            if (j == 2) optionsFiltered[j] = optionsFiltered[j].sort(function (a, b) {  return a - b;  }); else optionsFiltered[j] = optionsFiltered[j].sort(); // Sort by highest number if version
         }
     }
 
