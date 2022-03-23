@@ -1,7 +1,7 @@
 let setDefaults = true, isSetAppDefaults2 = true, pElement, isWindows = true, optionsFiltered, keyDown = false;
 enableWindows.checked = true;
 openSection(1, false, false);
-openSection(2, false, false);
+openSection(2, true, false);
 
 //Read in products.csv (obtained by running MirrorTool with --dryRun parameter) and split it by each new line/carraige return
 temp = readTextFile("https://raw.githubusercontent.com/esetuk/mirrortoolconfigurator/master/res/products.csv").split(/[\r\n]+/),
@@ -444,7 +444,7 @@ function isAnythingSelected2() {
 function IsAnyDefaultsSelected2() {
     let selected = false;
     //Iterate through each node starting from an offset of 3 and -1 to only collect defaults
-    for (let i = 3; i < nodes.length; i++) {
+    for (let i = 3; i < nodes.length - 1; i++) {
         if (document.getElementById("enable" + nodes[i]).checked == true) selected = true;
     }
     selected ? document.getElementById("buttonSetDefaults2").disabled = false : document.getElementById("buttonSetDefaults2").disabled = true;
@@ -475,7 +475,13 @@ function getSelected2(select) {
 function getAllOptions2(index) {
     let result = [];
     for (let i = 0; i < productsFiltered.length; i++) {
-        if (result.indexOf(productsFiltered[i][index]) == -1) result.push(productsFiltered[i][index]);
+        if
+        (
+        result.indexOf(productsFiltered[i][index]) == -1 //&&
+        //productsFiltered[i][index] != "" &&
+        //!productsFiltered[i][index].includes(";")
+        )
+        result.push(productsFiltered[i][index]);
     }
     return result;
 }
@@ -484,11 +490,12 @@ function getAllOptions2(index) {
 function fillSelect2(index) {
     document.getElementById(nodes[index]).innerHTML = "";
     for (let i = 0; i < optionsFiltered[index].length; i++) {
+        let value = optionsFiltered[index][i];
         let opt = document.createElement("option");
-        opt.value = opt.text = optionsFiltered[index][i];
+        opt.value = opt.text = value;
         if (opt.text == "0") opt.text = "no";
         if (opt.text == "1") opt.text = "yes";
-        if (optionsFiltered[index][i] != "") document.getElementById(nodes[index]).appendChild(opt);
+        document.getElementById(nodes[index]).appendChild(opt);
     }
 }
 
@@ -579,7 +586,10 @@ function update2() {
         //Iterate through each option
         for (let j = 0; j < options.length; j++) {
             //Check the whole line to see if it contains the item from productsFiltered, if so flag the whole line for removal
-            if (!options[j].includes(productsFiltered[i][j])) remove = true; continue;
+            let values = productsFiltered[i][j].split(";");
+            for (let k = 0; k < values.length; k++){
+                if (!options[j].filter(element => element.includes(values[k])).length > 0) remove = true; continue;
+            }
         }
         //If the remove flag is set, then remove the line from the array as it does not match the current filters, and reduce the index by 1
         if (remove) { productsFiltered.splice(i, 1); i--; };
@@ -591,10 +601,10 @@ function update2() {
     for (let i = 0; i < productsFiltered.length; i++) {
         //Iterate through nodes
         for (let j = 0; j < nodes.length; j++) {
-            //If the option does not exist push it to optionsFiltered - ensure that there are no duplicates
+            //If there is no existing option add it to filtered options
             if (optionsFiltered[j].indexOf(productsFiltered[i][j]) == -1) optionsFiltered[j].push(productsFiltered[i][j]);
+            }
         }
-    }
     
     //Iterate through nodes
     for (let i = 0; i < nodes.length; i++) {
@@ -617,7 +627,7 @@ function update2() {
     }
     
     //Copy version node to versionTo node
-    if (!enableversion.checked) versionTo.innerHTML = version.innerHTML; //------------------------------HERE
+    if (!enableversion.checked) versionTo.innerHTML = version.innerHTML;
     
     //Set defaults if first run or reset button clicked/approved
     if (isSetAppDefaults2) setAppDefaults2();
