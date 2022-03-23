@@ -495,6 +495,7 @@ function fillSelect2(index) {
         opt.value = opt.text = value;
         if (opt.text == "0") opt.text = "no";
         if (opt.text == "1") opt.text = "yes";
+        if (opt.text == "") { opt.text = "unspecified"; opt.value = ""; }
         document.getElementById(nodes[index]).appendChild(opt);
     }
 }
@@ -585,7 +586,7 @@ function update2() {
         remove = false;
         //Iterate through each option
         for (let j = 0; j < options.length; j++) {
-            //Check the whole line to see if it contains the item from productsFiltered, if so flag the whole line for removal
+            //Check the whole line to see if it contains the item from productsFiltered or if the item is blank (unspecified), if so flag the whole line for removal
             let values = productsFiltered[i][j].split(";");
             for (let k = 0; k < values.length; k++){
                 if (!options[j].filter(element => element.includes(values[k])).length > 0) remove = true; continue;
