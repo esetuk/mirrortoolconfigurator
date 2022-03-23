@@ -1,7 +1,7 @@
 let setDefaults = true, isSetAppDefaults2 = true, pElement, isWindows = true, optionsFiltered, keyDown = false;
 enableWindows.checked = true;
 openSection(1, false, false);
-openSection(2, true, false);
+openSection(2, false, false);
 
 //Read in products.csv (obtained by running MirrorTool with --dryRun parameter) and split it by each new line/carraige return
 temp = readTextFile("https://raw.githubusercontent.com/esetuk/mirrortoolconfigurator/master/res/products.csv").split(/[\r\n]+/),
@@ -297,8 +297,6 @@ function setAppDefaults2() {
     enableversionTo.disabled = true;
     clearFilters2();
     removeAllRows2();
-    enablelegacy.checked = true;
-    legacy.value = "0"; 
     update2();
 }
 
@@ -537,7 +535,6 @@ function versionStringBuilder() {
     if (document.getElementById("enableversion").checked || document.getElementById("enableversionTo").checked) versionString += operator;
     if (document.getElementById("enableversion").checked) versionString += version.value;
     if (document.getElementById("enableversionTo").checked) versionString = version.value + " - " + versionTo.value;
-    console.log(versionString);
     return versionString;
 }
 
