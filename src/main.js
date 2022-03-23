@@ -46,6 +46,7 @@ for (let i = 0; i < nodes.length; i++) {
         });
     }
     document.getElementById("enable" + nodes[i]).addEventListener("click", function () {
+        document.getElementById(nodes[i]).selectedIndex = 0;
         update2();
     });
 }
@@ -474,12 +475,12 @@ function getAllOptions2(index) {
     let result = [];
     for (let i = 0; i < productsFiltered.length; i++) {
         if
-        (
-        result.indexOf(productsFiltered[i][index]) == -1 //&&
-        //productsFiltered[i][index] != "" &&
-        //!productsFiltered[i][index].includes(";")
+            (
+            result.indexOf(productsFiltered[i][index]) == -1 //&&
+            //productsFiltered[i][index] != "" &&
+            //!productsFiltered[i][index].includes(";")
         )
-        result.push(productsFiltered[i][index]);
+            result.push(productsFiltered[i][index]);
     }
     return result;
 }
@@ -550,13 +551,13 @@ function update2() {
     versionOperator.disabled = enableversionTo.checked;
     if (!enableversion.checked) enableversionTo.checked = false;
 
-    
+
     //Disable buttons if there is nothing selected
     if (isAnythingSelected2()) buttonClearFilters2.disabled = false; else buttonClearFilters2.disabled = true;
-    
+
     //Clone products array so that we can retain the original master
     productsFiltered = products.map(inner => inner.slice());
-    
+
     options = [];
     //Iterate through nodes
     for (let i = 0; i < nodes.length; i++) {
@@ -575,7 +576,7 @@ function update2() {
             options.push(getAllOptions2(i));
         }
     }
-    
+
     let remove;
     //Iterate through lines in productFilters, which is currently just an identical copy of products
     for (let i = 0; i < productsFiltered.length; i++) {
@@ -585,14 +586,14 @@ function update2() {
         for (let j = 0; j < options.length; j++) {
             //Check the whole line to see if it contains the item from productsFiltered or if the item is blank (unspecified), if so flag the whole line for removal
             let values = productsFiltered[i][j].split(";");
-            for (let k = 0; k < values.length; k++){
+            for (let k = 0; k < values.length; k++) {
                 if (!options[j].filter(element => element.includes(values[k])).length > 0) remove = true; continue;
             }
         }
         //If the remove flag is set, then remove the line from the array as it does not match the current filters, and reduce the index by 1
         if (remove) { productsFiltered.splice(i, 1); i--; };
     }
-    
+
     //Create a MD array for filtered options
     optionsFiltered = [[], [], [], [], [], [], []];
     //Iterate through productsFiltered lines
@@ -601,9 +602,12 @@ function update2() {
         for (let j = 0; j < nodes.length; j++) {
             //If there is no existing option add it to filtered options
             if (optionsFiltered[j].indexOf(productsFiltered[i][j]) == -1) optionsFiltered[j].push(productsFiltered[i][j]);
-            }
         }
-    
+    }
+
+    //Copy version node to versionTo node
+    if (!enableversion.checked) versionTo.innerHTML = version.innerHTML;
+
     //Iterate through nodes
     for (let i = 0; i < nodes.length; i++) {
         //Sort the nodes
@@ -623,10 +627,7 @@ function update2() {
             fillSelect2(i);
         }
     }
-    
-    //Copy version node to versionTo node
-    if (!enableversion.checked) versionTo.innerHTML = version.innerHTML;
-    
+
     //Set defaults if first run or reset button clicked/approved
     if (isSetAppDefaults2) setAppDefaults2();
 
