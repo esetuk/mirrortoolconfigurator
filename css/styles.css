@@ -69,6 +69,9 @@ h2, h4 {
 a {
     text-decoration: none;
 }
+a:hover {
+    color: dodgerblue;
+}
 button {
     background-color: transparent;
     border: 0;
@@ -88,7 +91,7 @@ img {
 button:disabled {
     filter: invert(75%);
 }
-button:enabled:hover, a:hover {
+button:enabled:hover {
     filter: invert(50%);
 }
 button:active {
