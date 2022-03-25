@@ -24,14 +24,16 @@ for (let i = 0; i < temp.length; i++) {
 products.shift();
 
 //Event listeners
-menuBar.addEventListener("click", function(e) {
-    let hide;
-    if (e.target.id == "menuItem1") hide = false;
-    if (e.target.id == "menuItem2") hide = true;
-    layerCLI.hidden = hide;
-    layerJSON.hidden = !hide;
+menuBar.addEventListener("click", function (e) {
+    if (e.target.id != "menuBar") {
+        let hide;
+        if (e.target.id == "menuItem1") { hide = false; menuItem1.style.textDecoration = "underline"; menuItem2.style.textDecoration = "none"; }
+        if (e.target.id == "menuItem2") { hide = true; menuItem1.style.textDecoration = "none"; menuItem2.style.textDecoration = "underline"; }
+        layerCLI.hidden = hide;
+        layerJSON.hidden = !hide;
+    }
 });
-configureLink.addEventListener("click", function() { openSection("layerJSON"); });
+configureLink.addEventListener("click", function () { openSection("layerJSON"); });
 buttonClearFilters2.addEventListener("click", function () { clearFilters2(); });
 enablePretty.addEventListener("click", function () { update2(); });
 main.addEventListener("input", function () { update(); });
@@ -93,7 +95,7 @@ let clipboard2 = new Clipboard(copyButton2, {
     }
 });
 
-function openSection(name){
+function openSection(name) {
     if (name = "layerJSON") {
         layerJSON.hidden = false;
         layerCLI.hidden = true;

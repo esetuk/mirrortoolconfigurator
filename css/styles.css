@@ -3,7 +3,7 @@
     width: 100%;
 }
 * {
-    color: rgb(209, 206, 206);
+    color: rgb(220, 220, 220);
     font-family: "Segoe UI",Helvetica,Arial, sans-serif;
     box-sizing: border-box;
 }
@@ -14,7 +14,7 @@ html, body {
     padding: 0;
     background-color: black;
 }
-.menuItem {
+.menuItem, .footerItem {
     margin: 0;
     height: 100%;
     line-height: 20px;
@@ -67,6 +67,9 @@ h2, h4 {
     padding: 0;
     width: auto;
     display: inline-block;
+}
+a {
+    text-decoration: none;
 }
 button {
     background-color: transparent;
@@ -165,8 +168,8 @@ label {
     user-select: none; /* supported by Chrome and Opera */
     -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
-   -moz-user-select: none; /* Firefox */
-   -ms-user-select: none; /* Internet Explorer/Edge */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
 }
 .separator {
     border-left: 3px solid rgb(40,40,40);
@@ -259,6 +262,9 @@ label {
 #bigger {
     line-height: 36px;
     vertical-align: middle;
+}
+.footerItem {
+    color: grey;
 }
 .removeIcon {
     margin: 0;
