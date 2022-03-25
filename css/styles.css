@@ -207,9 +207,6 @@ label {
     margin-right: 0;
     margin-bottom: 0;
 }
-#configureLink {
-    font-size: small;
-}
 .control {
     width: auto;
     display: inline-block;
@@ -263,8 +260,10 @@ label {
     line-height: 36px;
     vertical-align: middle;
 }
-.footerItem {
+.links {
     color: grey;
+    font-size: small;
+    padding: 3px;
 }
 .removeIcon {
     margin: 0;

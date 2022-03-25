@@ -1,9 +1,6 @@
 let setDefaults = true, isSetAppDefaults2 = true, pElement, isWindows = true, optionsFiltered, navigationCompact = true;
 enableWindows.checked = true;
-
-layerCLI.hidden = false;
-layerJSON.hidden = true;
-
+openSection(1);
 //Read in products.csv (obtained by running MirrorTool with --dryRun parameter) and split it by each new line/carraige return
 temp = readTextFile("https://raw.githubusercontent.com/esetuk/mirrortoolconfigurator/master/res/products.csv").split(/[\r\n]+/),
     products = [], productsFiltered = [],
@@ -26,11 +23,8 @@ products.shift();
 //Event listeners
 menuBar.addEventListener("click", function (e) {
     if (e.target.id != "menuBar") {
-        let hide;
-        if (e.target.id == "menuItem1") { hide = false; menuItem1.style.textDecoration = "underline"; menuItem2.style.textDecoration = "none"; }
-        if (e.target.id == "menuItem2") { hide = true; menuItem1.style.textDecoration = "none"; menuItem2.style.textDecoration = "underline"; }
-        layerCLI.hidden = hide;
-        layerJSON.hidden = !hide;
+        if (e.target.id == "menuItem1") openSection(1);
+        if (e.target.id == "menuItem2") openSection(2);
     }
 });
 configureLink.addEventListener("click", function () { openSection("layerJSON"); });
@@ -95,13 +89,17 @@ let clipboard2 = new Clipboard(copyButton2, {
     }
 });
 
-function openSection(name) {
-    if (name = "layerJSON") {
+function openSection(id) {
+    if (id == 2) {
         layerJSON.hidden = false;
         layerCLI.hidden = true;
+        menuItem1.style.textDecoration = "none";
+        menuItem2.style.textDecoration = "underline";
     } else {
         layerJSON.hidden = true;
         layerCLI.hidden = false;
+        menuItem1.style.textDecoration = "underline";
+        menuItem2.style.textDecoration = "none";
     }
 }
 
