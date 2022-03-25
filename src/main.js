@@ -78,7 +78,7 @@ downloadButton.addEventListener("click", function (event) { enableWindows.checke
 let clipboard = new Clipboard(copyButton, {
     text: function () {
         update();
-        toast("Copied to clipboard",1000);
+        toast("Copied to clipboard!",800);
         return hidden.textContent;
     }
 });
@@ -86,7 +86,7 @@ let clipboard = new Clipboard(copyButton, {
 let clipboard2 = new Clipboard(copyButton2, {
     text: function () {
         update2();
-        toast("Copied to clipboard",1000);
+        toast("Copied to clipboard!",800);
         return outputBox2.innerHTML;
     }
 });
@@ -107,8 +107,9 @@ function openSection(id) {
 
 function toast(msg,duration)
 {
- var el = document.createElement("div");
- el.setAttribute("style","font-size:small;position:absolute;top:50%;left:50%;margin-top:0;margin-left:-100px;width:200px;text-height:30px;background-color:black;padding:20px;text-align:center;vertical-align:middle;");
+ let el = document.createElement("div");
+ let rect = copyButton.getBoundingClientRect();
+ el.setAttribute("style",`font-size:small;position:absolute;top:50%;left:50%;width:200px;text-height:20px;margin-top:-50px;margin-left:-100px;background-color:black;padding:5px;text-align:center;vertical-align:middle;border:1px solid grey`);
  el.innerHTML = msg;
  setTimeout(function(){
   el.parentNode.removeChild(el);
