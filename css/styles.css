@@ -1,71 +1,134 @@
 :root {
     color-scheme: dark;
+    width: 100%;
 }
 * {
-    color: rgb(255, 255, 255);
-    border-radius: 5px;
-    font-family: "Segoe UI",Helvetica,Arial, sans-serif;   
+    color: rgb(209, 206, 206);
+    font-family: "Segoe UI",Helvetica,Arial, sans-serif;
+    box-sizing: border-box;
 }
-h2 {
+html, body {
+    height: 100%;
+    margin: auto;
+    width: 100%;
+    padding: 0;
+    background-color: black;
+}
+.menuItem {
+    margin: 0;
+    height: 100%;
+    line-height: 20px;
+    padding: 3px;
+}
+.row {
+    height: 100%;
+}
+.navigation {
+    height: auto;
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+    text-align: left;
+    padding-left: 20px;
+    display: inline-block;
+    font-size: small;
+    border-bottom: 1px solid rgb(40,40,40);
+}
+#footer {
     text-align: center;
-    margin-top: 0;
+}
+#header {
+    text-align: center;
+    border-bottom: 1px solid rgb(40,40,40);
+    height: auto;
+    padding: 10px;
+    margin: auto;
+    vertical-align: middle;
+    width: 100%;
+}
+#headline {
+    text-align: center;
+    vertical-align: middle;
+    margin: 0;
+    line-height: auto;
+}
+#main {
+    height: auto;
+    margin: auto;
+    margin-top: 20px;
+    width: 900px;
+    border: 1px solid rgb(40,40,40);
+    border-bottom: 0;
+    background-color: rgb(15,15,15);
+}
+h2, h4 {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    display: inline-block;
 }
 button {
     background-color: transparent;
-    border: 1px solid white;
+    border: 1px solid rgb(230, 230, 230);
     vertical-align: middle;
+    border-radius: 5px;
+    margin: 3px;
     padding: 3px;
-    padding-left: 6px;
-    padding-right: 6px;
-    margin: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: small;
 }
 button:disabled {
     color : rgb(87, 87, 87);
     border: 1px solid;
 }
-button:enabled:hover {
-    background-color: #ffffff;
-    color: black;
+button:enabled:hover, a:hover {
+    color: rgb(67, 166, 224);
+    border-color: rgb(67, 166, 224);
 }
 button:active {
     transform: translateY(1px);
 }
+select, input {
+    background-color: black;
+    border-radius: 5px;
+    font-size: small;
+}
 select {
-    background-color: rgb(24, 24, 24);
     width: auto;
     padding: 5px;
     vertical-align: middle;
     margin: 5px;
     height: auto;
+    border: 1px solid rgb(40,40,40);
 }
 select option:checked {
     color: rgb(255, 255, 255);
-    background-color: rgb(59, 59, 59);
 }
 input {
-    background-color: rgb(24, 24, 24);
+    border: 1px solid rgb(40,40,40);
     outline: none;
-    border: 1px solid rgb(65, 65, 65);
     width: 50%;
     padding: 6px;
     margin: 5px;
     display: inline-block;
     vertical-align: middle;
     height: 100%;
+    border-radius: 5px;
 }
 input[type="checkbox"] {
     width: 16px;
     height: 16px;
     vertical-align: middle;
-    margin: 5px;
+    margin: 2px;
 }
 input[type="radio"] {
     width: auto;
-    border: 1px solid rgb(63, 63, 63);
     vertical-align: middle;
     text-align: right;
     height: auto;
-    margin: 5px;
+    margin: 2px;
 }
 input:focus {
     outline: none;
@@ -73,15 +136,15 @@ input:focus {
 table {
     width: 100%;
     text-align: left;
-    background-color: rgb(24, 24, 24);
     font-size: small;
+    background-color: black;
 }
 table, th, td {
-    border: 1px solid rgb(65, 65, 65);
     border-collapse: collapse;
     padding: 5px;
     border-radius: 0;
     cursor: default;
+    border: 1px solid rgb(40,40,40);
 }
 th {
     text-align: center;
@@ -94,23 +157,9 @@ label {
     display: inline-block;
     width: auto;
     text-align: right;
-    font-size: small;
     vertical-align: middle;
     margin-bottom: 0;
-}
-body {
-    background-color: rgb(0, 0, 0);
-    margin: auto;
-}
-span {
     font-size: small;
-}
-a {
-    color: rgb(90, 87, 87);
-    font-size: small;
-}
-a:hover {
-    color: rgb(255, 255, 255);
 }
 .disable-select {
     user-select: none; /* supported by Chrome and Opera */
@@ -119,26 +168,8 @@ a:hover {
    -moz-user-select: none; /* Firefox */
    -ms-user-select: none; /* Internet Explorer/Edge */
 }
-.spacer {
-    margin: 20px;
-    padding: 0;
-}
-.expander {
-    border: 0;
-    font-size: medium;
-    font-weight: bold;
-}
-.expander:enabled:hover {
-    background-color: transparent;
-    color: white;
-}
-.heading {
-    vertical-align: middle;
-    height: 30px;
-    text-align: center;
-}
 .separator {
-    border-left: 3px solid rgb(65, 65, 65);
+    border-left: 3px solid rgb(40,40,40);
     height: 20px;
     display: inline-block;
     vertical-align: middle;
@@ -146,66 +177,58 @@ a:hover {
     margin-right: 5px;
 }
 .labels {
-    width: 300px;
+    width: 230px;
+    text-align: right;
 }
 .component {
     width: auto;
     display: inline-block;
     margin: 5px;
-    border: 1px solid rgb(65, 65, 65);
     padding: 10px;
-    background-color: rgb(35, 35, 35);
     height: auto;
     vertical-align: middle;
     text-align: left;
-}
-.layer1 {
-    border: 1px solid rgb(65, 65, 65);
-    background-color: rgb(25, 25, 25);
-    padding: 20px;
+    border: 1px solid rgb(40,40,40);
+    border-radius: 5px;
 }
 .layer2 {
-    border: 1px solid rgb(65, 65, 65);
-    background-color: rgb(30, 30, 30);
     padding: 20px;
+    border-bottom: 1px solid rgb(40,40,40);
+    border-top: 0;
 }
 .controls {
     text-align: right;
     width: auto;
     height: auto;
-    margin-top: 10px;
+    margin: 10px;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+#configureLink {
+    font-size: small;
 }
 .control {
     width: auto;
     display: inline-block;
     margin: 3px;
 }
-#main {
-    width: 900px;
-    margin: auto;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    padding: 20px;
-    height: auto;
-    background-color: rgb(20, 20, 20);
-    border: 1px solid rgb(63, 63, 63);
+#mirrorOnlyLevelUpdates, #trustDownloadedFilesInRepositoryTemp {
+    margin: 5px;
 }
 #outputBox {
-    font-family: "Lucida console";
     background-color: rgb(3, 3, 3);
     white-space: pre-wrap;
     resize: none;
     outline: none;
-    border: 1px solid rgb(63, 63, 63);
     padding: 20px;
     margin-bottom: 10px;
+    border: 1px solid rgb(40,40,40);
+    font-size: small;
 }
 #outputBox2 {
-    font-family: "Lucida console";
     color: orange;
     text-align: left;
     white-space: pre-wrap;
-    border: 1px solid rgb(63, 63, 63);
     width: auto;
     background-color: black;
     margin: 0;
@@ -213,23 +236,15 @@ a:hover {
     padding: 20px;
     height: auto;
     word-wrap: break-word;
+    border: 1px solid rgb(40,40,40);
     font-size: small;
-}
-#repository, #global {
-    margin-top: 20px;
 }
 #optional {
     margin: 0;
     padding: 0;
 }
-#footer {
-    color:rgb(63, 63, 63);
-    font-size: small;
-    text-align: center;
-    margin-bottom: 10px;
-}
 #filters {
-    margin-top: 0;
+    margin: 0;
     text-align: center;
 }
 #enablePrettyBox {
@@ -237,13 +252,6 @@ a:hover {
     width: auto;
     margin: 0;
     margin-left: 5px;
-}
-#spacer1 {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-#spacer2 {
-    margin-top: 20px;
 }
 #hidden {
     visibility: hidden;
@@ -257,28 +265,8 @@ a:hover {
     padding: 0;
     text-align: center;
 }
-colorParameter {
-    color: rgb(67, 166, 224);
-    font-family: "Lucida console";
-    font-size: small;
-}
-colorArgument {
-    color: rgb(224, 120, 102);
-    font-family: "Lucida console";
-    font-size: small;
-}
-colorPassword {
-    color: rgb(180, 147, 57);
-    font-family: "Lucida console";
-    font-size: small;
-}
-colorStart {
-    color: rgb(199, 90, 153);
-    font-family: "Lucida console";
-    font-size: small;
-}
-colorWarn {
-    color: rgb(63, 63, 63);
-    font-family: "Lucida console";
-    font-size: small;
-}
+colorParameter {color: rgb(67, 166, 224);}
+colorArgument {color: rgb(224, 120, 102);}
+colorPassword {color: rgb(180, 147, 57);}
+colorStart {color: rgb(199, 90, 153);}
+colorWarn {color: rgb(70, 70, 70);}

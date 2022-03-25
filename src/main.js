@@ -1,7 +1,8 @@
-let setDefaults = true, isSetAppDefaults2 = true, pElement, isWindows = true, optionsFiltered, keyDown = false;
+let setDefaults = true, isSetAppDefaults2 = true, pElement, isWindows = true, optionsFiltered, navigationCompact = true;
 enableWindows.checked = true;
-openSection(1, false, false);
-openSection(2, false, false);
+
+layerCLI.hidden = false;
+layerJSON.hidden = true;
 
 //Read in products.csv (obtained by running MirrorTool with --dryRun parameter) and split it by each new line/carraige return
 temp = readTextFile("https://raw.githubusercontent.com/esetuk/mirrortoolconfigurator/master/res/products.csv").split(/[\r\n]+/),
@@ -23,6 +24,14 @@ for (let i = 0; i < temp.length; i++) {
 products.shift();
 
 //Event listeners
+menuBar.addEventListener("click", function(e) {
+    let hide;
+    if (e.target.id == "menuItem1") hide = false;
+    if (e.target.id == "menuItem2") hide = true;
+    layerCLI.hidden = hide;
+    layerJSON.hidden = !hide;
+});
+configureLink.addEventListener("click", function() { openSection("layerJSON"); });
 buttonClearFilters2.addEventListener("click", function () { clearFilters2(); });
 enablePretty.addEventListener("click", function () { update2(); });
 main.addEventListener("input", function () { update(); });
@@ -64,8 +73,6 @@ versionOperator.addEventListener("change", function (e) {
     update2();
 });
 use_legacy.addEventListener("click", function () { update2(); });
-expand1.addEventListener("click", function () { openSection(1, null, true); });
-expand2.addEventListener("click", function () { openSection(2, null, true); });
 resetButton.addEventListener("click", function () { reset(); });
 enableWindows.addEventListener("click", function () { isWindows ? null : reset() });
 enableLinux.addEventListener("click", function () { isWindows ? reset() : null });
@@ -85,6 +92,16 @@ let clipboard2 = new Clipboard(copyButton2, {
         return outputBox2.innerHTML;
     }
 });
+
+function openSection(name){
+    if (name = "layerJSON") {
+        layerJSON.hidden = false;
+        layerCLI.hidden = true;
+    } else {
+        layerJSON.hidden = true;
+        layerCLI.hidden = false;
+    }
+}
 
 function update() {
     updateBaseDirectory();
@@ -211,16 +228,6 @@ update2();
 function updateBaseDirectory() {
     if (enableWindows.checked) { isWindows = true; b = "C:\\mirrorTool\\"; } else { b = "/tmp/mirrorTool/"; isWindows = false; }
     return b;
-}
-
-//Open a section or toggle it, change the icon
-function openSection(n, open, toggle) {
-    let section = [expandSection1, expandSection2, expand1, expand2, "Command Line Configuration", "JSON Filter Configuration"];
-    toggle ? section[n - 1].hidden ? open = true : open = false : null;
-    open ? icon = "▼" : icon = "▲";
-    section[n - 1].hidden = !open;
-    section[n + 1].innerHTML = section[n + 3] + " " + icon;
-    window.scrollTo(0, document.body.scrollHeight);
 }
 
 //Scroll to bottom of document
