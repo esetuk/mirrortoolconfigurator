@@ -27,7 +27,7 @@ menuBar.addEventListener("click", function (e) {
         if (e.target.id == "menuItem2") openSection(2);
     }
 });
-configureLink.addEventListener("click", function () { openSection("layerJSON"); });
+configureLink.addEventListener("click", function () { openSection(2); });
 buttonClearFilters2.addEventListener("click", function () { clearFilters2(); });
 enablePretty.addEventListener("click", function () { update2(); });
 main.addEventListener("input", function () { update(); });
