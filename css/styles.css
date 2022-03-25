@@ -89,8 +89,7 @@ button:disabled {
     filter: invert(75%);
 }
 button:enabled:hover, a:hover {
-    color: rgb(67, 166, 224);
-    border-color: rgb(67, 166, 224);
+    filter: invert(50%);
 }
 button:active {
     transform: translateY(1px);

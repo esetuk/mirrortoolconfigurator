@@ -336,7 +336,7 @@ function addProduct2() {
                 }
             } else {
                 //Add a text remove button and set it's ID
-                row.insertCell(i).innerHTML = `<p class="removeIcon">X</p>`;
+                row.insertCell(i).innerHTML = `<p class="removeIcon">✖</p>`;
                 table.rows[rowCount].cells[i].id = "remove";
             }
         }
@@ -358,7 +358,7 @@ function setDefaults2() {
             }
         }
         //Add a text remove icon and ID
-        table.rows[1].cells[7].innerHTML = `<p class="removeIcon">X</p>`;
+        table.rows[1].cells[7].innerHTML = `<p class="removeIcon">✖</p>`;
         table.rows[1].cells[7].id = "clear";
         clearFilters2();
         update2();

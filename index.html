@@ -22,9 +22,9 @@
             <div class="layer2">
                 <div id="outputBox"></div>
                 <div class="controls">
-                    <button type="button" id="resetButton"><img src="res/resetbutton.png"></img></button>
-                    <button type="button" id="copyButton"><img src="res/copybutton.png"></img></button>
-                    <button type="button" id="downloadButton"><img src="res/downloadbutton.png"></img></button>
+                    <button type="button" id="resetButton" title="Reset CLI configuration"><img src="res/resetbutton.png"></img></button>
+                    <button type="button" id="copyButton" title="Copy to clipboard"><img src="res/copybutton.png"></img></button>
+                    <button type="button" id="downloadButton" title="Download executable script"><img src="res/downloadbutton.png"></img></button>
                 </div>
             </div>
             <div class="layer2" id="controlsCLI">
@@ -181,11 +181,9 @@
                     <select name="versionOperator" id="versionOperator">
                         <option>=</option>
                         <option>></option>
-                        <option>
-                            << /option>
+                        <option><</option>
                         <option>>=</option>
-                        <option>
-                            <=< /option>
+                        <option><=</option>
                     </select>
                     <select name="version" id="version"></select>
                     <input type="checkbox" id="enableversion"></input>
