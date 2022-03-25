@@ -78,7 +78,7 @@ downloadButton.addEventListener("click", function (event) { enableWindows.checke
 let clipboard = new Clipboard(copyButton, {
     text: function () {
         update();
-        toast("Copied to clipboard!",800);
+        toast("Copied to clipboard!",700);
         return hidden.textContent;
     }
 });
@@ -86,7 +86,7 @@ let clipboard = new Clipboard(copyButton, {
 let clipboard2 = new Clipboard(copyButton2, {
     text: function () {
         update2();
-        toast("Copied to clipboard!",800);
+        toast("Copied to clipboard!",700);
         return outputBox2.innerHTML;
     }
 });
