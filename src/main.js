@@ -78,6 +78,7 @@ downloadButton.addEventListener("click", function (event) { enableWindows.checke
 let clipboard = new Clipboard(copyButton, {
     text: function () {
         update();
+        toast("Copied to clipboard",1000);
         return hidden.textContent;
     }
 });
@@ -101,6 +102,17 @@ function openSection(id) {
         menuItem1.style.textDecoration = "underline";
         menuItem2.style.textDecoration = "none";
     }
+}
+
+function toast(msg,duration)
+{
+ var el = document.createElement("div");
+ el.setAttribute("style","font-size:small;position:absolute;top:50%;left:50%;margin-top:0;margin-left:-100px;width:200px;text-height:30px;background-color:black;padding:20px;text-align:center;vertical-align:middle;");
+ el.innerHTML = msg;
+ setTimeout(function(){
+  el.parentNode.removeChild(el);
+ },duration);
+ document.body.appendChild(el);
 }
 
 function update() {

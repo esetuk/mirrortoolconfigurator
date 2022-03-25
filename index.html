@@ -7,11 +7,11 @@
         <link rel="shortcut icon" type="image/x-icon" href="res/favicon.ico">
         <link rel="stylesheet" type="text/css" href="css/styles.css">
         <script type="text/javascript" src="src/clipboard.min.js"></script>
-        <script type="text/javascript" src="src/main.js" defer></script>
-</head>
-
-<body>
-    <div id="main" class="disable-select" spellcheck="false">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    </head>
+    
+    <body>
+        <div id="main" class="disable-select" spellcheck="false">
         <div id="header" class="disable-select">
             <h2 id="headline">MirrorToolConfigurator</h2>
         </div>
@@ -59,24 +59,24 @@
             </div>
             <div class="layer2" id="mirror">
                 <label class="labels"
-                    title="[required for module update] Type of mirror. Possible values (case insensitive): regular, pre-release, delayed.">mirrorType*</label>
+                title="[required for module update] Type of mirror. Possible values (case insensitive): regular, pre-release, delayed.">mirrorType*</label>
                 <select id="mirrorType">
                     <option value="regular">regular</option>
                     <option value="pre-release">pre-release</option>
                     <option value="delayed">delayed</option>
                 </select><br>
                 <label class="labels"
-                    title="[required for module update] Files will be downloaded to this directory to create mirror in output directory.">intermediateUpdateDirectory*</label>
+                title="[required for module update] Files will be downloaded to this directory to create mirror in output directory.">intermediateUpdateDirectory*</label>
                 <input type="text" id="intermediateUpdateDirectory" placeholder=""><br>
                 <label class="labels"
-                    title="[required for module update] Directory where mirror will be created.">outputDirectory*</label>
+                title="[required for module update] Directory where mirror will be created.">outputDirectory*</label>
                 <input type="text" id="outputDirectory" placeholder=""><br>
                 <label class="labels"
-                    title="[required for module update] Offline license file.">offlineLicenseFilename*</label>
+                title="[required for module update] Offline license file.">offlineLicenseFilename*</label>
                 <input type="text" id="offlineLicenseFilename" placeholder=""><br />
                 <div class="optional">
                     <label class="labels"
-                        title="[optional] Disable creating mirror for specified products.">excludedProducts</label>
+                    title="[optional] Disable creating mirror for specified products.">excludedProducts</label>
                     <select id="excludedProducts">
                         <option value="none">none</option>
                         <option value="ep4 ep5 ep6 era6 ep7 ep8">8 or lower</option>
@@ -86,53 +86,53 @@
                         <option value="ep4">4 or lower</option>
                     </select><br>
                     <label id="bigger" class="labels"
-                        title="[optional] If set, only level upgrades will be downloaded (nano/continuous updates will not be downloaded).">mirrorOnlyLevelUpdates</label>
+                    title="[optional] If set, only level upgrades will be downloaded (nano/continuous updates will not be downloaded).">mirrorOnlyLevelUpdates</label>
                     <input type="checkbox" id="mirrorOnlyLevelUpdates"><br>
                     <label class="labels"
-                        title="[optional] Specifies which type of update files will be downloaded. Possible values (case insensitive): dll, dat.">mirrorFileFormat</label>
+                    title="[optional] Specifies which type of update files will be downloaded. Possible values (case insensitive): dll, dat.">mirrorFileFormat</label>
                     <select id="mirrorFileFormat">
                         <option value="none">none</option>
                         <option value="dat"
-                            title="Use this value if you have environment only with ESET security product versions 6.6 and later.">
-                            dat (>= v6.6 only)</option>
+                        title="Use this value if you have environment only with ESET security product versions 6.6 and later.">
+                        dat (>= v6.6 only)</option>
                         <option value="dll"
-                            title="Use this value if you have environment only with ESET security product versions 6.5 and older.">
-                            dll (<= v6.5 only)</option>
+                        title="Use this value if you have environment only with ESET security product versions 6.5 and older.">
+                        dll (<= v6.5 only)</option>
                     </select><br>
                     <label class="labels"
                         title="[optional] Version of compatible products.">compatibilityVersion</label>
-                    <input type="text" id="compatibilityVersion" placeholder="e.g. x.x (9.0) or x.x.x.x (9.0.2030.0)">
-                    <br>
-                    <label class="labels"
+                        <input type="text" id="compatibilityVersion" placeholder="e.g. x.x (9.0) or x.x.x.x (9.0.2030.0)">
+                        <br>
+                        <label class="labels"
                         title="[optional] Update server. (e.g.: http://update.eset.com/eset_upd/ep6/) Mirror will be created in output directory, only specified path in server will be mirrored.">updateServer</label>
-                    <input type="text" id="updateServer" placeholder="e.g. http://update.eset.com/eset_upd/ep6/">
+                        <input type="text" id="updateServer" placeholder="e.g. http://update.eset.com/eset_upd/ep6/">
                     <br>
                     <label class="labels"
                         title="[optional] Username used, when output directory is accessed using smb(e.g:\\hostname).">networkDriveUsername</label>
-                    <input type="text" id="networkDriveUsername" placeholder="">
-                    <br>
-                    <label class="labels"
+                        <input type="text" id="networkDriveUsername" placeholder="">
+                        <br>
+                        <label class="labels"
                         title="[optional] Password used, when output directory is accessed using smb(e.g:\\hostname).">networkDrivePassword</label>
-                    <input type="password" id="networkDrivePassword" placeholder="">
-                </div>
+                        <input type="password" id="networkDrivePassword" placeholder="">
+                    </div>
             </div>
             <div class="layer2" id="repository">
                 <label class="labels"
-                    title="[required for repository update] Repository server for repository creation.">repositoryServer*</label>
+                title="[required for repository update] Repository server for repository creation.">repositoryServer*</label>
                 <input type="text" id="repositoryServer" placeholder=""><br>
                 <label class="labels"
-                    title="[required for repository update] Files will be downloaded to this directory to create offline mirror in output directory.">intermediateRepositoryDirectory*</label>
+                title="[required for repository update] Files will be downloaded to this directory to create offline mirror in output directory.">intermediateRepositoryDirectory*</label>
                 <input type="text" id="intermediateRepositoryDirectory" placeholder=""><br>
                 <label class="labels"
-                    title="[required for repository update] Directory where offline repository will be created.">outputRepositoryDirectory*</label>
+                title="[required for repository update] Directory where offline repository will be created.">outputRepositoryDirectory*</label>
                 <input type="text" id="outputRepositoryDirectory" placeholder=""><br>
                 <div class="optional">
                     <label class="labels"
-                        title="[optional] Path to filter file in json format. Parameter compatibilityVersion has to be higher than 7.1.0.0 to run program.">filterFilePath</label>
+                    title="[optional] Path to filter file in json format. Parameter compatibilityVersion has to be higher than 7.1.0.0 to run program.">filterFilePath</label>
                     <input type="text" id="filterFilePath" placeholder="">
                     <a href="#" class="links" id="configureLink">configure</a><br>
                     <label id="bigger" class="labels"
-                        title=" [optional] If set, hashes on already downloaded files are not checked.">trustDownloadedFilesInRepositoryTemp</label>
+                    title=" [optional] If set, hashes on already downloaded files are not checked.">trustDownloadedFilesInRepositoryTemp</label>
                     <input type="checkbox" id="trustDownloadedFilesInRepositoryTemp" placeholder=""><br>
                 </div>
             </div>
@@ -156,7 +156,7 @@
                 </div>
                 <div class="controls" id="controlsJSON">
                     <button id="buttonReset2" type="button" title="Reset JSON configuration"><img
-                            src="res/resetbutton.png"></img></button>
+                        src="res/resetbutton.png"></img></button>
                     <button id="copyButton2" type="button"><img src="res/copybutton.png"></img></button>
                     <button id="downloadButton2" type="button"><img src="res/downloadbutton.png"></img></button>
                 </div>
@@ -214,15 +214,15 @@
                 </div>
                 <div class="controls">
                     <button id="buttonSetDefaults2" type="button" title="Set defaults"><img
-                            src="res/defaultbutton.png"></img></button>
-                    <button id="buttonAddProduct2" type="button" title="Add product"><img
+                        src="res/defaultbutton.png"></img></button>
+                        <button id="buttonAddProduct2" type="button" title="Add product"><img
                             src="res/addbutton.png"></img></button>
-                    <button id="buttonClearFilters2" type="button" title="Clear filters"><img
-                            src="res/clearbutton.png"></img></button>
-                </div>
-            </div>
-            <div class="layer2">
-                <table id="table">
+                            <button id="buttonClearFilters2" type="button" title="Clear filters"><img
+                                src="res/clearbutton.png"></img></button>
+                            </div>
+                        </div>
+                        <div class="layer2">
+                            <table id="table">
                     <tr>
                         <th>app_id</th>
                         <th>name</th>
@@ -252,7 +252,9 @@
             <a class="links" id="" href="https://github.com/esetuk/mirrortoolconfigurator" target="_blank">Github</a>
         </menu>
     </div>
+    <div id="toastLabel"></div>
     <div id="hidden"></div>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 </body>
-
+<script type="text/javascript" src="src/main.js"></script>
 </html>
