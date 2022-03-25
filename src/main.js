@@ -303,6 +303,7 @@ function setAppDefaults2() {
     versionTo.disabled = true;
     versionOperator.value = "=";
     enableversionTo.disabled = true;
+    enablePretty.checked = false;
     clearFilters2();
     removeAllRows2();
     update2();
@@ -407,7 +408,7 @@ function readTextFile(file) {
 //JSON parser
 function GetJSON() {
     //Set the space value \t=tab ""=all on the same line
-    enablePretty.checked ? json_space = "\t" : json_space = 0;
+    !enablePretty.checked ? json_space = "\t" : json_space = 0;
     let json_use_legacy = use_legacy.checked, json_nodes = {}, products = [], defaults = [];
     //Iterate through defaults row and add this to json_nodes array
     for (let i = 3; i < nodes.length - 1; i++) {
