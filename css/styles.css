@@ -94,12 +94,11 @@ button:active {
 }
 select, input {
     background-color: black;
-    border-radius: 5px;
     font-size: small;
 }
 select {
     width: auto;
-    padding: 5px;
+    padding: 4px;
     vertical-align: middle;
     margin: 5px;
     height: auto;
@@ -111,13 +110,12 @@ select option:checked {
 input {
     border: 1px solid rgb(40,40,40);
     outline: none;
-    width: 50%;
+    width: 45%;
     padding: 6px;
     margin: 5px;
     display: inline-block;
     vertical-align: middle;
     height: 100%;
-    border-radius: 5px;
 }
 input[type="checkbox"] {
     width: 16px;
@@ -157,7 +155,6 @@ td {
 }
 label {
     display: inline-block;
-    width: auto;
     text-align: right;
     vertical-align: middle;
     margin-bottom: 0;
@@ -179,7 +176,7 @@ label {
     margin-right: 5px;
 }
 .labels {
-    width: 230px;
+    width: 30%;
     text-align: right;
 }
 .component {
@@ -218,7 +215,7 @@ label {
     margin: 5px;
 }
 #outputBox {
-    background-color: rgb(3, 3, 3);
+    background-color: black;
     white-space: pre-wrap;
     resize: none;
     outline: none;
