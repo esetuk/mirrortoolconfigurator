@@ -70,7 +70,7 @@ a {
     text-decoration: none;
 }
 a:hover {
-    color: dodgerblue;
+    color: rgb(100,100,100);
 }
 button {
     background-color: transparent;
