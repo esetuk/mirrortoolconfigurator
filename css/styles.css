@@ -83,7 +83,7 @@ button {
     font-size: small;
 }
 button:disabled {
-    color : rgb(87, 87, 87);
+    color : grey;
     border: 1px solid;
 }
 button:enabled:hover, a:hover {
@@ -172,7 +172,7 @@ label {
     -ms-user-select: none; /* Internet Explorer/Edge */
 }
 .separator {
-    border-left: 3px solid rgb(40,40,40);
+    border-left: 3px solid grey;
     height: 20px;
     display: inline-block;
     vertical-align: middle;
@@ -211,6 +211,9 @@ label {
     width: auto;
     display: inline-block;
     margin: 3px;
+}
+#controlsCLI {
+    padding: 10px;
 }
 #mirrorOnlyLevelUpdates, #trustDownloadedFilesInRepositoryTemp {
     margin: 5px;
