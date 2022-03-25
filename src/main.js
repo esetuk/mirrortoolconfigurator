@@ -86,6 +86,7 @@ let clipboard = new Clipboard(copyButton, {
 let clipboard2 = new Clipboard(copyButton2, {
     text: function () {
         update2();
+        toast("Copied to clipboard",1000);
         return outputBox2.innerHTML;
     }
 });
