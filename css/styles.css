@@ -155,8 +155,8 @@ th {
     text-align: center;
 }
 td {
-    overflow: auto;
-    max-width: 100px;
+    max-width: 200px;
+    word-wrap: break-word;
 }
 label {
     display: inline-block;
@@ -263,7 +263,7 @@ label {
     margin: 0;
     margin-left: 5px;
 }
-#hidden {
+#hidden, #toastLabel {
     visibility: hidden;
 }
 #bigger {
