@@ -1,5 +1,6 @@
 let setDefaults = true, isSetAppDefaults2 = false, pElement, isWindows = true, optionsFiltered, navigationCompact = true; //Global scope
 enableWindows.checked = true; openSection(1); //Initial defaults
+enablePretty.checked = true;
 
 //Read in products.csv (obtained by running MirrorTool with --dryRun parameter) and split it by each new line/carraige return
 temp = readTextFile("/res/products.csv").split(/[\r\n]+/),
