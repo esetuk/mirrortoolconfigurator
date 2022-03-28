@@ -250,6 +250,9 @@ label {
     margin: 0;
     padding: 0;
 }
+#repository, #global, #layerJSON, .optional {
+    display: none;
+}
 #filters {
     margin: 0;
     text-align: center;

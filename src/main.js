@@ -1,6 +1,5 @@
 let setDefaults = true, isSetAppDefaults2 = true, pElement, isWindows = true, optionsFiltered, navigationCompact = true; //Global scope
-
-enableWindows.checked = true; repository.hidden = true; global.hidden = true; hideOptionalFields(); openSection(1); //Initial defaults
+enableWindows.checked = true; openSection(1); //Initial defaults
 
 //Read in products.csv (obtained by running MirrorTool with --dryRun parameter) and split it by each new line/carraige return
 temp = readTextFile("https://raw.githubusercontent.com/esetuk/mirrortoolconfigurator/master/res/products.csv").split(/[\r\n]+/),
@@ -89,13 +88,13 @@ window.onload = function() {
 
 function openSection(id) {
     if (id == 2) {
-        layerJSON.hidden = false;
-        layerCLI.hidden = true;
+        layerCLI.style.display = "none";
+        layerJSON.style.display = "block";
         menuItem1.style.textDecoration = "none";
         menuItem2.style.textDecoration = "underline";
     } else {
-        layerJSON.hidden = true;
-        layerCLI.hidden = false;
+        layerCLI.style.display = "block";
+        layerJSON.style.display = "none";
         menuItem1.style.textDecoration = "underline";
         menuItem2.style.textDecoration = "none";
     }
@@ -108,12 +107,7 @@ function toast(msg,duration)
  el.innerHTML = msg;
  setTimeout(function(){el.parentNode.removeChild(el);},duration);
  document.body.appendChild(el);
-}
-
-function hideOptionalFields(){
-    let o = document.getElementsByClassName("optional");
-    for (let i = 0; i < o.length; i++) { enableOptional.checked ? o[i].style.display = "block" : o[i].style.display = "none"; } //Iterate through optional parameters, hide them if enableoptional is not checked
-}
+}    
 
 function update() {
 
@@ -147,7 +141,8 @@ function update() {
 
     if (setDefaults) { enableMirror.checked = true; enableRepository.checked = false; enableGlobal.checked = false; enableOptional.checked = false; } //Set default sections
 
-    hideOptionalFields(); //Hide optional fields
+    let o = document.getElementsByClassName("optional");
+    for (let i = 0; i < o.length; i++) { enableOptional.checked ? o[i].style.display = "block" : o[i].style.display = "none"; } //Iterate through optional parameters, hide them if enableoptional is not checked
 
     for (let i = 0; i < pList.length; i++) {
 
