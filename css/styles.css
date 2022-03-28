@@ -142,21 +142,21 @@ table {
     width: 100%;
     text-align: left;
     font-size: small;
-    background-color: black;
 }
 table, th, td {
     border-collapse: collapse;
     padding: 5px;
     border-radius: 0;
     cursor: default;
-    border: 1px solid rgb(40,40,40);
 }
 th {
     text-align: center;
+    border-bottom: 1px solid rgb(40,40,40);
 }
 td {
     max-width: 200px;
     word-wrap: break-word;
+    background-color: black;
 }
 label {
     display: inline-block;
