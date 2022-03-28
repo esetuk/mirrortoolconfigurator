@@ -24,8 +24,8 @@ menuBar.addEventListener("click", function (e) {
 configureLink.addEventListener("click", function () { openSection(2); });
 buttonClearFilters2.addEventListener("click", function () { clearFilters2(); });
 enablePretty.addEventListener("click", function () { update2(); });
-//main.addEventListener("input", function () { update(); }); //review this
-document.getElementById("buttonSetDefaults2").addEventListener("click", function () { setDefaults2(); });
+layerCLI.addEventListener("input", function () { update(); });
+buttonSetDefaults2.addEventListener("click", function () { setDefaults2(); });
 buttonAddProduct2.addEventListener("click", function () { addProduct2(); });
 table.addEventListener("click", function (e) { removeRow2(e); });
 buttonReset2.addEventListener("click", function () { reset2(); });
@@ -254,7 +254,6 @@ function selectAll2() {
     for (let i = 0; i < nodes.length; i++) {
         if (document.getElementById("enable" + nodes[i]).disabled == false) document.getElementById("enable" + nodes[i]).checked = true;
     }
-    update2();
 }
 function selectIsMultiple2(name) {
     return document.getElementById(name).multiple;
@@ -274,7 +273,6 @@ function removeRow2(e) {
                 table.rows[1].cells[i + offset].innerHTML = "";
             }
         };
-        update2();
     }
 }
 
@@ -293,7 +291,6 @@ function removeAllRows2() {
             }
         }
     }
-    update2();
 }
 
 //Defaults
@@ -306,7 +303,6 @@ function setAppDefaults2() {
     enablePretty.checked = false;
     clearFilters2();
     removeAllRows2();
-    update2();
 }
 
 function addProduct2() {
@@ -341,7 +337,6 @@ function addProduct2() {
             }
         }
         clearFilters2();
-        update2();
     }
 }
 //Set defaults
@@ -361,7 +356,6 @@ function setDefaults2() {
         table.rows[1].cells[7].innerHTML = `<p class="removeIcon">✖</p>`;
         table.rows[1].cells[7].id = "clear";
         clearFilters2();
-        update2();
     }
 }
 
@@ -371,7 +365,6 @@ function reset2() {
     if (confirm("This will reset all JSON filter configurations! Are you sure?")) {
         isSetAppDefaults2 = true;
     }
-    update2();
 }
 
 //Download function which takes a filename and the text to add to it
@@ -559,17 +552,13 @@ function update2() {
     productsFiltered = products.map(inner => inner.slice());
 
     options = [];
-    //Iterate through nodes
-    for (let i = 0; i < nodes.length; i++) {
-        //Check if the node is enabled
-        if (document.getElementById("enable" + nodes[i]).checked) {
-            //Check if the node is a multiple-select and there are items present
-            if (selectIsMultiple2(nodes[i]) && document.getElementById(nodes[i]).length > 0) {
-                //Push multiple select options to the array
-                options.push(getSelected2(nodes[i]));
-            } else {
-                //Push normal select option to the array
-                options.push([document.getElementById(nodes[i]).value]);
+    
+    for (let i = 0; i < nodes.length; i++) { //Iterate through nodes
+        if (document.getElementById("enable" + nodes[i]).checked) { //Check if the node is enabled
+            if (selectIsMultiple2(nodes[i]) && document.getElementById(nodes[i]).length > 0) { //Check if the node is a multiple-select and there are items present
+                options.push(getSelected2(nodes[i])); //Push multiple select options to the array
+            } else {    
+                options.push([document.getElementById(nodes[i]).value]); //Push normal select option to the array
             }
         } else {
             options.push(getAllOptions2(i)); //Push all options to the array
