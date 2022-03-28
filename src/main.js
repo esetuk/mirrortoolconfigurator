@@ -24,7 +24,7 @@ menuBar.addEventListener("click", function (e) {
 configureLink.addEventListener("click", function () { openSection(2); });
 buttonClearFilters2.addEventListener("click", function () { clearFilters2(); });
 enablePretty.addEventListener("click", function () { update2(); });
-main.addEventListener("input", function () { update(); });
+//main.addEventListener("input", function () { update(); }); //review this
 document.getElementById("buttonSetDefaults2").addEventListener("click", function () { setDefaults2(); });
 buttonAddProduct2.addEventListener("click", function () { addProduct2(); });
 table.addEventListener("click", function (e) { removeRow2(e); });
@@ -49,26 +49,28 @@ for (let i = 0; i < nodes.length; i++) {
         update2();
     });
 }
-enableversion.addEventListener("click", function () {update2();});
+enableversion.addEventListener("click", function () { update2(); });
 versionTo.addEventListener("change", function () {
     enableversionTo.checked = true;
     update2();
 });
-enableversionTo.addEventListener("click", function (e) {update2();});
-versionOperator.addEventListener("change", function (e) {update2();});
+enableversionTo.addEventListener("click", function (e) { update2(); });
+versionOperator.addEventListener("change", function (e) { update2(); });
 use_legacy.addEventListener("click", function () { update2(); });
 resetButton.addEventListener("click", function () { reset(); });
 enableWindows.addEventListener("click", function () { isWindows ? null : reset() });
 enableLinux.addEventListener("click", function () { isWindows ? reset() : null });
-downloadButton.addEventListener("click", function (event) { enableWindows.checked ? download('test.bat', hidden.textContent) : download
+downloadButton.addEventListener("click", function (event) {
+    enableWindows.checked ? download('test.bat', hidden.textContent) : download
 
-('test.sh', hidden.textContent.split("sudo ").pop()); });
+        ('test.sh', hidden.textContent.split("sudo ").pop());
+});
 
 //Copy to clipboard - external library
 let clipboard = new Clipboard(copyButton, {
     text: function () {
         update();
-        toast("Copied to clipboard!",1000);
+        toast("Copied to clipboard!", 1000);
         return hidden.textContent;
     }
 });
@@ -76,15 +78,13 @@ let clipboard = new Clipboard(copyButton, {
 let clipboard2 = new Clipboard(copyButton2, {
     text: function () {
         update2();
-        toast("Copied to clipboard!",1000);
+        toast("Copied to clipboard!", 1000);
         return outputBox2.innerHTML;
     }
 });
 
-window.onload = function() {
-    update();
-    update2();
-};
+update();
+update2();
 
 function openSection(id) {
     if (id == 2) {
@@ -100,19 +100,18 @@ function openSection(id) {
     }
 }
 
-function toast(msg,duration)
-{
- let el = document.createElement("div");
- el.setAttribute("style",`font-size:small;position:absolute;top:50%;left:50%;width:200px;text-height:20px;margin-top:-50px;margin-left:-100px;background-color:black;padding:5px;text-align:center;vertical-align:middle;border:1px solid grey`);
- el.innerHTML = msg;
- setTimeout(function(){el.parentNode.removeChild(el);},duration);
- document.body.appendChild(el);
-}    
+function toast(msg, duration) {
+    let el = document.createElement("div");
+    el.setAttribute("style", `font-size:small;position:absolute;top:50%;left:50%;width:200px;text-height:20px;margin-top:-50px;margin-left:-100px;background-color:black;padding:5px;text-align:center;vertical-align:middle;border:1px solid grey`);
+    el.innerHTML = msg;
+    setTimeout(function () { el.parentNode.removeChild(el); }, duration);
+    document.body.appendChild(el);
+}
 
 function update() {
 
     updateBaseDirectory();
-    
+
     //Master list of parameters - KEY: 0=name of parameter, 1=default value, 2=type of element, 3=section name, 4=optional
     let pList = [
         ["mirrorType", "regular", "select", "mirror", false],
@@ -136,7 +135,7 @@ function update() {
         ["filterFilePath", updateBaseDirectory() + "filter.json", "text", "repository", true],
         ["trustDownloadedFilesInRepositoryTemp", false, "checkbox", "repository", true]
     ];
-    
+
     let command = "", isOutputValid = 0;
 
     if (setDefaults) { enableMirror.checked = true; enableRepository.checked = false; enableGlobal.checked = false; enableOptional.checked = false; } //Set default sections
@@ -485,9 +484,7 @@ function getAllOptions2(index) {
     for (let i = 0; i < productsFiltered.length; i++) {
         if
             (
-            result.indexOf(productsFiltered[i][index]) == -1 //&&
-            //productsFiltered[i][index] != "" &&
-            //!productsFiltered[i][index].includes(";")
+            result.indexOf(productsFiltered[i][index]) == -1
         )
             result.push(productsFiltered[i][index]);
     }
@@ -501,9 +498,6 @@ function fillSelect2(index) {
         let value = optionsFiltered[index][i];
         let opt = document.createElement("option");
         opt.value = opt.text = value;
-        if (opt.text == "0") opt.text = "no";
-        if (opt.text == "1") opt.text = "yes";
-        if (opt.text == "") { opt.text = "unspecified"; opt.value = ""; }
         document.getElementById(nodes[index]).appendChild(opt);
     }
 }
@@ -521,12 +515,9 @@ function anyOptionsSelected2(index) {
 
 //Remove unwanted options from nodes
 function updateSelect2(index) {
-    //Iterate through each option in the node
     for (let i = 0; i < document.getElementById(nodes[index]).length; i++) {
-        //If option is not selected
-        if (!document.getElementById(nodes[index]).options[i].selected) {
-            //Remove the option from the node and decrement the index
-            document.getElementById(nodes[index]).removeChild(document.getElementById(nodes[index]).options[i]);
+        if (!document.getElementById(nodes[index]).options[i].selected) { //If option is not selected
+            document.getElementById(nodes[index]).removeChild(document.getElementById(nodes[index]).options[i]); //Remove the option from the node
             i--;
         }
     }
@@ -596,7 +587,7 @@ function update2() {
             //Check the whole line to see if it contains the item from productsFiltered or if the item is blank (unspecified), if so flag the whole line for removal
             let values = productsFiltered[i][j].split(";");
             for (let k = 0; k < values.length; k++) {
-                if (!options[j].filter(element => element.includes(values[k])).length > 0) remove = true; continue;
+                if (!options[j].filter(element => element.includes(values[k])).length > 0 || values[k] == "") { remove = true; continue; }
             }
         }
         //If the remove flag is set, then remove the line from the array as it does not match the current filters, and reduce the index by 1
@@ -609,8 +600,32 @@ function update2() {
     for (let i = 0; i < productsFiltered.length; i++) {
         //Iterate through nodes
         for (let j = 0; j < nodes.length; j++) {
-            //If there is no existing option add it to filtered options
-            if (optionsFiltered[j].indexOf(productsFiltered[i][j]) == -1) optionsFiltered[j].push(productsFiltered[i][j]);
+            let value = productsFiltered[i][j];
+            switch (value) {
+                case ("0"):
+                    value = "no";
+                    break;
+                case ("1"):
+                    value = "yes";
+                    break;
+                case (""):
+                    value = "";
+                    break;
+                default:
+                    break;
+            }
+            if (value.includes(";")) {
+                let vs = value.split(";")
+                for (let k = 0; k < vs.length; k++) {
+                    if (optionsFiltered[j].indexOf(vs[k]) == -1){
+                        optionsFiltered[j].push(vs[k]);
+                    }
+                }
+            } else {
+                if (optionsFiltered[j].indexOf(value) == -1){
+                    optionsFiltered[j].push(value);
+                }
+            }
         }
     }
 
