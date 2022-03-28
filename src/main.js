@@ -1,7 +1,7 @@
-//Global scope
-let setDefaults = true, isSetAppDefaults2 = true, pElement, isWindows = true, optionsFiltered, navigationCompact = true;
-enableWindows.checked = true;
-openSection(1);
+let setDefaults = true, isSetAppDefaults2 = true, pElement, isWindows = true, optionsFiltered, navigationCompact = true; //Global scope
+
+enableWindows.checked = true; repository.hidden = true; global.hidden = true; hideOptionalFields(); openSection(1); //Initial defaults
+
 //Read in products.csv (obtained by running MirrorTool with --dryRun parameter) and split it by each new line/carraige return
 temp = readTextFile("https://raw.githubusercontent.com/esetuk/mirrortoolconfigurator/master/res/products.csv").split(/[\r\n]+/),
     products = [], productsFiltered = [], nodes = ["app_id", "name", "version", "languages", "os_types", "platforms", "legacy"]; //Main nodes (exclude path as this is not required)
@@ -11,7 +11,6 @@ for (let i = 0; i < temp.length; i++) { //Iterate through each line of products.
     for (let j = 0; j < temp[i].length; j++) {
         temp[i][j] = temp[i][j].trim(); //Trim whitespace and add the element into the array
     }
-    
     products.push(temp[i]); //Push each array into a parent array
 }
 products.shift(); //Remove the first line headers
@@ -63,7 +62,6 @@ resetButton.addEventListener("click", function () { reset(); });
 enableWindows.addEventListener("click", function () { isWindows ? null : reset() });
 enableLinux.addEventListener("click", function () { isWindows ? reset() : null });
 downloadButton.addEventListener("click", function (event) { enableWindows.checked ? download('test.bat', hidden.textContent) : download
-//End of event listeners
 
 ('test.sh', hidden.textContent.split("sudo ").pop()); });
 
@@ -112,8 +110,15 @@ function toast(msg,duration)
  document.body.appendChild(el);
 }
 
+function hideOptionalFields(){
+    let o = document.getElementsByClassName("optional");
+    for (let i = 0; i < o.length; i++) { enableOptional.checked ? o[i].style.display = "block" : o[i].style.display = "none"; } //Iterate through optional parameters, hide them if enableoptional is not checked
+}
+
 function update() {
+
     updateBaseDirectory();
+    
     //Master list of parameters - KEY: 0=name of parameter, 1=default value, 2=type of element, 3=section name, 4=optional
     let pList = [
         ["mirrorType", "regular", "select", "mirror", false],
@@ -137,24 +142,19 @@ function update() {
         ["filterFilePath", updateBaseDirectory() + "filter.json", "text", "repository", true],
         ["trustDownloadedFilesInRepositoryTemp", false, "checkbox", "repository", true]
     ];
-
+    
     let command = "", isOutputValid = 0;
 
-    //Set default sections
-    if (setDefaults) { enableMirror.checked = true; enableRepository.checked = false; enableGlobal.checked = false; enableOptional.checked = false; }
+    if (setDefaults) { enableMirror.checked = true; enableRepository.checked = false; enableGlobal.checked = false; enableOptional.checked = false; } //Set default sections
+
+    hideOptionalFields(); //Hide optional fields
 
     for (let i = 0; i < pList.length; i++) {
 
-        //Parameter aliases
-        let pName = pList[i][0], pDefault = pList[i][1], pType = pList[i][2], pSectionCheckbox = document.getElementById("enable" + pList[i][3].charAt(0).toUpperCase() + pList[i][3].slice(1)), pOptional = pList[i][4];
+        let pName = pList[i][0], pDefault = pList[i][1], pType = pList[i][2], pSectionCheckbox = document.getElementById("enable" + pList[i][3].charAt(0).toUpperCase() + pList[i][3].slice(1)), pOptional = pList[i][4]; //Parameter aliases
         pElement = document.getElementById(pName);
 
-        //Set defaults
-        if (setDefaults) { pElement.value = pDefault; pElement.checked = pDefault; }
-        let o = document.getElementsByClassName("optional");
-
-        //Iterate through optional parameters, hide them if enableoptional is not checked
-        for (let i = 0; i < o.length; i++) { enableOptional.checked ? o[i].style.display = "block" : o[i].style.display = "none"; }
+        if (setDefaults) { pElement.value = pDefault; pElement.checked = pDefault; } //Set defaults
 
         //Iterate through all the parameters
         if (pElement != null) {
