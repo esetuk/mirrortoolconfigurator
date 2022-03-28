@@ -1,8 +1,8 @@
-let setDefaults = true, isSetAppDefaults2 = true, pElement, isWindows = true, optionsFiltered, navigationCompact = true; //Global scope
+let setDefaults = true, isSetAppDefaults2 = false, pElement, isWindows = true, optionsFiltered, navigationCompact = true; //Global scope
 enableWindows.checked = true; openSection(1); //Initial defaults
 
 //Read in products.csv (obtained by running MirrorTool with --dryRun parameter) and split it by each new line/carraige return
-temp = readTextFile("https://raw.githubusercontent.com/esetuk/mirrortoolconfigurator/master/res/products.csv").split(/[\r\n]+/),
+temp = readTextFile("/res/products.csv").split(/[\r\n]+/),
     products = [], productsFiltered = [], nodes = ["app_id", "name", "version", "languages", "os_types", "platforms", "legacy"]; //Main nodes (exclude path as this is not required)
 
 for (let i = 0; i < temp.length; i++) { //Iterate through each line of products.csv
@@ -22,7 +22,7 @@ menuBar.addEventListener("click", function (e) {
     }
 });
 configureLink.addEventListener("click", function () { openSection(2); });
-buttonClearFilters2.addEventListener("click", function () { clearFilters2(); });
+buttonClearFilters2.addEventListener("click", function () { clearFilters2(); update2(); });
 enablePretty.addEventListener("click", function () { update2(); });
 layerCLI.addEventListener("input", function () { update(); });
 buttonSetDefaults2.addEventListener("click", function () { setDefaults2(); });
@@ -246,7 +246,6 @@ function clearFilters2() {
     for (let i = 0; i < nodes.length; i++) {
         document.getElementById("enable" + nodes[i]).checked = false;
     }
-    update2();
 }
 
 //Select all filters in json configuration
@@ -273,6 +272,7 @@ function removeRow2(e) {
                 table.rows[1].cells[i + offset].innerHTML = "";
             }
         };
+        updateJSON();
     }
 }
 
@@ -289,6 +289,7 @@ function removeAllRows2() {
                     table.rows[1].cells[j].innerHTML = "";
                 }
             }
+            updateJSON();
         }
     }
 }
@@ -303,6 +304,7 @@ function setAppDefaults2() {
     enablePretty.checked = false;
     clearFilters2();
     removeAllRows2();
+    update2();
 }
 
 function addProduct2() {
@@ -337,6 +339,7 @@ function addProduct2() {
             }
         }
         clearFilters2();
+        update2();
     }
 }
 //Set defaults
@@ -355,8 +358,9 @@ function setDefaults2() {
         //Add a text remove icon and ID
         table.rows[1].cells[7].innerHTML = `<p class="removeIcon">✖</p>`;
         table.rows[1].cells[7].id = "clear";
-        clearFilters2();
     }
+    clearFilters2();
+    update2();
 }
 
 
@@ -365,6 +369,7 @@ function reset2() {
     if (confirm("This will reset all JSON filter configurations! Are you sure?")) {
         isSetAppDefaults2 = true;
     }
+    update2();
 }
 
 //Download function which takes a filename and the text to add to it
@@ -399,7 +404,7 @@ function readTextFile(file) {
 }
 
 //JSON parser
-function GetJSON() {
+function updateJSON() {
     //Set the space value \t=tab ""=all on the same line
     !enablePretty.checked ? json_space = "\t" : json_space = 0;
     let json_use_legacy = use_legacy.checked, json_nodes = {}, products = [], defaults = [];
@@ -427,7 +432,7 @@ function GetJSON() {
     //Check if the products array is empty, if so make it undefined to be ignored
     if (products.length == 0) products = undefined;
     //Finally construct the JSON and return it
-    return JSON.stringify({ use_legacy: json_use_legacy, defaults, products }, null, json_space);
+    outputBox2.innerHTML = JSON.stringify({ use_legacy: json_use_legacy, defaults, products }, null, json_space);
 }
 
 //Check if there are any filters selected
@@ -535,6 +540,9 @@ function versionStringBuilder() {
 //Main update function, called by various event listeners to trigger update of output box and filters
 function update2() {
 
+    //Set defaults if first run or reset button clicked/approved
+    if (isSetAppDefaults2) setAppDefaults2();
+
     //Inital node checks
     IsAnyProductsSelected2();
     IsAnyDefaultsSelected2();
@@ -552,12 +560,12 @@ function update2() {
     productsFiltered = products.map(inner => inner.slice());
 
     options = [];
-    
+
     for (let i = 0; i < nodes.length; i++) { //Iterate through nodes
         if (document.getElementById("enable" + nodes[i]).checked) { //Check if the node is enabled
             if (selectIsMultiple2(nodes[i]) && document.getElementById(nodes[i]).length > 0) { //Check if the node is a multiple-select and there are items present
                 options.push(getSelected2(nodes[i])); //Push multiple select options to the array
-            } else {    
+            } else {
                 options.push([document.getElementById(nodes[i]).value]); //Push normal select option to the array
             }
         } else {
@@ -605,12 +613,12 @@ function update2() {
             if (value.includes(";")) {
                 let vs = value.split(";")
                 for (let k = 0; k < vs.length; k++) {
-                    if (optionsFiltered[j].indexOf(vs[k]) == -1){
+                    if (optionsFiltered[j].indexOf(vs[k]) == -1) {
                         optionsFiltered[j].push(vs[k]);
                     }
                 }
             } else {
-                if (optionsFiltered[j].indexOf(value) == -1){
+                if (optionsFiltered[j].indexOf(value) == -1) {
                     optionsFiltered[j].push(value);
                 }
             }
@@ -639,10 +647,5 @@ function update2() {
             fillSelect2(i);
         }
     }
-
-    //Set defaults if first run or reset button clicked/approved
-    if (isSetAppDefaults2) setAppDefaults2();
-
-    //Set the output box to the output of the JSON parser
-    document.getElementById("outputBox2").innerHTML = GetJSON();
+    updateJSON();
 }
