@@ -121,7 +121,6 @@ input {
 select, input {
     background-color: black;
     font-size: small;
-    width: auto;
 }
 input[type="checkbox"] {
     width: 16px;
