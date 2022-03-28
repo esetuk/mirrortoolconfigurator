@@ -67,12 +67,11 @@ downloadButton.addEventListener("click", function (event) { enableWindows.checke
 
 ('test.sh', hidden.textContent.split("sudo ").pop()); });
 
-
 //Copy to clipboard - external library
 let clipboard = new Clipboard(copyButton, {
     text: function () {
         update();
-        toast("Copied to clipboard!",700);
+        toast("Copied to clipboard!",1000);
         return hidden.textContent;
     }
 });
@@ -80,10 +79,15 @@ let clipboard = new Clipboard(copyButton, {
 let clipboard2 = new Clipboard(copyButton2, {
     text: function () {
         update2();
-        toast("Copied to clipboard!",700);
+        toast("Copied to clipboard!",1000);
         return outputBox2.innerHTML;
     }
 });
+
+window.onload = function() {
+    update();
+    update2();
+};
 
 function openSection(id) {
     if (id == 2) {
@@ -102,12 +106,9 @@ function openSection(id) {
 function toast(msg,duration)
 {
  let el = document.createElement("div");
- let rect = copyButton.getBoundingClientRect();
  el.setAttribute("style",`font-size:small;position:absolute;top:50%;left:50%;width:200px;text-height:20px;margin-top:-50px;margin-left:-100px;background-color:black;padding:5px;text-align:center;vertical-align:middle;border:1px solid grey`);
  el.innerHTML = msg;
- setTimeout(function(){
-  el.parentNode.removeChild(el);
- },duration);
+ setTimeout(function(){el.parentNode.removeChild(el);},duration);
  document.body.appendChild(el);
 }
 
@@ -228,9 +229,6 @@ function update() {
 
     setDefaults = false;
 }
-
-update();
-update2();
 
 //Update the base directory strings and determine if Windows is selected
 function updateBaseDirectory() {
