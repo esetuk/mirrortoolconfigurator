@@ -1,24 +1,20 @@
+//Global scope
 let setDefaults = true, isSetAppDefaults2 = true, pElement, isWindows = true, optionsFiltered, navigationCompact = true;
 enableWindows.checked = true;
 openSection(1);
 //Read in products.csv (obtained by running MirrorTool with --dryRun parameter) and split it by each new line/carraige return
 temp = readTextFile("https://raw.githubusercontent.com/esetuk/mirrortoolconfigurator/master/res/products.csv").split(/[\r\n]+/),
-    products = [], productsFiltered = [],
-    //Main nodes (exclude path as this is not required)
-    nodes = ["app_id", "name", "version", "languages", "os_types", "platforms", "legacy"];
+    products = [], productsFiltered = [], nodes = ["app_id", "name", "version", "languages", "os_types", "platforms", "legacy"]; //Main nodes (exclude path as this is not required)
 
-//Iterate through each line of products.csv
-for (let i = 0; i < temp.length; i++) {
-    //Split the lines by comma seperator and remove the path
-    temp[i] = temp[i].split(",").slice(0, -1)
+for (let i = 0; i < temp.length; i++) { //Iterate through each line of products.csv
+    temp[i] = temp[i].split(",").slice(0, -1) //Split the lines by comma seperator and remove the path
     for (let j = 0; j < temp[i].length; j++) {
-        //Trim whitespace and add the element into the array
-        temp[i][j] = temp[i][j].trim();
+        temp[i][j] = temp[i][j].trim(); //Trim whitespace and add the element into the array
     }
-    //Push each array into a parent array
-    products.push(temp[i]);
+    
+    products.push(temp[i]); //Push each array into a parent array
 }
-products.shift();
+products.shift(); //Remove the first line headers
 
 //Event listeners
 menuBar.addEventListener("click", function (e) {
@@ -55,24 +51,22 @@ for (let i = 0; i < nodes.length; i++) {
         update2();
     });
 }
-enableversion.addEventListener("click", function () {
-    update2();
-});
+enableversion.addEventListener("click", function () {update2();});
 versionTo.addEventListener("change", function () {
     enableversionTo.checked = true;
     update2();
 });
-enableversionTo.addEventListener("click", function (e) {
-    update2();
-});
-versionOperator.addEventListener("change", function (e) {
-    update2();
-});
+enableversionTo.addEventListener("click", function (e) {update2();});
+versionOperator.addEventListener("change", function (e) {update2();});
 use_legacy.addEventListener("click", function () { update2(); });
 resetButton.addEventListener("click", function () { reset(); });
 enableWindows.addEventListener("click", function () { isWindows ? null : reset() });
 enableLinux.addEventListener("click", function () { isWindows ? reset() : null });
-downloadButton.addEventListener("click", function (event) { enableWindows.checked ? download('test.bat', hidden.textContent) : download('test.sh', hidden.textContent.split("sudo ").pop()); });
+downloadButton.addEventListener("click", function (event) { enableWindows.checked ? download('test.bat', hidden.textContent) : download
+//End of event listeners
+
+('test.sh', hidden.textContent.split("sudo ").pop()); });
+
 
 //Copy to clipboard - external library
 let clipboard = new Clipboard(copyButton, {
