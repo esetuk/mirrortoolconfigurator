@@ -572,8 +572,7 @@ function update2() {
                 options.push([document.getElementById(nodes[i]).value]);
             }
         } else {
-            //Push all options to the array
-            options.push(getAllOptions2(i));
+            options.push(getAllOptions2(i)); //Push all options to the array
         }
     }
 
