@@ -49,17 +49,7 @@ resetButton.addEventListener("click", function () { reset(); });
 enableWindows.addEventListener("click", function () { isWindows ? null : reset() });
 enableLinux.addEventListener("click", function () { isWindows ? reset() : null });
 buttonClearFilters2.addEventListener("click", function () { clearFilters2(); update2(); });
-buttonCompact2.addEventListener("click", function () {
-    if (compactJSON) {
-        compactJSON = false
-        compactImage.src = "/res/compactbuttonactive.png";
-    }
-    else {
-        compactJSON = true;
-        compactImage.src = "/res/compactbutton.png";
-    }
-    update2();
-});
+buttonCompact2.addEventListener("click", function () { compactJSON ? compactJSON = false : compactJSON = true; updateJSON(); });
 
 let clipboard2 = new Clipboard(copyButton2, {
     text: function () {
@@ -290,7 +280,6 @@ function update2() {
     versionTo.disabled = enableversionTo.disabled = (versionOperator.value != "=" || !enableversion.checked);
     versionOperator.disabled = enableversionTo.checked;
     if (!enableversion.checked) enableversionTo.checked = false;
-
     if (isAnythingSelected2()) buttonClearFilters2.disabled = false; else buttonClearFilters2.disabled = true;
     productsFiltered = products.map(inner => inner.slice());
     options = [];
@@ -351,7 +340,7 @@ function update2() {
 }
 
 function updateJSON() {
-    compactJSON ? json_space = 0 : json_space = "\t";
+    if (compactJSON) { compactImage.src = "/res/compactbutton.png"; json_space = 0; } else { compactImage.src = "/res/compactbuttonactive.png"; json_space = "\t"; }
     let json_use_legacy = use_legacy.checked, json_nodes = {}, products = [], defaults = [];
     for (let i = 3; i < nodes.length - 1; i++) {
         if (table.rows[1].cells[i].innerHTML != "")
