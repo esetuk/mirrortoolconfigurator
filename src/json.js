@@ -28,14 +28,14 @@ versionTo.addEventListener("change", function () { enableversionTo.checked = tru
 languages.addEventListener("focusout", function () { enablelanguages.checked = true; update2(); });
 os_types.addEventListener("focusout", function () { enableos_types.checked = true; update2(); });
 platforms.addEventListener("focusout", function () { enableplatforms.checked = true; update2(); });
-enablename.addEventListener("click", function () { update2(); });
-enableapp_id.addEventListener("click", function () { update2(); });
-enableversion.addEventListener("click", function () { update2(); });
-enablelanguages.addEventListener("click", function () { update2(); });
-enableos_types.addEventListener("click", function () { update2(); });
-enableplatforms.addEventListener("click", function () { update2(); });
-enableversion.addEventListener("click", function () { update2(); });
-enableversionTo.addEventListener("click", function () { update2(); });
+enablename.addEventListener("click", function () { document.getElementById("name").selectedIndex = 0; update2(); });
+enableapp_id.addEventListener("click", function () { app_id.selectedIndex = 0; update2(); });
+enableversion.addEventListener("click", function () { version.selectedIndex = 0; update2(); });
+enablelanguages.addEventListener("click", function () { languages.options.selectedIndex = 0; update2(); });
+enableos_types.addEventListener("click", function () { os_types.selectedIndex = 0; update2(); });
+enableplatforms.addEventListener("click", function () { platforms.selectedIndex = 0; update2(); });
+enableversion.addEventListener("click", function () { version.selectedIndex = 0; update2(); });
+enableversionTo.addEventListener("click", function () { versionTo.selectedIndex = 0; update2(); });
 use_legacy.addEventListener("click", function () { updateJSON(); });
 
 let clipboard2 = new Clipboard(copyButton2, {
