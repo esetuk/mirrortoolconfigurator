@@ -43,7 +43,6 @@ function download(filename, text) {
     else {
         pom.click();
     }
-    toast("Download complete");
 }
 
 function readTextFile(file) {

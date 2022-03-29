@@ -144,7 +144,7 @@ function addProduct2() {
                 table.rows[rowCount].cells[i].id = "remove";
             }
         }
-        clearFilters2();
+        clearFilters2()
         update2();
     }
 }
@@ -340,7 +340,7 @@ function update2() {
 }
 
 function updateJSON() {
-    if (compactJSON) { compactImage.src = "https://esetuk.github.io/mirrortoolconfigurator/res/compactbutton.png"; json_space = 0; } else { compactImage.src = "https://esetuk.github.io/mirrortoolconfigurator/res/compactbuttonactive.png"; json_space = "\t"; }
+    if (compactJSON) { compactImage.src = "/res/compactbutton.png"; json_space = 0; } else { compactImage.src = "/res/compactbuttonactive.png"; json_space = "\t"; }
     let json_use_legacy = use_legacy.checked, json_nodes = {}, products = [], defaults = [];
     for (let i = 3; i < nodes.length - 1; i++) {
         if (table.rows[1].cells[i].innerHTML != "")
