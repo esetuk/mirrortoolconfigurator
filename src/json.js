@@ -16,14 +16,18 @@ products.shift();
 buttonSetDefaults2.addEventListener("click", function () { setDefaults2(); });
 buttonAddProduct2.addEventListener("click", function () { addProduct2(); });
 buttonReset2.addEventListener("click", function () { reset2(); });
+buttonClearFilters2.addEventListener("click", function () { clearFilters2(); update2(); });
+buttonCompact2.addEventListener("click", function () { compactJSON ? compactJSON = false : compactJSON = true; updateJSON(); });
 downloadButton2.addEventListener("click", function () { download("filter.json", outputBox2.innerHTML); });
 table.addEventListener("click", function (e) { removeRow2(e); });
 document.getElementById("name").addEventListener("change", function () { enablename.checked = true; update2(); });
 app_id.addEventListener("change", function () { enableapp_id.checked = true; update2(); });
+versionOperator.addEventListener("change", function () { update2(); });
 version.addEventListener("change", function () { enableversion.checked = true; updateVersionTo(); update2(); });
-languages.addEventListener("click", function () { enablelanguages.checked = true; update2(); });
-os_types.addEventListener("click", function () { enableos_types.checked = true; update2(); });
-platforms.addEventListener("click", function () { enableplatforms.checked = true; update2(); });
+versionTo.addEventListener("change", function () { enableversionTo.checked = true; update2(); });
+languages.addEventListener("focusout", function () { enablelanguages.checked = true; update2(); });
+os_types.addEventListener("focusout", function () { enableos_types.checked = true; update2(); });
+platforms.addEventListener("focusout", function () { enableplatforms.checked = true; update2(); });
 enablename.addEventListener("click", function () { update2(); });
 enableapp_id.addEventListener("click", function () { update2(); });
 enableversion.addEventListener("click", function () { update2(); });
@@ -31,12 +35,8 @@ enablelanguages.addEventListener("click", function () { update2(); });
 enableos_types.addEventListener("click", function () { update2(); });
 enableplatforms.addEventListener("click", function () { update2(); });
 enableversion.addEventListener("click", function () { update2(); });
-versionTo.addEventListener("change", function () { enableversionTo.checked = true; update2(); });
-enableversionTo.addEventListener("click", function (e) { update2(); });
-versionOperator.addEventListener("change", function (e) { update2(); });
+enableversionTo.addEventListener("click", function () { update2(); });
 use_legacy.addEventListener("click", function () { updateJSON(); });
-buttonClearFilters2.addEventListener("click", function () { clearFilters2(); update2(); });
-buttonCompact2.addEventListener("click", function () { compactJSON ? compactJSON = false : compactJSON = true; updateJSON(); });
 
 let clipboard2 = new Clipboard(copyButton2, {
     text: function () {
