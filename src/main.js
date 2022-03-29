@@ -1,6 +1,5 @@
-let setDefaults = true, isSetAppDefaults2 = false, pElement, isWindows = true, optionsFiltered, navigationCompact = true; //Global scope
+let setDefaults = true, isSetAppDefaults2 = false, pElement, isWindows = true, optionsFiltered, navigationCompact = true, compactJSON = true; //Global scope
 enableWindows.checked = true; openSection(1); //Initial defaults
-enablePretty.checked = true;
 
 //Read in products.csv (obtained by running MirrorTool with --dryRun parameter) and split it by each new line/carraige return
 temp = readTextFile("/res/products.csv").split(/[\r\n]+/),
@@ -24,7 +23,10 @@ menuBar.addEventListener("click", function (e) {
 });
 configureLink.addEventListener("click", function () { openSection(2); });
 buttonClearFilters2.addEventListener("click", function () { clearFilters2(); update2(); });
-enablePretty.addEventListener("click", function () { update2(); });
+buttonCompact2.addEventListener("click", function () {
+    compactJSON ? compactJSON = false : compactJSON = true;
+    update2();
+});
 layerCLI.addEventListener("input", function () { update(); });
 buttonSetDefaults2.addEventListener("click", function () { setDefaults2(); });
 buttonAddProduct2.addEventListener("click", function () { addProduct2(); });
@@ -71,7 +73,7 @@ downloadButton.addEventListener("click", function (event) {
 let clipboard = new Clipboard(copyButton, {
     text: function () {
         update();
-        toast("Copied to clipboard!", 1000);
+        toast("Copied to clipboard!",1000);
         return hidden.textContent;
     }
 });
@@ -79,7 +81,7 @@ let clipboard = new Clipboard(copyButton, {
 let clipboard2 = new Clipboard(copyButton2, {
     text: function () {
         update2();
-        toast("Copied to clipboard!", 1000);
+        toast("Copied to clipboard!",1000);
         return outputBox2.innerHTML;
     }
 });
@@ -91,19 +93,19 @@ function openSection(id) {
     if (id == 2) {
         layerCLI.style.display = "none";
         layerJSON.style.display = "block";
-        menuItem1.style.textDecoration = "none";
-        menuItem2.style.textDecoration = "underline";
+        menuItem1.style = "border: 0";
+        menuItem2.style = "border-bottom: 3px solid white";
     } else {
         layerCLI.style.display = "block";
         layerJSON.style.display = "none";
-        menuItem1.style.textDecoration = "underline";
-        menuItem2.style.textDecoration = "none";
+        menuItem1.style = "border-bottom: 3px solid white";
+        menuItem2.style = "border: 0";
     }
 }
 
 function toast(msg, duration) {
     let el = document.createElement("div");
-    el.setAttribute("style", `font-size:small;position:absolute;top:50%;left:50%;width:200px;text-height:20px;margin-top:-50px;margin-left:-100px;background-color:black;padding:5px;text-align:center;vertical-align:middle;border:1px solid grey`);
+    el.setAttribute("style", `font-size:small;position:absolute;top:10px;left:5px;width:150px;text-height:20px;padding:5px;text-align:center;vertical-align:middle;`);
     el.innerHTML = msg;
     setTimeout(function () { el.parentNode.removeChild(el); }, duration);
     document.body.appendChild(el);
@@ -302,7 +304,7 @@ function setAppDefaults2() {
     versionTo.disabled = true;
     versionOperator.value = "=";
     enableversionTo.disabled = true;
-    enablePretty.checked = false;
+    compactJSON = true;
     clearFilters2();
     removeAllRows2();
     update2();
@@ -407,7 +409,8 @@ function readTextFile(file) {
 //JSON parser
 function updateJSON() {
     //Set the space value \t=tab ""=all on the same line
-    !enablePretty.checked ? json_space = "\t" : json_space = 0;
+    //!enablePretty.checked ? json_space = "\t" : json_space = 0;
+    compactJSON ? json_space = "\t" : json_space = 0;
     let json_use_legacy = use_legacy.checked, json_nodes = {}, products = [], defaults = [];
     //Iterate through defaults row and add this to json_nodes array
     for (let i = 3; i < nodes.length - 1; i++) {
@@ -494,9 +497,19 @@ function getAllOptions2(index) {
 function fillSelect2(index) {
     document.getElementById(nodes[index]).innerHTML = "";
     for (let i = 0; i < optionsFiltered[index].length; i++) {
-        let value = optionsFiltered[index][i];
         let opt = document.createElement("option");
-        opt.value = opt.text = value;
+        switch (optionsFiltered[index][i]) {
+            case ("1"):
+                opt.text = "yes";
+                break;
+            case ("0"):
+                opt.text = "no";
+                break;
+            default:
+                opt.text = optionsFiltered[index][i];
+                break;
+        }
+        opt.value = optionsFiltered[index][i];
         document.getElementById(nodes[index]).appendChild(opt);
     }
 }
@@ -598,19 +611,6 @@ function update2() {
         //Iterate through nodes
         for (let j = 0; j < nodes.length; j++) {
             let value = productsFiltered[i][j];
-            switch (value) {
-                case ("0"):
-                    value = "no";
-                    break;
-                case ("1"):
-                    value = "yes";
-                    break;
-                case (""):
-                    value = "";
-                    break;
-                default:
-                    break;
-            }
             if (value.includes(";")) {
                 let vs = value.split(";")
                 for (let k = 0; k < vs.length; k++) {

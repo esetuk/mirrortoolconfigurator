@@ -3,7 +3,7 @@
     width: 100%;
 }
 * {
-    color: rgb(220, 220, 220);
+    color: white;
     font-family: "Segoe UI",Helvetica,Arial, sans-serif;
     box-sizing: border-box;
 }
@@ -16,17 +16,15 @@ html, body {
 .menuItem, .footerItem {
     margin: 0;
     height: 100%;
-    line-height: 20px;
-    padding: 3px;
-}
-.row {
-    height: 100%;
+    line-height: 100%;
+    padding: 4px;
 }
 .navigation {
-    height: auto;
+    height: 35px;
+    line-height: 35px;
     width: 100%;
     margin: 0;
-    padding: 10px;
+    padding: 0;
     text-align: center;
     display: inline-block;
     font-size: small;
@@ -34,6 +32,10 @@ html, body {
 }
 #footer {
     text-align: center;
+}
+.links {
+    color: grey;
+    font-size: small;
 }
 #header {
     text-align: center;
@@ -70,13 +72,12 @@ a {
     text-decoration: none;
 }
 a:hover {
-    color: rgb(100,100,100);
+    color: white;
 }
 button {
     background-color: transparent;
     border: 0;
     vertical-align: middle;
-    border-radius: 4px;
     margin: 2px;
     padding: 2px;
     padding-left: 4px;
@@ -104,6 +105,7 @@ select {
     margin: 5px;
     height: auto;
     border: 1px solid rgb(40,40,40);
+    overflow: auto;
 }
 select option:checked {
     color: rgb(255, 255, 255);
@@ -129,10 +131,10 @@ input[type="checkbox"] {
     margin: 2px;
 }
 input[type="radio"] {
-    width: auto;
+    width: 16px;
+    height: 16px;
     vertical-align: middle;
     text-align: right;
-    height: auto;
     margin: 2px;
 }
 input:focus {
@@ -142,11 +144,12 @@ table {
     width: 100%;
     text-align: left;
     font-size: small;
+    background-color: black;
+    border: 1px solid rgb(40,40,40);
 }
 table, th, td {
     border-collapse: collapse;
     padding: 5px;
-    border-radius: 0;
     cursor: default;
 }
 th {
@@ -156,7 +159,6 @@ th {
 td {
     max-width: 200px;
     word-wrap: break-word;
-    background-color: black;
 }
 label {
     display: inline-block;
@@ -193,13 +195,19 @@ label {
     vertical-align: middle;
     text-align: left;
     border: 1px solid rgb(40,40,40);
-    border-radius: 5px;
     font-size: small;
 }
 .layer2 {
     padding: 20px;
     border-bottom: 1px solid rgb(40,40,40);
     border-top: 0;
+}
+#defaults {
+    border: 1px solid rgb(40,40,40);
+    width: auto;
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
 }
 .controls {
     text-align: right;
@@ -211,6 +219,9 @@ label {
     width: auto;
     display: inline-block;
     margin: 3px;
+}
+span {
+    padding: 3px;
 }
 #controlsCLI {
     padding: 10px;
@@ -235,7 +246,7 @@ label {
     font-size: small;
 }
 #outputBox2 {
-    color: orange;
+    color: rgb(144, 96, 199);
     text-align: left;
     white-space: pre-wrap;
     width: auto;
@@ -271,18 +282,13 @@ label {
     line-height: 36px;
     vertical-align: middle;
 }
-.links {
-    color: grey;
-    font-size: small;
-    padding: 3px;
-}
 .removeIcon {
     margin: 0;
     padding: 0;
     text-align: center;
 }
-colorParameter {color: rgb(67, 166, 224); }
-colorArgument {color: rgb(224, 120, 102);}
-colorPassword {color: rgb(224, 120, 102);}
-colorStart {color: rgb(199, 90, 153);}
+colorParameter {color: rgb(67, 166, 224);}
+colorArgument {color: rgb(26, 133, 127);}
+colorPassword {color: rgb(144, 96, 199);}
+colorStart {color: rgb(129, 87, 177);}
 colorWarn {color: rgb(70, 70, 70);}
