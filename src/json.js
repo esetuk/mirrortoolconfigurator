@@ -258,12 +258,12 @@ function updateSelect2(index) {
 
 function updateVersionTo() {
     versionTo.innerHTML = version.innerHTML;
-    for (let i = 0; i < versionTo.length; i++) {
-        if (version.options[version.selectedIndex].text >= versionTo.options[i].text) {
-            versionTo.removeChild(versionTo.options[i]);
-            i--;
-        }
-    }
+    // for (let i = 0; i < versionTo.length; i++) {
+    //     if (version.options[version.selectedIndex].text >= versionTo.options[i].text) {
+    //         versionTo.removeChild(versionTo.options[i]);
+    //         i--;
+    //     }
+    // }
 }
 
 function sortNode(index) {
@@ -330,7 +330,6 @@ function update2() {
             }
         }
     }
-    updateVersionTo();
     for (let i = 0; i < nodes.length; i++) {
         sortNode(i);
         if (document.getElementById("enable" + nodes[i]).checked) {
@@ -343,6 +342,7 @@ function update2() {
             fillSelect2(i);
         }
     }
+    updateVersionTo();
     updateJSON();
 }
 
