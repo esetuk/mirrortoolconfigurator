@@ -15,33 +15,23 @@ products.shift();
 
 buttonSetDefaults2.addEventListener("click", function () { setDefaults2(); });
 buttonAddProduct2.addEventListener("click", function () { addProduct2(); });
-table.addEventListener("click", function (e) { removeRow2(e); });
 buttonReset2.addEventListener("click", function () { reset2(); });
 downloadButton2.addEventListener("click", function () { download("filter.json", outputBox2.innerHTML); });
-for (let i = 0; i < nodes.length; i++) {
-    if (i < 3 || i > 5) {
-        document.getElementById(nodes[i]).addEventListener("change", function (e) {
-            document.getElementById("enable" + nodes[i]).checked = true;
-            update2();
-        });
-    } else {
-        document.getElementById(nodes[i]).addEventListener("focusout", function (e) {
-            if (anyOptionsSelected2(i)) {
-                document.getElementById("enable" + nodes[i]).checked = true;
-                update2();
-            }
-        });
-    }
-    document.getElementById("enable" + nodes[i]).addEventListener("click", function () {
-        document.getElementById(nodes[i]).selectedIndex = 0;
-        update2();
-    });
-}
+table.addEventListener("click", function (e) { removeRow2(e); });
+document.getElementById("name").addEventListener("change", function () { enablename.checked = true; update2(); });
+app_id.addEventListener("change", function () { enableapp_id.checked = true; update2(); });
+version.addEventListener("change", function () { enableversion.checked = true; updateVersionTo(); update2(); });
+languages.addEventListener("click", function () { enablelanguages.checked = true; update2(); });
+os_types.addEventListener("click", function () { enableos_types.checked = true; update2(); });
+platforms.addEventListener("click", function () { enableplatforms.checked = true; update2(); });
+enablename.addEventListener("click", function () { update2(); });
+enableapp_id.addEventListener("click", function () { update2(); });
 enableversion.addEventListener("click", function () { update2(); });
-versionTo.addEventListener("change", function () {
-    enableversionTo.checked = true;
-    update2();
-});
+enablelanguages.addEventListener("click", function () { update2(); });
+enableos_types.addEventListener("click", function () { update2(); });
+enableplatforms.addEventListener("click", function () { update2(); });
+enableversion.addEventListener("click", function () { update2(); });
+versionTo.addEventListener("change", function () { enableversionTo.checked = true; update2(); });
 enableversionTo.addEventListener("click", function (e) { update2(); });
 versionOperator.addEventListener("change", function (e) { update2(); });
 use_legacy.addEventListener("click", function () { updateJSON(); });
@@ -258,12 +248,12 @@ function updateSelect2(index) {
 
 function updateVersionTo() {
     versionTo.innerHTML = version.innerHTML;
-    // for (let i = 0; i < versionTo.length; i++) {
-    //     if (version.options[version.selectedIndex].text >= versionTo.options[i].text) {
-    //         versionTo.removeChild(versionTo.options[i]);
-    //         i--;
-    //     }
-    // }
+    for (let i = 0; i < versionTo.length; i++) {
+        if (version.selectedIndex <= i) {
+            versionTo.removeChild(versionTo.options[i]);
+            i--;
+        }
+    }
 }
 
 function sortNode(index) {
@@ -342,7 +332,6 @@ function update2() {
             fillSelect2(i);
         }
     }
-    updateVersionTo();
     updateJSON();
 }
 
