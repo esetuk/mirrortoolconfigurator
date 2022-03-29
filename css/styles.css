@@ -287,8 +287,18 @@ span {
     padding: 0;
     text-align: center;
 }
-colorParameter {color: rgb(67, 166, 224);}
-colorArgument {color: rgb(26, 133, 127);}
-colorPassword {color: rgb(144, 96, 199);}
-colorStart {color: rgb(129, 87, 177);}
-colorWarn {color: rgb(70, 70, 70);}
+colorParameter {
+    color: rgb(67, 166, 224);
+    font-size: small;}
+colorArgument {
+    color: rgb(26, 133, 127);
+    font-size: small;}
+colorPassword {
+    color: rgb(144, 96, 199);
+    font-size: small;}
+colorStart {
+    color: rgb(129, 87, 177);
+    font-size: small;}
+colorWarn {
+    color: rgb(70, 70, 70);
+    font-size: small;}
