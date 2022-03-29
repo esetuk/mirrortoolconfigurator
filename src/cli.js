@@ -17,6 +17,9 @@ downloadButton.addEventListener("click", function () {
     enableWindows.checked ? download('test.bat', hidden.textContent) : download
         ('test.sh', hidden.textContent.split("sudo ").pop());
 });
+resetButton.addEventListener("click", function () { reset(); });
+enableWindows.addEventListener("click", function () { isWindows ? null : reset() });
+enableLinux.addEventListener("click", function () { isWindows ? reset() : null });
 
 update();
 

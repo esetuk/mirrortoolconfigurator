@@ -44,10 +44,7 @@ versionTo.addEventListener("change", function () {
 });
 enableversionTo.addEventListener("click", function (e) { update2(); });
 versionOperator.addEventListener("change", function (e) { update2(); });
-use_legacy.addEventListener("click", function () { update2(); });
-resetButton.addEventListener("click", function () { reset(); });
-enableWindows.addEventListener("click", function () { isWindows ? null : reset() });
-enableLinux.addEventListener("click", function () { isWindows ? reset() : null });
+use_legacy.addEventListener("click", function () { updateJSON(); });
 buttonClearFilters2.addEventListener("click", function () { clearFilters2(); update2(); });
 buttonCompact2.addEventListener("click", function () { compactJSON ? compactJSON = false : compactJSON = true; updateJSON(); });
 
@@ -259,6 +256,16 @@ function updateSelect2(index) {
     }
 }
 
+function updateVersionTo() {
+    versionTo.innerHTML = version.innerHTML;
+    for (let i = 0; i < versionTo.length; i++) {
+        if (version.options[version.selectedIndex].text >= versionTo.options[i].text) {
+            versionTo.removeChild(versionTo.options[i]);
+            i--;
+        }
+    }
+}
+
 function sortNode(index) {
     index == 2 ? optionsFiltered[index] = optionsFiltered[index].sort(function (a, b) { return a - b; }) : optionsFiltered[index] = optionsFiltered[index].sort();
 }
@@ -323,7 +330,7 @@ function update2() {
             }
         }
     }
-    if (!enableversion.checked) versionTo.innerHTML = version.innerHTML;
+    updateVersionTo();
     for (let i = 0; i < nodes.length; i++) {
         sortNode(i);
         if (document.getElementById("enable" + nodes[i]).checked) {
