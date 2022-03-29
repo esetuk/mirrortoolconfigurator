@@ -37,6 +37,7 @@ enableplatforms.addEventListener("click", function () { platforms.selectedIndex 
 enableversion.addEventListener("click", function () { version.selectedIndex = 0; update2(); });
 enableversionTo.addEventListener("click", function () { versionTo.selectedIndex = 0; update2(); });
 use_legacy.addEventListener("click", function () { updateJSON(); });
+legacy.addEventListener("click", function () { update2(); });
 
 let clipboard2 = new Clipboard(copyButton2, {
     text: function () {
