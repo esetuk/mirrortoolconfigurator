@@ -274,9 +274,8 @@ function update2() {
     if (isSetAppDefaults2) setAppDefaults2();
     IsAnyProductsSelected2();
     IsAnyDefaultsSelected2();
-    versionTo.disabled = enableversionTo.disabled = (versionOperator.value != "=" || !enableversion.checked);
-    versionOperator.disabled = enableversionTo.checked;
-    if (!enableversion.checked) enableversionTo.checked = false;
+    if (enableversion.checked && versionOperator.selectedIndex == 0) { enableversionTo.disabled = false; versionTo.disabled = false; } else { enableversionTo.disabled = true; versionTo.disabled = true; enableversionTo.checked = false; }
+    if (enableversionTo.checked) { versionOperator.selectedIndex = 0; versionOperator.disabled = true; } else { versionOperator.disabled = false; }
     if (isAnythingSelected2()) buttonClearFilters2.disabled = false; else buttonClearFilters2.disabled = true;
     productsFiltered = products.map(inner => inner.slice());
     options = [];

@@ -153,7 +153,7 @@ table, th, td {
     cursor: default;
 }
 th {
-    text-align: center;
+    text-align: left;
     border-bottom: 1px solid rgb(40,40,40);
 }
 td {
