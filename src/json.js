@@ -1,8 +1,8 @@
 //Functions for JSON configuration
 
-let optionsFiltered, compactJSON = true,  isSetAppDefaults2 = false;
+let optionsFiltered, compactJSON = true, isSetAppDefaults2 = false;
 
-temp = readTextFile("/mirrortoolconfigurator/res/products.csv").split(/[\r\n]+/),
+temp = readTextFile("https://esetuk.github.io/mirrortoolconfigurator/res/products.csv").split(/[\r\n]+/),
     products = [], productsFiltered = [], nodes = ["app_id", "name", "version", "languages", "os_types", "platforms", "legacy"];
 for (let i = 0; i < temp.length; i++) {
     temp[i] = temp[i].split(",").slice(0, -1)
@@ -50,14 +50,21 @@ enableWindows.addEventListener("click", function () { isWindows ? null : reset()
 enableLinux.addEventListener("click", function () { isWindows ? reset() : null });
 buttonClearFilters2.addEventListener("click", function () { clearFilters2(); update2(); });
 buttonCompact2.addEventListener("click", function () {
-    compactJSON ? compactJSON = false : compactJSON = true;
+    if (compactJSON) {
+        compactJSON = false
+        compactImage.src = "/res/compactbuttonactive.png";
+    }
+    else {
+        compactJSON = true;
+        compactImage.src = "/res/compactbutton.png";
+    }
     update2();
 });
 
 let clipboard2 = new Clipboard(copyButton2, {
     text: function () {
         update2();
-        toast("Copied to clipboard!", 1000);
+        toast("Copied to clipboard");
         return outputBox2.innerHTML;
     }
 });
@@ -348,14 +355,14 @@ function updateJSON() {
     let json_use_legacy = use_legacy.checked, json_nodes = {}, products = [], defaults = [];
     for (let i = 3; i < nodes.length - 1; i++) {
         if (table.rows[1].cells[i].innerHTML != "")
-        table.rows[1].cells[i].innerHTML.includes(",") ? json_nodes[nodes[i]] = table.rows[1].cells[i].innerHTML.split(",") : json_nodes[nodes[i]] = table.rows[1].cells[i].innerHTML;
+            table.rows[1].cells[i].innerHTML.includes(",") ? json_nodes[nodes[i]] = table.rows[1].cells[i].innerHTML.split(",") : json_nodes[nodes[i]] = table.rows[1].cells[i].innerHTML;
     }
     Object.keys(json_nodes).length == 0 ? defaults = undefined : defaults = json_nodes;
     for (let i = 2; i < table.rows.length; i++) {
         json_nodes = {};
         for (let j = 0; j < nodes.length - 1; j++) {
             if (table.rows[i].cells[j].innerHTML != "")
-            table.rows[i].cells[j].innerHTML.includes(",") ? json_nodes[nodes[j]] = table.rows[i].cells[j].innerHTML.split(",") : json_nodes[nodes[j]] = table.rows[i].cells[j].innerHTML; else json_nodes[nodes[j]] = undefined;
+                table.rows[i].cells[j].innerHTML.includes(",") ? json_nodes[nodes[j]] = table.rows[i].cells[j].innerHTML.split(",") : json_nodes[nodes[j]] = table.rows[i].cells[j].innerHTML; else json_nodes[nodes[j]] = undefined;
         }
         products.push(json_nodes);
     }

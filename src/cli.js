@@ -6,7 +6,7 @@ enableWindows.checked = true;
 let clipboard = new Clipboard(copyButton, {
     text: function () {
         update();
-        toast("Copied to clipboard!", 1000);
+        toast("Copied to clipboard");
         return hidden.textContent;
     }
 });
