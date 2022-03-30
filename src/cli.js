@@ -97,7 +97,7 @@ function update() {
             command = "<colorStart>sudo ./MirrorTool</colorStart> " + command
         }
     } else {
-        command = "<colorWarn>Please check your configuration.</colorWarn>";
+        command = `<colorWarn>Check your configuration.</colorWarn>`;
     }
     hidden.innerHTML = command;
     const passwordReplaceText = "&lt;hidden&gt;";
@@ -124,8 +124,8 @@ function validate(pElement, pSectionCheckbox, pOptional, pRegex) {
     if (pElement.nextSibling.tagName == "IMG") pElement.nextElementSibling.remove();
     const tickImage = new Image(16, 16);
     const crossImage = new Image(16, 16);
-    tickImage.src = "/res/tick.png";
-    crossImage.src = "/res/cross.png";
+    tickImage.src = "res/tick.png";
+    crossImage.src = "res/cross.png";
     let valid = true;
     if ((pOptional && enableOptional.checked && pSectionCheckbox.checked) || (!pOptional && !enableOptional.checked && pSectionCheckbox.checked) || (!pOptional && enableOptional.checked && pSectionCheckbox.checked)) {
     if (!document.getElementById(pElement.id).value.match(pRegex)) valid = false;
