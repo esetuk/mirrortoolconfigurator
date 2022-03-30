@@ -13,7 +13,7 @@ let clipboard = new Clipboard(copyButton, {
 
 configureLink.addEventListener("click", function () { openSection(2); });
 layerCLI.addEventListener("input", function () { update(); });
-downloadButton.addEventListener("click", function () { enableWindows.checked ? download('test.bat', hidden.textContent) : download('test.sh', hidden.textContent.split("sudo ").pop()); });
+downloadButton.addEventListener("click", function () { enableWindows.checked ? download('buildmirror.bat', hidden.textContent) : download('buildmirror.sh', hidden.textContent.split("sudo ").pop()); });
 resetButton.addEventListener("click", function () { reset(); });
 enableWindows.addEventListener("click", function () { isWindows ? null : reset() });
 enableLinux.addEventListener("click", function () { isWindows ? reset() : null });
@@ -61,11 +61,13 @@ function update() {
         pElement = document.getElementById(pName);
         if (setDefaults) { pElement.value = pDefault; pElement.checked = pDefault; }
         if (pElement != null) {
+            let value = pElement.value;
+            if (pList[i][5] == regexPath && pElement.value != "") value = "\"" + pElement.value + "\"";
             if (pSectionCheckbox.checked) {
                 if (enableOptional.checked || !enableOptional.checked && pList[i][4] == false) {
                     switch (pType) {
                         case ("text"):
-                            if (pElement.value != "") command += "<colorParameter>--" + pName + "</colorParameter> <colorArgument>" + pElement.value + "</colorArgument> ";
+                            if (value != "") command += "<colorParameter>--" + pName + "</colorParameter> <colorArgument>" + value + "</colorArgument> ";
                             break;
                         case ("checkbox"):
                             if (pElement.checked) command += "<colorParameter>--" + pName + "</colorParameter> ";
@@ -74,7 +76,7 @@ function update() {
                             if (pElement.options[pElement.selectedIndex].text != "none") command += "<colorParameter>--" + pName + "</colorParameter> <colorArgument>" + pElement.options[pElement.selectedIndex].value + "</colorArgument> ";
                             break;
                         case ("password"):
-                            if (pElement.value != "") command += "<colorParameter>--" + pName + "</colorParameter> <colorPassword>" + pElement.value + "</colorPassword> ";
+                            if (value != "") command += "<colorParameter>--" + pName + "</colorParameter> <colorPassword>" + value + "</colorPassword> ";
                             break;
                     }
                 }
@@ -82,6 +84,7 @@ function update() {
         }
         if (!validate(pElement, pSectionCheckbox, pOptional, pRegex)) invalid++;
     }
+    invalid == 0 ? menuItem1.style = "border-bottom: 3px solid white" : menuItem1.style = "border-bottom: 3px solid red";
     if (invalid > 0 || (!enableMirror.checked && !enableRepository.checked)) {
         copyButton.disabled = downloadButton.disabled = outputBox.disabled = true;
     } else {
