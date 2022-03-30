@@ -84,7 +84,6 @@ function update() {
         }
         if (!validate(pElement, pSectionCheckbox, pOptional, pRegex)) invalid++;
     }
-    invalid == 0 ? menuItem1.style = "border-bottom: 3px solid white" : menuItem1.style = "border-bottom: 3px solid red";
     if (invalid > 0 || (!enableMirror.checked && !enableRepository.checked)) {
         copyButton.disabled = downloadButton.disabled = outputBox.disabled = true;
     } else {
