@@ -21,7 +21,7 @@ enableLinux.addEventListener("click", function () { isWindows ? reset() : null }
 update();
 
 function update() {
-    let baseDirectory = updateBaseDirectory();
+    const baseDirectory = updateBaseDirectory();
     const regexWindowsPath = /(^[a-zA-Z]:\\(((?![<>:"/\\|?*]).)+((?<![ .])\\)?)*$)|(^(\\\\([a-z|A-Z|0-9|-|_|\s]{2,15}){1}(\.[a-z|A-Z|0-9|-|_|\s]{1,64}){0,3}){1}(\\[^\\|\/|\:|\*|\?|"|\<|\>|\|]{1,64}){1,}(\\){0,}$)/gi,
     regexLinuxPath = /(^(\/[\w^ ]+)+\/?([\w.])+[^.]$)|(^(\\\\([a-z|A-Z|0-9|-|_|\s]{2,15}){1}(\.[a-z|A-Z|0-9|-|_|\s]{1,64}){0,3}){1}(\\[^\\|\/|\:|\*|\?|"|\<|\>|\|]{1,64}){1,}(\\){0,}$)/gi,
     regexURL = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi,
@@ -98,7 +98,7 @@ function update() {
         command = "<colorWarn>Please check your configuration.</colorWarn>";
     }
     hidden.innerHTML = command;
-    let passwordReplaceText = "&lt;hidden&gt;";
+    const passwordReplaceText = "&lt;hidden&gt;";
     if (document.getElementById("networkDrivePassword").value != "" && document.getElementById("networkDrivePassword").value != null) command = command.replace(new RegExp("--networkDrivePassword</colorParameter> <colorPassword>" + document.getElementById("networkDrivePassword").value), "--networkDrivePassword</colorParameter> <colorPassword>" + passwordReplaceText);
     if (document.getElementById("proxyPassword").value != "" && document.getElementById("proxyPassword").value != null) command = command.replace(new RegExp("--proxyPassword</colorParameter> <colorPassword>" + document.getElementById("proxyPassword").value), "--proxyPassword</colorParameter> <colorPassword>" + passwordReplaceText);
     outputBox.innerHTML = command;
@@ -120,8 +120,8 @@ function reset() {
 
 function validate(pElement, pSectionCheckbox, pOptional, pRegex) {
     if (pElement.nextSibling.tagName == "IMG") pElement.nextElementSibling.remove();
-    let tickImage = new Image(16, 16);
-    let crossImage = new Image(16, 16);
+    const tickImage = new Image(16, 16);
+    const crossImage = new Image(16, 16);
     tickImage.src = "/res/tick.png";
     crossImage.src = "/res/cross.png";
     let valid = true;
