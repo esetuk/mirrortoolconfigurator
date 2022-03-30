@@ -126,12 +126,12 @@ function validate(pElement, pSectionCheckbox, pOptional, pRegex) {
     if (!document.getElementById(pElement.id).value.match(pRegex)) valid = false;
     if (valid || (pOptional && pElement.value == "")) {
         pElement.parentNode.insertBefore(tickImage, pElement.nextSibling);
-        pElement.style.borderColor = "rgba(119, 252, 3,0.5)";
+        pElement.style.borderColor = "rgb(40,40,40)";
         valid = true;
     }
     if ((pOptional && pElement.value != "" && !valid) || (!pOptional && (!valid || pElement.value == ""))){
         pElement.parentNode.insertBefore(crossImage, pElement.nextSibling);
-        pElement.style.borderColor = "rgba(252, 3, 3,0.5)";
+        pElement.style.borderColor = "red";
         valid = false;
     }
     } else { valid = true; }
