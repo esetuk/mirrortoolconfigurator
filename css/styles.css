@@ -95,7 +95,7 @@ button:disabled {
 button:enabled:hover {
     filter: invert(50%);
 }
-button:active {
+button:enabled:active {
     transform: translateY(1px);
 }
 select {
