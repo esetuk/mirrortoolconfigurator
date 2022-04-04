@@ -5,8 +5,7 @@
     <title>MirrorToolConfigurator</title>
     <meta charset="UTF-8" />
     <link rel="shortcut icon" type="image/x-icon" href="res/favicon.png">
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <script type="text/javascript" src="src/clipboard.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
 </head>
 
 <body>
@@ -197,7 +196,7 @@
                 <div id="defaults">
                     <div class="component">
                         <label>languages</label>
-                        <select name="languages" id="languages" multiple></select>
+                        <select name="languages" id="languages" multiple="multiple"></select>
                         <input type="checkbox" id="enablelanguages"></input>
                     </div>
                     <div class="component">
@@ -207,7 +206,7 @@
                     </div>
                     <div class="component">
                         <label>platforms</label>
-                        <select name="platforms" id="platforms" multiple></select>
+                        <select name="platforms" id="platforms" multiple=></select>
                         <input type="checkbox" id="enableplatforms"></input>
                     </div>
                     <button id="buttonSetDefaults2" type="button" title="Set defaults"><img
@@ -258,7 +257,8 @@
     <div id="toastLabel"></div>
     <div id="hidden"></div>
 </body>
-<script type="text/javascript" src="src/global.js"></script>
-<script type="text/javascript" src="src/cli.js"></script>
-<script type="text/javascript" src="src/json.js"></script>
+<script type="text/javascript" src="js/clipboard.min.js"></script>
+<script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="js/cli.js"></script>
+<script type="text/javascript" src="js/json.js"></script>
 </html>
