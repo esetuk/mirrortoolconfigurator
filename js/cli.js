@@ -3,6 +3,13 @@
 let setDefaults = true, pElement, isWindows = true;
 enableWindows.checked = true;
 
+const regexWindowsPath = /(^[a-zA-Z]:\\(((?![<>:"/\\|?*]).)+((?<![ .])\\)?)*$)|(^(\\\\([a-z|A-Z|0-9|-|_|\s]{2,15}){1}(\.[a-z|A-Z|0-9|-|_|\s]{1,64}){0,3}){1}(\\[^\\|\/|\:|\*|\?|"|\<|\>|\|]{1,64}){1,}(\\){0,}$)/gi,
+regexLinuxPath = /(^(\/[\w^ ]+)+\/?([\w.])+[^.]$)|(^(\\\\([a-z|A-Z|0-9|-|_|\s]{2,15}){1}(\.[a-z|A-Z|0-9|-|_|\s]{1,64}){0,3}){1}(\\[^\\|\/|\:|\*|\?|"|\<|\>|\|]{1,64}){1,}(\\){0,}$)/gi,
+regexURL = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi,
+regexURLRepository = /\bAUTOSELECT\b|[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi,
+regexPort = /[0-9]+/g,
+regexVersion = /^(\d+\.\d+)(\.\d+\.\d+)?$/gi;
+
 let clipboard = new Clipboard(copyButton, {
     text: function () {
         update();
@@ -22,12 +29,6 @@ update();
 
 function update() {
     const baseDirectory = updateBaseDirectory();
-    const regexWindowsPath = /(^[a-zA-Z]:\\(((?![<>:"/\\|?*]).)+((?<![ .])\\)?)*$)|(^(\\\\([a-z|A-Z|0-9|-|_|\s]{2,15}){1}(\.[a-z|A-Z|0-9|-|_|\s]{1,64}){0,3}){1}(\\[^\\|\/|\:|\*|\?|"|\<|\>|\|]{1,64}){1,}(\\){0,}$)/gi,
-    regexLinuxPath = /(^(\/[\w^ ]+)+\/?([\w.])+[^.]$)|(^(\\\\([a-z|A-Z|0-9|-|_|\s]{2,15}){1}(\.[a-z|A-Z|0-9|-|_|\s]{1,64}){0,3}){1}(\\[^\\|\/|\:|\*|\?|"|\<|\>|\|]{1,64}){1,}(\\){0,}$)/gi,
-    regexURL = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi,
-    regexURLRepository = /\bAUTOSELECT\b|[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi,
-    regexPort = /[0-9]+/g,
-    regexVersion = /^(\d+\.\d+)(\.\d+\.\d+)?$/gi;
     enableWindows.checked ? regexPath = regexWindowsPath : regexPath = regexLinuxPath;
     let pList = [
         //name/default-value/element/section/optional/regex
