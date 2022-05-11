@@ -27,7 +27,9 @@ function toast(msg) {
     let el = document.createElement("div");
     el.setAttribute("style", `font-size:small;position:absolute;top:10px;left:5px;width:auto;text-height:20px;padding:5px;text-align:center;vertical-align:middle;`);
     el.innerHTML = msg;
-    setTimeout(function () { el.parentNode.removeChild(el); }, 1000);
+    setTimeout(function () {
+        el.parentNode.removeChild(el);
+    }, 1000);
     document.body.appendChild(el);
 }
 
@@ -39,8 +41,7 @@ function download(filename, text) {
         var event = document.createEvent('MouseEvents');
         event.initEvent('click', true, true);
         pom.dispatchEvent(event);
-    }
-    else {
+    } else {
         pom.click();
     }
 }
