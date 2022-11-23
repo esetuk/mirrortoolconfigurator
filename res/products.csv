@@ -1,4 +1,4 @@
-app_id, name, version, language, os_type, platform, legacy, path, 
+app_id, name, version, language, os_type, platform, legacy, path
 third_party.apps.microsoft.sql.express, Microsoft SQL Server 2019 Express, 15.0.2000.5, en_US, windows, x64, 0,third_party/apps/microsoft/sql/express/v15/15.0.2000.5/sqlexpr_2019_x64_enu.exe,
 third_party.apps.microsoft.sql.express, Microsoft SQL Server 2014 Express, 12.3.6024.0, en_US, windows, x64, 0,third_party/apps/microsoft/sql/express/v12/12.3.6024.0/sqlexpr_2014_x64_enu.exe,
 third_party.apps.microsoft.sql.express, Microsoft SQL Express 2014 x64, 12.0.2269.0, en_US, windows, x64, 0,third_party/apps/microsoft/sql/express/v12/12.0.2269.0/sqlexpr_2014_x64_enu.exe,
