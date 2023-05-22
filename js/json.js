@@ -2,7 +2,7 @@
 
 let optionsFiltered, compactJSON = true, isSetAppDefaults2 = false;
 
-temp = readTextFile("https://esetuk.github.io/mirrortoolconfigurator/res/products.csv").split(/[\r\n]+/),
+temp = readTextFile("https://esetuk.github.io/mirrortool-configurator/res/products.csv").split(/[\r\n]+/),
     products = [], productsFiltered = [], nodes = ["app_id", "name", "version", "languages", "os_types", "platforms", "legacy"];
 for (let i = 0; i < temp.length; i++) {
     temp[i] = temp[i].split(",").slice(0, -1)
