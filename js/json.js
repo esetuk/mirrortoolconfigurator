@@ -11,7 +11,6 @@ for (let i = 0; i < temp.length; i++) {
     }
     products.push(temp[i]);
 }
-console.log(temp);
 products.shift();
 
 buttonSetDefaults2.addEventListener("click", function () { setDefaults2(); });
