@@ -3,7 +3,6 @@
 let optionsFiltered, compactJSON = true, isSetAppDefaults2 = false;
 
 temp = readTextFile("https://esetuk.github.io/mirrortool-configurator/res/products.csv").split(/[\r\n]+/)
-console.log(temp);
 products = [], productsFiltered = [], nodes = ["app_id", "name", "version", "languages", "os_types", "platforms", "legacy"];
 for (let i = 0; i < temp.length; i++) {
     temp[i] = temp[i].split(",").slice(0, -1)
@@ -274,6 +273,7 @@ function versionStringBuilder() {
 }
 
 function update2() {
+    console.log("update2 start")
     if (isSetAppDefaults2) setAppDefaults2();
     IsAnyProductsSelected2();
     IsAnyDefaultsSelected2();
@@ -299,6 +299,7 @@ function update2() {
         for (let j = 0; j < options.length; j++) {
             let values = productsFiltered[i][j].split(";");
             for (let k = 0; k < values.length; k++) {
+                // long running - check this
                 if (!options[j].filter(element => element.includes(values[k])).length > 0 || values[k] == "") { remove = true; continue; }
             }
         }
