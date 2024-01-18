@@ -42,7 +42,6 @@ enablelegacy.addEventListener("click", function () { versionTo.selectedIndex = 0
 
 let clipboard2 = new Clipboard(copyButton2, {
     text: function () {
-        update2();
         toast("Copied to clipboard");
         return outputBox2.innerHTML;
     }
@@ -273,7 +272,7 @@ function versionStringBuilder() {
 }
 
 function update2() {
-    console.log("update2 start")
+    toast("Indexing, please wait!");
     if (isSetAppDefaults2) setAppDefaults2();
     IsAnyProductsSelected2();
     IsAnyDefaultsSelected2();
@@ -299,11 +298,10 @@ function update2() {
         for (let j = 0; j < options.length; j++) {
             let values = productsFiltered[i][j].split(";");
             for (let k = 0; k < values.length; k++) {
-                // long running - check this
                 if (!options[j].filter(element => element.includes(values[k])).length > 0 || values[k] == "") { remove = true; continue; }
             }
         }
-        if (remove) { productsFiltered.splice(i, 1); i--; };
+        if (remove) { productsFiltered.splice(i, 1); i--; }; // long running
     }
     optionsFiltered = [[], [], [], [], [], [], []];
     for (let i = 0; i < productsFiltered.length; i++) {
