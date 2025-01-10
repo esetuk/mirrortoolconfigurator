@@ -155,6 +155,23 @@
                 <input type="text" id="proxyUsername" placeholder=""><br>
                 <label class="labels" title="[optional] Http proxy password.">proxyPassword</label>
                 <input type="password" id="proxyPassword" placeholder=""><br>
+
+                <label class="labels" title="[optional] Set log level. The following values are available: error, warning, info (default), debug. Example: --logLevel debug.">logLevel</label>
+                <select id="logLevel">
+                    <option value="info">Info</option>
+                    <option value="error">Error</option>
+                    <option value="warning">Warning</option>
+                    <option value="debug">Debug</option>
+                </select><br>
+                <label class="labels" title="[optional] Set the log filename and its location. Example:
+•Windows: --logFilename C:\MT_log.txt
+•Linux: --logFilename ~/Downloads/MT_log.txt.">logFilename</label>
+                <input type="text" id="logFilename" placeholder=""><br>
+                <label class="labels" title="[optional] Enable logging into the standard path:
+•Windows: C:\ProgramData\ESET\RemoteAdministrator\MirrorTool\Logs
+•Linux: /var/log/eset/RemoteAdministrator/MirrorTool/Logs
+You cannot combine --logIntoStandardPath with --logFilename.">logIntoStandardPath</label>
+                <input type="text" id="logIntoStandardPath" placeholder=""><br>
             </div>
         </div>
         <div id="layerJSON" spellcheck="false">
