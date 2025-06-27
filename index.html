@@ -67,111 +67,117 @@
             </div>
             <div class="layer2" id="mirror">
                 <label class="labels"
-                    title="[required for module update] Type of mirror. Possible values (case insensitive): regular, pre-release, delayed.">mirrorType*</label>
+                    title="[required for module update] Type of mirror. Possible values (case insensitive): regular, pre-release, delayed.">Mirror type*</label>
                 <select id="mirrorType">
                     <option value="regular">regular</option>
                     <option value="pre-release">pre-release</option>
                     <option value="delayed">delayed</option>
                 </select><br>
                 <label class="labels"
-                    title="[required for module update] Files will be downloaded to this directory to create mirror in output directory.">intermediateUpdateDirectory*</label>
+                    title="[required for module update] Files will be downloaded to this directory to create mirror in output directory.">Intermediate update directory*</label>
                 <input type="text" id="intermediateUpdateDirectory" placeholder=""><br>
                 <label class="labels"
-                    title="[required for module update] Directory where mirror will be created.">outputDirectory*</label>
+                    title="[required for module update] Directory where mirror will be created.">Output directory*</label>
                 <input type="text" id="outputDirectory" placeholder=""><br>
                 <label class="labels"
-                    title="[required for module update] Offline license file.">offlineLicenseFilename*</label>
+                    title="[required for module update] Offline license file.">Offline licence filename*</label>
                 <input type="text" id="offlineLicenseFilename" placeholder=""><br />
                 <div class="optional">
                     <label class="labels"
-                        title="[optional] Disable creating mirror for specified products.">excludedProducts</label>
+                        title="[optional] Disable creating mirror for specified products.">Excluded products</label>
                     <select id="excludedProducts">
                         <option value="none">none</option>
-                        <option value="ep4 ep5 ep6 era6 ep7 ep8 ep9 ep10">10 and lower</option>
-                        <option value="ep4 ep5 ep6 era6 ep7 ep8 ep9">9 and lower</option>
-                        <option value="ep4 ep5 ep6 era6 ep7 ep8">8 and lower</option>
-                        <option value="ep4 ep5 ep6 era6 ep7">7 and lower</option>
-                        <option value="ep4 ep5 ep6 era6">6 and lower</option>
-                        <option value="ep4 ep5">5 and lower</option>
-                        <option value="ep4">4</option>
+                        <option value="ep6 era6 ep7 ep8 ep9 ep10 ep11">11 and lower</option>
+                        <option value="ep6 era6 ep7 ep8 ep9 ep10">10 and lower</option>
+                        <option value="ep6 era6 ep7 ep8 ep9">9 and lower</option>
+                        <option value="ep6 era6 ep7 ep8">8 and lower</option>
+                        <option value="ep6 era6 ep7">7 and lower</option>
+                        <option value="ep6 era6">6 and lower</option>
                     </select><br>
                     <label id="bigger" class="labels"
-                        title="[optional] If set, only level upgrades will be downloaded (nano/continuous updates will not be downloaded).">mirrorOnlyLevelUpdates</label>
+                        title="[optional] If set, only level upgrades will be downloaded (nano/continuous updates will not be downloaded).">Mirror only level updates</label>
                     <input type="checkbox" id="mirrorOnlyLevelUpdates"><br>
                     <label class="labels"
-                        title="[optional] Specifies which type of update files will be downloaded. Possible values (case insensitive): dll, dat.">mirrorFileFormat</label>
+                        title="[optional] Specifies which type of update files will be downloaded. Possible values (case insensitive): dll, dat.">Mirror file format</label>
                     <select id="mirrorFileFormat">
                         <option value="none">none</option>
                         <option value="dat"
                             title="Use this value if you have environment only with ESET security product versions 6.5 and older.">
-                            dat (v6.5 or older only)</option>
+                            dat</option>
                         <option value="dll"
                             title="Use this value if you have environment only with ESET security product versions 6.6 and later.">
-                            dll (v6.6 or later only)</option>
+                            dll</option>
+                        <option value="dylib"
+                            title="Use this value if you have environment only with ESET security product for macOS version 8 and later.">
+                            dylib</option>    
                     </select><br>
                     <label class="labels"
-                        title="[optional] Version of compatible products.">compatibilityVersion</label>
-                    <input type="text" id="compatibilityVersion" placeholder="e.g. x.x (11.0) or x.x.x.x (8.1.13.0)">
+                        title="[optional] Version of compatible products.">Compatibility version</label>
+                    <input type="text" id="compatibilityVersion" placeholder="e.g. x.x (12.1) or x.x.x.x (8.1.13.0)">
                     <br>
                     <label class="labels"
-                        title="[optional] Update server. (e.g.: http://update.eset.com/eset_upd/ep6/) Mirror will be created in output directory, only specified path in server will be mirrored.">updateServer</label>
+                        title="[optional] Update server. (e.g.: http://update.eset.com/eset_upd/ep6/) Mirror will be created in output directory, only specified path in server will be mirrored.">Update server</label>
                     <input type="text" id="updateServer" placeholder="e.g. http://update.eset.com/eset_upd/ep6/">
                     <br>
                     <label class="labels"
-                        title="[optional] Username used, when output directory is accessed using smb(e.g:\\hostname).">networkDriveUsername</label>
+                        title="[optional] Username used, when output directory is accessed using smb(e.g:\\hostname).">Network drive username</label>
                     <input type="text" id="networkDriveUsername" placeholder="">
                     <br>
                     <label class="labels"
-                        title="[optional] Password used, when output directory is accessed using smb(e.g:\\hostname).">networkDrivePassword</label>
+                        title="[optional] Password used, when output directory is accessed using smb(e.g:\\hostname).">Network drive password</label>
                     <input type="password" id="networkDrivePassword" placeholder="">
                 </div>
             </div>
             <div class="layer2" id="repository">
                 <label class="labels"
-                    title="[required for repository update] Repository server for repository creation.">repositoryServer*</label>
+                    title="[required for repository update] Repository server for repository creation.">Repository server*</label>
                 <input type="text" id="repositoryServer" placeholder=""><br>
                 <label class="labels"
-                    title="[required for repository update] Files will be downloaded to this directory to create offline mirror in output directory.">intermediateRepositoryDirectory*</label>
+                    title="[required for repository update] Files will be downloaded to this directory to create offline mirror in output directory.">Intermediate repository directory*</label>
                 <input type="text" id="intermediateRepositoryDirectory" placeholder=""><br>
                 <label class="labels"
-                    title="[required for repository update] Directory where offline repository will be created.">outputRepositoryDirectory*</label>
+                    title="[required for repository update] Directory where offline repository will be created.">Output repository directory*</label>
                 <input type="text" id="outputRepositoryDirectory" placeholder=""><br>
                 <div class="optional">
                     <label class="labels"
-                        title="[optional] Path to filter file in json format. Parameter compatibilityVersion has to be higher than 7.1.0.0 to run program.">filterFilePath</label>
+                        title="[optional] Path to filter file in json format. Parameter compatibilityVersion has to be higher than 7.1.0.0 to run program.">Filter file path</label>
                     <input type="text" id="filterFilePath" placeholder="">
                     <a href="javascript:void(0)" class="links" id="configureLink">configure</a><br>
                     <label id="bigger" class="labels"
-                        title=" [optional] If set, hashes on already downloaded files are not checked.">trustDownloadedFilesInRepositoryTemp</label>
+                        title=" [optional] If set, hashes on already downloaded files are not checked.">Trust downloaded files in repository temp</label>
                     <input type="checkbox" id="trustDownloadedFilesInRepositoryTemp" placeholder=""><br>
                 </div>
             </div>
             <div class="layer2" id="global">
-                <label class="labels" title="[optional] Http proxy address (fqdn or IP).">proxyHost</label>
+                <label class="labels" title="[optional] Http proxy address (fqdn or IP).">Proxy host</label>
                 <input type="text" id="proxyHost" placeholder="e.g.: proxy.domain.com or 10.0.0.10"><br>
-                <label class="labels" title="[optional] Http proxy port.">proxyPort</label>
+                <label class="labels" title="[optional] Http proxy port.">Proxy port</label>
                 <input type="text" id="proxyPort" placeholder=""><br>
-                <label class="labels" title="[optional] Http proxy username.">proxyUsername</label>
+                <label class="labels" title="[optional] Http proxy username.">Proxy username</label>
                 <input type="text" id="proxyUsername" placeholder=""><br>
-                <label class="labels" title="[optional] Http proxy password.">proxyPassword</label>
+                <label class="labels" title="[optional] Http proxy password.">Proxy password</label>
                 <input type="password" id="proxyPassword" placeholder=""><br>
 
-                <label class="labels" title="[optional] Set log level. The following values are available: error, warning, info (default), debug. Example: --logLevel debug.">logLevel</label>
+                <div class="optional">
+                <label class="labels" title="[optional] Set log level. The following values are available: error, warning, info (default), debug. Example: --logLevel debug.">Log level</label>
                 <select id="logLevel">
-                    <option value="info">Info</option>
-                    <option value="error">Error</option>
-                    <option value="warning">Warning</option>
-                    <option value="debug">Debug</option>
+                    <option value="info">info</option>
+                    <option value="error">error</option>
+                    <option value="warning">warning</option>
+                    <option value="debug">debug</option>
                 </select><br>
                 <label class="labels" title="[optional] Set the log filename and its location. Example:
 •Windows: --logFilename C:\MT_log.txt
-•Linux: --logFilename ~/Downloads/MT_log.txt.">logFilename</label>
+•Linux: --logFilename ~/Downloads/MT_log.txt.">Log filename</label>
                 <input type="text" id="logFilename" placeholder=""><br>
                 <label class="labels" title="[optional] Enable logging into the standard path:
 •Windows: C:\ProgramData\ESET\RemoteAdministrator\MirrorTool\Logs
 •Linux: /var/log/eset/RemoteAdministrator/MirrorTool/Logs
-You cannot combine --logIntoStandardPath with --logFilename.">logIntoStandardPath</label>
-                <input type="text" id="logIntoStandardPath" placeholder=""><br>
+You cannot combine --logIntoStandardPath with --logFilename.">Log into standard path</label>
+                <input type="checkbox" id="logIntoStandardPath" placeholder=""><br>
+                <label id="bigger" class="labels" title="[optional] Uses HTTPS connections to update servers. The parameter is available since Mirror Tool 1.2.202.">Use secure connection</label>
+                <input type="checkbox" id="useSecureConnection" placeholder=""><br>
+                </div>
             </div>
         </div>
         <div id="layerJSON" spellcheck="false">
@@ -277,7 +283,7 @@ You cannot combine --logIntoStandardPath with --logFilename.">logIntoStandardPat
         </div>
     </form>
     <div class="navigation" id="footer">
-        <a href="https://help.eset.com/protect_install/11.0/en-US/mirror_tool_windows.html" target="_blank">Documentation</a>
+        <a href="https://help.eset.com/protect_install/12.1/en-US/mirror_tool_windows.html" target="_blank">Documentation</a>
         <span class="separator">|</span>
         <a href="https://esetuk.github.io/mirrortoolconfigurator/changelog.txt" target="_blank" type="file">Changelog</a>
         <span class="separator">|</span>

@@ -258,7 +258,7 @@ span {
 #controlsCompact {
     float: left;
 }
-#mirrorOnlyLevelUpdates, #trustDownloadedFilesInRepositoryTemp {
+#mirrorOnlyLevelUpdates, #trustDownloadedFilesInRepositoryTemp, #useSecureConnection, #logIntoStandardPath {
     margin: 5px;
 }
 #outputBox {

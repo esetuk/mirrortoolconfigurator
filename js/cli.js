@@ -51,7 +51,11 @@ function update() {
         ["mirrorFileFormat", "none", "select", "mirror", true],
         ["compatibilityVersion", "", "text", "mirror", true, regexVersion],
         ["filterFilePath", baseDirectory + "filter.json", "text", "repository", true, regexPath],
-        ["trustDownloadedFilesInRepositoryTemp", false, "checkbox", "repository", true]
+        ["trustDownloadedFilesInRepositoryTemp", false, "checkbox", "repository", true],
+        ["logLevel", "info", "select", "global", true],
+        ["logFilename", baseDirectory + "MT_log.txt", "text", "global", true, regexPath],
+        ["logIntoStandardPath", false, "checkbox", "global", true],
+        ["useSecureConnection", false, "checkbox", "global", true]
     ];
     let command = "", invalid = 0;
     if (setDefaults) { enableMirror.checked = true; enableRepository.checked = false; enableGlobal.checked = false; enableOptional.checked = false; }
