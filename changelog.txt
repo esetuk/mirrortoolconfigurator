@@ -1,7 +1,10 @@
 27/06/2025:
 -Updated excludedProducts range to include ep11
 -Added dylib mirrorFileFormat option for macOS updates
+-Completed logging parameters implementation
 -Added useSecureConnection parameter
+-Updated documentation link to 12.1
+-Readable labels
 -Updated product list
 
 12/03/2025:
